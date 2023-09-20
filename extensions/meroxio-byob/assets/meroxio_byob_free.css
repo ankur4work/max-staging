@@ -1,0 +1,291 @@
+.merox-product-navigation:before {
+  content: "Powered By MeroxIO";
+  position: absolute;
+  bottom: -35px;
+  background: #f9f9f9;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.merox-product-section {
+  margin-top: 5rem;
+}
+.merox-product-section h2 {
+    text-align: center;
+  }
+  div.merox-product {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    column-gap: 8px;
+    row-gap: 3rem;
+  }
+  div.merox-product img {
+    width: 100%;
+    height: auto;
+    display: flex;
+  
+  }
+  .singleVarinat {
+    height: 30px;
+    margin-block: 10px;
+}
+  div.merox-product p.merox-price {
+    font-size: 14px;
+    text-transform: capitalize;
+    margin-block: 0;
+  }
+  .merox-product-section a {
+    color: currentColor;
+    text-decoration: none;
+    word-break: break-word;
+    display: block;
+    font-size: 14px;
+  }
+  .merox-product-qty {
+    display: flex;
+    place-content: center;
+    /* grid-template-columns: 1fr 1fr 1fr ; */
+  }
+  
+  .merox-product-qty input[readonly] {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+  }
+  .merox-product-qty input,
+  .merox-product-qty button {
+    height: 30px;
+    border: none;
+    outline: none;
+  }
+  .merox-product-qty button {
+    background: none;
+    cursor: pointer;
+  }
+  .removeProductFromNavigationBar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 700;
+    color: currentColor;
+    z-index: 10;
+    cursor: pointer;
+}
+.merox-product-item p {
+  margin-block: 5px;
+  line-height: 1.2;
+  color: currentColor;
+}
+  .m-empty .removeProductFromNavigationBar{
+    display: none;
+  }
+  /* sticky navigation */
+  .merox-product-navigation {
+    background: #f9f9f9;
+    margin-top: 3rem;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    padding-block: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  
+  .sticky-nav-images img {
+    display: flex;
+    height: auto;
+  }
+  span.selectedProductPrice {
+    font-size: 13px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 0;
+    background: #f9f9f990;
+    width: 100%;
+    text-align: center;
+  }
+  .selectedProduct {
+    position: relative;
+  }
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  #m_spinner {
+    display: none;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #333;
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spinner 1s linear infinite;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  button.bundleBtnSpinner{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #333;
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spinner 1s linear infinite;
+    margin-right: 5px;
+    vertical-align: middle;
+    background:transparent;
+  }
+  
+  .m-hidden {
+    display: none;
+  }
+  #my-dialog {
+    border: 1px solid#f1f1f1;
+    user-select: none;
+  }
+  dialog#my-dialog::backdrop {
+    background-color: #00000050;
+  }
+  img.merox-banner-img {
+    height: auto;
+    width: 100%;
+  }
+  .sticky-nav-images img {
+    width: 80px!important;
+  }
+  .m-sticky-price {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  del#totalPrice {
+    color: #f00;
+    font-size: 13px;
+    min-width: max-content;
+  }
+  
+  button#bundaledAddToCart:disabled {
+    background: #a9a9a9;
+    cursor:unset;
+    color: #000;
+    cursor: no-drop;
+  }
+  button#clearAllProduct {
+    padding: 10px 10px;
+    width: max-content;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    height: 40px;
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    color: #f00;
+  }
+  #savedMoneyPercent{
+    color:#009900;
+    font-size: 13px;
+    min-width: max-content;
+  }
+  .m-variant-dropdown {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #cbcbcb;
+    margin-block: 10px 0;
+    margin-inline: auto;
+    display: block;
+    outline: none;
+    box-shadow: none;
+    padding-block: 0;
+}
+dialog#my-dialog h3 {
+  font-size: 16px;
+  text-transform: capitalize;
+  font-family: inherit;
+}
+.m-variants {
+  padding-inline: 10px;
+}
+button.add-to-bundle {
+  background: black;
+  color: #fff;
+  outline: none!important;
+  border: none;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  height: 40px;
+  display: block;
+}
+
+
+span#btnText {
+  min-width: max-content;
+  display: inline-block;
+}
+
+div#actualPrice {
+  min-width: max-content;
+}
+
+span.textClear {
+  min-width: max-content;
+  display: inline-block;
+  text-decoration: underline;
+}
+button#close-dialog {
+  width: max-content;
+  margin-left: auto;
+  display: block;
+}
+  @media(max-width:767px) {
+    .sticky-nav-images img {
+      width: 55px!important;
+    }
+    .selectedProductPrice{
+      font-size: 12px!important;
+    }
+    .textClear{
+        display: none!important;
+    }
+    #clearAllProduct{
+    display: block!important;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    padding: 0!important;
+    }
+    #clearAllProduct svg{
+      display: inline-block!important;
+    } 
+    div.merox-product {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 8px;
+      row-gap: 3rem;
+    }
+    .m-sticky-price {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+ 
+  .merox-product-navigation {
+    column-gap: 1rem;}
+    .m-equal-icon {
+      display: none;
+  }
+  .merox-product-navigation{
+    flex-wrap: wrap;
+  }
+  }
