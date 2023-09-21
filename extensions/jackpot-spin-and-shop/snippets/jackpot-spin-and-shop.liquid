@@ -68,9 +68,10 @@ li.product-{{- block.id -}}{
 img.spin-images {
   width: 80px;
   height: auto;
+  margin-inline: auto;
 }
 @media(min-width: 768px) {
-  #spinButton-{{- block.id -}}img {
+  img.spin-images {
     width: 100px;
   }
 }
@@ -86,7 +87,7 @@ section.m-container {
   }
 }
 
-.slot-{{- block.id -}}ul li .slot-item-details {
+.slot-item-details-{{- block.id -}} {
   position: absolute;
   inset: 0;
   top: unset;
@@ -99,7 +100,7 @@ h5.product-title {
   color: #000;
 }
 
-p.product-price {
+p.product-price-{{-block.id-}} {
   margin: 10px;
   line-height: 1;
   color: #000;
@@ -122,8 +123,23 @@ button#add-to-cart-button-{{- block.id -}}{
 
 .text-center {
   text-align: center;
-} /*# sourceMappingURL=style.css.map */
-</style>{% assign block.id = block.id %}{% assign product_list_1 = block.settings.product1 %}{% assign product_list_2 = block.settings.product2 %}{% assign product_list_3 = block.settings.product3 %}<section class="m-container">
+} 
+.jackpot-product-details {
+    text-align: center;
+}
+.mrp-price {
+    color: red;
+}
+
+.save-price {
+    color: green;
+}
+
+.deal-price {
+    color: #d5932e;
+}
+</style>
+{% assign block.id = block.id %}{% assign product_list_1 = block.settings.product1 %}{% assign product_list_2 = block.settings.product2 %}{% assign product_list_3 = block.settings.product3 %}<section class="m-container">
 <div class="section-left">
   <div class="slots-{{-block.id-}}">
     <div class="slot-{{-block.id-}}">
@@ -137,11 +153,11 @@ button#add-to-cart-button-{{- block.id -}}{
               height="200"
               src="https://img.freepik.com/premium-photo/oily-paints-light-strokes-realistic-beautiful-cute-squirrel-dancing-branch_933786-1747.jpg"
               loading="lazy">
-            <div class="slot-item-details">
+            <div class="slot-item-details-{{- block.id -}}">
               <h5 class="product-title">{{ product.title | link_to: product.url }}</h5>
               <p
                 style="font-size: 12px;"
-                class="product-price"
+                class="product-price-{{-block.id-}} "
                 data-price="{% if product.compare_at_price > product.price %}{{ product.compare_at_price | divided_by: 100 }}{% else %}{{ product.price  | divided_by: 100 }}{% endif %}">MRP :
                 {% if product.compare_at_price > product.price %}
                   {{ product.compare_at_price | money_without_currency }}
@@ -165,11 +181,11 @@ button#add-to-cart-button-{{- block.id -}}{
               height="200"
               src="https://img.freepik.com/premium-photo/oily-paints-light-strokes-realistic-beautiful-cute-squirrel-dancing-branch_933786-1747.jpg"
               loading="lazy">
-            <div class="slot-item-details">
+            <div class="slot-item-details-{{- block.id -}}">
               <h5 class="product-title">{{ product.title | link_to: product.url }}</h5>
               <p
                 style="font-size: 12px;"
-                class="product-price"
+                class="product-price-{{-block.id-}} "
                 data-price="{% if product.compare_at_price > product.price %}{{ product.compare_at_price | divided_by: 100 }}{% else %}{{ product.price  | divided_by: 100 }}{% endif %}">MRP :
                 {% if product.compare_at_price > product.price %}
                   {{ product.compare_at_price | money_without_currency }}
@@ -194,11 +210,11 @@ button#add-to-cart-button-{{- block.id -}}{
               alt=""
               src="https://img.freepik.com/premium-photo/oily-paints-light-strokes-realistic-beautiful-cute-squirrel-dancing-branch_933786-1747.jpg"
               loading="lazy">
-            <div class="slot-item-details">
+            <div class="slot-item-details-{{- block.id -}}">
               <h5 class="product-title">{{ product.title | link_to: product.url }}</h5>
               <p
                 style="font-size: 12px;"
-                class="product-price"
+                class="product-price-{{-block.id-}} "
                 data-price="{% if product.compare_at_price > product.price %}{{ product.compare_at_price | divided_by: 100 }}{% else %}{{ product.price  | divided_by: 100 }}{% endif %}">MRP :
                 {% if product.compare_at_price > product.price %}
                   {{ product.compare_at_price | money_without_currency }}
@@ -208,7 +224,6 @@ button#add-to-cart-button-{{- block.id -}}{
             </div>
           </li>
         {% endfor %}
-
       </ul>
     </div>
   </div>
@@ -233,6 +248,11 @@ button#add-to-cart-button-{{- block.id -}}{
       class="spin-images"
       alt="">
   </span>
+  <div class="jackpot-product-details">
+    <div class="mrp-price"><span id="mrp-price-{{-block.id}}"></span></div>
+    <div class="deal-price">Deal Price : <span id="deal-price-{{-block.id}}">120</span></div>
+    <div class="save-price"><span id="save-price-{{-block.id}}"></span></div>
+  </div>
   <div class="text-center">
     <button id="add-to-cart-button-{{-block.id-}}">Add To Cart</button>
   </div>
@@ -243,9 +263,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const listContainer = document.querySelector(".list-{{-block.id-}}");
   const listItems = listContainer.querySelectorAll("li");
   const totalItems = listItems.length;
+  let dealPrice = document.querySelector("#deal-price-{{-block.id}}").textContent
+
   let totalPrice = 0;
   let itemHeight = 200;
-  let actualProductPrice = 2000
   if (window.innerWidth < 768) {
     itemHeight = 100;
   }
@@ -275,20 +296,22 @@ document.addEventListener("DOMContentLoaded", function() {
           activeItem.classList.add("activeProduct-{{-block.id-}}");
           activeItem.classList.add("activeJackpotProduct");
           totalPrice = 0;
-          const items = document.querySelectorAll(".activeProduct-{{-block.id-}} .slot-item-price-{{-block.id-}}[data-price]");
+          const items = document.querySelectorAll(".activeJackpotProduct .product-price-{{-block.id-}}[data-price]");
+          // console.log(items)
           items.forEach(function(element) {
             const price = parseFloat(element.getAttribute("data-price"));
             if (!isNaN(price)) {
               totalPrice += price;
             }
           });
-          const slotComparePrice = document.querySelector("#slot-compare-price-{{-block.id-}}");
+          console.log(dealPrice)  
+          const slotComparePrice = document.querySelector("#mrp-price-{{-block.id}}");
           if (slotComparePrice) {
-            slotComparePrice.textContent = `₹${totalPrice}`;
+            slotComparePrice.textContent = `MRP : ₹${totalPrice}`;
           }
           const normalPrice = document.querySelector(".normalPrice-{{-block.id-}}");
           if (normalPrice) {
-            if (actualProductPrice > totalPrice) {
+            if (dealPrice > totalPrice) {
               normalPrice.textContent = '';
               slotComparePrice.textContent = '';
               normalPrice.style.display = 'none';
@@ -296,10 +319,10 @@ document.addEventListener("DOMContentLoaded", function() {
               normalPrice.style.display = 'block';
             }
           }
-          const saveAmt = totalPrice - actualProductPrice;
-          const discountPercentage = (totalPrice - actualProductPrice) / totalPrice;
+          const saveAmt = totalPrice - dealPrice;
+          const discountPercentage = (totalPrice - dealPrice) / totalPrice;
           const finalDiscountPercentage = discountPercentage * 100;
-          const slotSaveAmt = document.querySelector("#slot-save-amt-{{-block.id-}}");
+          const slotSaveAmt = document.querySelector("#save-price-{{-block.id-}}");
           if (slotSaveAmt) {
             slotSaveAmt.textContent = `🥳 You Save : ₹${saveAmt} (${
               Math.ceil(finalDiscountPercentage)
@@ -340,4 +363,44 @@ document.body.addEventListener("mouseup", function(event) {
     document.querySelector("#spin-up-{{-block.id-}}").style.display = "block";
   }
 });
+
+// 44937506423083
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const addToCartButton = document.querySelector("#add-to-cart-button-{{-block.id-}}");
+addToCartButton.addEventListener('click', async (event) => {
+  try {
+    const props = {};
+    const selectedProducts = document.querySelectorAll(".activeProduct-{{-block.id-}}");
+    selectedProducts.forEach((product, index) => {
+      const propTitle = product.getAttribute("data-title");
+      props[`Product ${index + 1}`] = `${propTitle}`;
+    });
+    const requestData = {
+      quantity: 1,
+      id: 44937506423083,
+      properties: props
+    };
+
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestData)
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      window.location.href = '/cart';
+    } else {
+      console.error('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+})
 </script>
