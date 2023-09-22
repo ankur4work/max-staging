@@ -3,18 +3,33 @@
   --image-ratio-mobile: 100px;
   --image-ratio-desktop: 200px;
 }
-
+[data-block-handle="jackpot-spin-and-shop"] {
+  margin-block: 50px;
+  padding: 15px;
+  box-shadow: 0 0 50px 10px #dddddd;
+  border-radius: 20px;
+  border:1px solid #f1f1f1;
+}
+.section-left {
+  flex-grow: 1;
+}
+@media(min-width:768px){
+  [data-block-handle="jackpot-spin-and-shop"] {
+    padding: 30px;
+}
+}
 .slots-{{- block.id -}}{
   display: flex;
   justify-content: space-between;
   width: -moz-max-content;
   width: max-content;
   height: var(--image-ratio-mobile);
-  gap: 1rem;
+  gap: .5rem;
   margin-inline: auto;
 }
 @media(min-width: 768px) {
   .slots-{{- block.id -}}{
+  gap: 1rem;
     height: var(--image-ratio-desktop);
   }
 }
@@ -63,29 +78,39 @@ li.product-{{- block.id -}}{
 #spinButton-{{- block.id -}}{
   display: block;
   text-align: center;
+  height:60px;
+  position:relative;
+  margin-top:5px;
 }
+
 
 img.spin-images {
   width: 80px;
   height: auto;
   margin-inline: auto;
+  position: absolute;
+  inset: 0;
+  top: auto;
 }
 @media(min-width: 768px) {
+  #spinButton-{{- block.id -}}{
+    height:70px;
+  }
   img.spin-images {
     width: 100px;
   }
 }
 
 section.m-container {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-@media(min-width: 768px) {
-  section.m-container {
-    grid-template-columns: 1fr 1fr;
-  }
+.section-right {
+  min-width: 300px;
 }
+@media(min-width: 768px) {}
 
 .slot-item-details-{{- block.id -}} {
   position: absolute;
@@ -93,17 +118,20 @@ section.m-container {
   top: unset;
   background: rgba(240, 248, 255, 0.4705882353);
 }
-
-h5.product-title {
-  margin: 10px;
+h5.product-title{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+h5.product-title , p.product-price-{{-block.id-}} {
+  margin: 5px;
   line-height: 1;
   color: #000;
 }
-
-p.product-price-{{-block.id-}} {
-  margin: 10px;
-  line-height: 1;
-  color: #000;
+@media(min-width: 768px) {
+  h5.product-title , p.product-price-{{-block.id-}} {
+    margin: 10px;
+  }
 }
 
 h5.product-title a {
@@ -116,10 +144,12 @@ button#add-to-cart-button-{{- block.id -}}{
   color: #fff;
   border: none;
   height: 40px;
-  padding-inline: 3rem;
+  padding-inline: 0;
   text-transform: uppercase;
   border-radius: 5px;
   cursor:pointer;
+  width:150px;
+  margin-block:1rem;
 }
 
 .text-center {
@@ -139,13 +169,46 @@ button#add-to-cart-button-{{- block.id -}}{
 .deal-price {
     color: #d5932e;
 }
+#add-to-cart-button-{{-block.id-}}.active .atc-name{
+  display:none;
+}
+#add-to-cart-button-{{-block.id-}}.active .spin-loader{
+  display:inline!important;
+}
+h2.m-heading {
+  margin-block: 0 1rem;
+  text-transform: capitalize;
+}
+.sub-heading {
+  font-size: 16px;
+  max-width: 280px;
+  margin-inline: auto;
+}
+@media(min-width:768px){
+  .sub-heading {
+    font-size: 18px;
+  max-width: unset;
+
+}
+}
+.m-headers{
+margin-bottom:30px;
+}
+h2.m-heading.main-heading.text-center {
+  color: #7bbbc2;
+  font-weight: 700;
+  font-family: system-ui;
+}
 </style>
 
 {% assign product_list_1 = block.settings.product1 %}
-
+<header class="m-headers"> 
+<h2 class="m-heading main-heading text-center">Jackpot Sale 🎰</h2>
+<h2 class="m-heading sub-heading text-center">Spin to Win Toys for your 0-12 month old👶🎁</h2>
+</header>
 <section class="m-container">
 <div class="section-left">
-  <div class="slots-{{-block.id-}}">
+  <div class="jackpotSections slots-{{-block.id-}}">
     <div class="slot-{{-block.id-}}">
       <ul class="list-{{-block.id-}}">
         {% for product in product_list_1 %}
@@ -255,19 +318,29 @@ button#add-to-cart-button-{{- block.id -}}{
 
   <div class="jackpot-product-details">
     <div class="mrp-price"><span id="mrp-price-{{-block.id}}"></span></div>
-    <div class="deal-price">Deal Price : <span id="deal-price-{{-block.id}}">120</span></div>
+    <div class="deal-price">Deal Price : ₹<span id="deal-price-{{-block.id}}">15.98
+  </span></div>
     <div class="save-price"><span id="save-price-{{-block.id}}"></span></div>
 </div>
 
   <div class="text-center">
-    <button id="add-to-cart-button-{{-block.id-}}">Add To Cart</button>
+    <button id="add-to-cart-button-{{-block.id-}}">
+    <span class="atc-name">Add To Cart</span>
+    <span class="spin-loader" style="display:none">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" style="margin: auto;display: block; shape-rendering: auto;" width="30px" height="30px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+      <circle cx="50" cy="50" fill="none" stroke="#ffffff" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+        <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+      </circle>
+      </svg>
+    </span>
+    </button>
   </div>
 </div>
 </section>
 
 <script>
-"use strict";
 document.addEventListener("DOMContentLoaded", function() {
+"use strict";
   const spin_btn = document.querySelector("#spinButton-{{-block.id-}}");
   const listContainer = document.querySelector(".list-{{-block.id-}}");
   const listItems = listContainer.querySelectorAll("li");
@@ -306,14 +379,12 @@ document.addEventListener("DOMContentLoaded", function() {
           activeItem.classList.add("activeJackpotProduct");
           totalPrice = 0;
           const items = document.querySelectorAll(".activeJackpotProduct .product-price-{{-block.id-}}[data-price]");
-          // console.log(items)
           items.forEach(function(element) {
             const price = parseFloat(element.getAttribute("data-price"));
             if (!isNaN(price)) {
               totalPrice += price;
             }
           });
-          console.log(dealPrice)  
           const slotComparePrice = document.querySelector("#mrp-price-{{-block.id}}");
           if (slotComparePrice) {
             slotComparePrice.textContent = `MRP : ₹${totalPrice}`;
@@ -333,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const finalDiscountPercentage = discountPercentage * 100;
           const slotSaveAmt = document.querySelector("#save-price-{{-block.id-}}");
           if (slotSaveAmt) {
-            slotSaveAmt.textContent = `You Save : ₹${saveAmt} (${Math.ceil(finalDiscountPercentage)}% Off)`;
+            slotSaveAmt.textContent = `You Save : ₹${Math.ceil(saveAmt)} (${Math.ceil(finalDiscountPercentage)}% Off)`;
           }
         }, {once: true});
       });
@@ -341,39 +412,42 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-document.body.addEventListener("touchstart", function(event) {
-  if (event.target.id === "spinButton-{{-block.id-}}") {
+setTimeout(()=>{
+  const spin_btn = document.querySelector("#spinButton-{{-block.id-}}");
+  if (spin_btn) {
+    spin_btn.click();
+  }
+},1000);
+
+
+document.querySelector("#spinButton-{{-block.id-}}").addEventListener("touchstart", function(event) {
     document.querySelector("#spin-up-{{-block.id-}}").style.display = "none";
     document.querySelector("#spin-down-{{-block.id-}}").style.display = "block";
-  }
 });
 
-document.body.addEventListener("touchend", function(event) {
-  if (event.target.id === "spinButton-{{-block.id-}}") {
+document.querySelector("#spinButton-{{-block.id-}}").addEventListener("touchend", function(event) {
     document.querySelector("#spin-down-{{-block.id-}}").style.display = "none";
     document.querySelector("#spin-up-{{-block.id-}}").style.display = "block";
-  }
 });
 
-document.body.addEventListener("mousedown", function(event) {
-  if (event.target.id === "spinButton-{{-block.id-}}") {
+document.querySelector("#spinButton-{{-block.id-}}").addEventListener("mousedown", function(event) {
     document.querySelector("#spin-up-{{-block.id-}}").style.display = "none";
     document.querySelector("#spin-down-{{-block.id-}}").style.display = "block";
-  }
 });
 
-document.body.addEventListener("mouseup", function(event) {
-  if (event.target.id === "spinButton-{{-block.id-}}") {
+document.querySelector("#spinButton-{{-block.id-}}").addEventListener("mouseup", function(event) {
     document.querySelector("#spin-down-{{-block.id-}}").style.display = "none";
     document.querySelector("#spin-up-{{-block.id-}}").style.display = "block";
-  }
 });
 </script>
+
+{% comment %} =============== Add to cart Ajax call =============== {% endcomment %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const addToCartButton = document.querySelector("#add-to-cart-button-{{-block.id-}}");
+const addToCartButton = document.querySelector("#add-to-cart-button-{{-block.id-}}");
 addToCartButton.addEventListener('click', async (event) => {
   try {
+    addToCartButton.classList.add("active")
     const props = {};
     const selectedProducts = document.querySelectorAll(".activeProduct-{{-block.id-}}");
     selectedProducts.forEach((product, index) => {
@@ -393,9 +467,11 @@ addToCartButton.addEventListener('click', async (event) => {
       },
       body: JSON.stringify(requestData)
     });
-
+    console.log("Merox Data", response)
     if (response.ok) {
       const data = await response.json();
+      console.log("Merox Data", data)
+      addToCartButton.classList.remove("active")
       window.location.href = '/cart';
     } else {
       console.error('Error:', response.statusText);
