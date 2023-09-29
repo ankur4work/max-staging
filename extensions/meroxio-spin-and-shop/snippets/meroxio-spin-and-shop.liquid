@@ -20,7 +20,7 @@
 </style>
 <button id="jackpot-icon">🎰</button>
 <button id="jackpotOpenModal">Jackpot</button>
-<dialog id="spin-and-shop" data-actual-product='{{main_product.selected_or_first_available_variant.id}}' data-actual-price='{{ main_product.price | money }}' data--price='{{ main_product.price | money_without_currency }}'>
+<dialog id="spin-and-shop" data-actual-product='{{main_product.selected_or_first_available_variant.id}}' data-actual-price='{{ main_product.price | money }}' data--price='{{ main_product.price | money_without_currency }}' data-spin="{{block.settings.isSpin}}">
 <section class="spin-and-shop-container">
 <div id="minimize-btn"></div>
 <div id="jackpot-close-button">

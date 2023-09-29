@@ -275,7 +275,7 @@ export default function HomePage() {
           <Layout.Section secondary>
             <Card>
               <div className="videoWrapper" style={{ backgroundImage: `url(${shopifyBackground})`, padding: '22px' }}>
-                <ReactPlayer
+                {/* <ReactPlayer
                   url={"https://cdn.shopify.com/videos/c/o/v/e4c7dbfe52234119b9339b1778d94889.mp4"}
                   playing={true}
                   controls={true}
@@ -283,7 +283,8 @@ export default function HomePage() {
                   muted={true}
                   playsinline={true}
 
-                />
+                /> */}
+                <img style="width:100%" src="https://cdn.shopify.com/s/files/1/0749/4638/0075/files/Untitled_design_4.gif?v=1695986968" />
               </div>
             </Card>
           </Layout.Section>

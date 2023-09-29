@@ -77,6 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
 const actualProductId = document.querySelector("#spin-and-shop").getAttribute("data-actual-product");
+const isSpin = document.querySelector("#spin-and-shop").getAttribute("data-spin");
+console.log(isSpin)
 
   const addToCartButton = document.querySelector("#add-to-cart-button-jackpot");
   const goToCartButton = document.querySelector("#go-to-cart-button-jackpot");
@@ -128,23 +130,28 @@ const actualProductId = document.querySelector("#spin-and-shop").getAttribute("d
   const jackpotOpenModal = document.querySelector("#jackpotOpenModal");
   jackpotIcon.addEventListener("click",function(){
     jackpotModal.showModal();
-     popupInner.classList.add("active"); 
+     popupInner.classList.add("active");
+     if (isSpin === 'true') { 
      setTimeout(() => {
       const spin_btn = document.querySelector("#spinButton-jackpot");
       if (spin_btn) {
         spin_btn.click();
       }
     }, 500); 
+  }
     })
   jackpotOpenModal.addEventListener("click",function(){
     jackpotModal.showModal();
-     popupInner.classList.add("active");  
+     popupInner.classList.add("active"); 
+     if (isSpin === 'true') { 
+
      setTimeout(() => {
       const spin_btn = document.querySelector("#spinButton-jackpot");
       if (spin_btn) {
         spin_btn.click();
       }
     }, 500); 
+  }
     })
 
   jackpotModal.addEventListener("click", function(e) {
