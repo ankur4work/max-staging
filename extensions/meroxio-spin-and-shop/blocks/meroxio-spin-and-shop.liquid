@@ -7,9 +7,22 @@
   "javascript": "meroxio-spin-and-shop.js",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "sameProduct",
+      "label": "Same Product For All",
+      "default":true
+    },
+    {
       "type": "color",
       "id": "textColor",
-      "label": "Color"
+      "label": "Color",
+      "default":"#000"
+    },
+    {
+      "type": "color",
+      "id": "buttonBg",
+      "label": "Butto Color",
+      "default":"#000"
     },
     {
       "type": "text",
@@ -38,6 +51,24 @@
       "type": "product_list",
       "id": "product3",
       "label": "Product 3"
+    },
+    {
+      "type": "text",
+      "id": "mrpLabel",
+      "label": "MRP Label",
+      "default":"MRP"
+    },
+    {
+      "type": "text",
+      "id": "jackpotPriceLabel",
+      "label": "Actual Price Label",
+      "default":"Deal Price"
+    },
+    {
+      "type": "text",
+      "id": "discountedLabel",
+      "label": "Discounted Price Label",
+      "default":"You Save"
     }
   ]
 }

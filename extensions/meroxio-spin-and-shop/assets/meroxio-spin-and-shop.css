@@ -6,7 +6,7 @@
   border:1px solid #f1f1f1;
 }
 .section-left {
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 @media(min-width:768px){
   [data-block-handle="jackpot-spin-and-shop"] {
@@ -30,7 +30,7 @@
 }
 
 .slot-jackpot{
-  width: var(--image-ratio-mobile);
+  width: var(--image-ratio-mobile-width);
   overflow: hidden;
   border: 1px solid #e3e3e3;
   border-radius: 10px;
@@ -66,7 +66,7 @@ li.product-jackpot{
 
 .product-image-jackpot{
   display: flex;
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 
@@ -98,44 +98,59 @@ img.spin-images {
 
 section.m-container {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 .section-right {
   min-width: 300px;
 }
-@media(min-width: 768px) {}
-
-.slot-item-details-jackpot {
-  position: absolute;
-  inset: 0;
-  top: unset;
-  background: rgba(240, 248, 255, 0.4705882353);
+@media(min-width: 768px) {
+  .slot-item-details-jackpot {
+    position: absolute;
+    inset: 0;
+    top: unset;
+    background: rgba(240, 248, 255, 0.4705882353);
+  }
 }
+
+@media(max-width: 767px) {
+
 h5.product-title{
   text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-bottom: 5px!important;
+}
 }
 h5.product-title , p.product-price-jackpot {
   margin: 5px;
-  line-height: 1;
-  color: #000;
+  line-height: 1.2;
+  color: var(--app-textColor);
 }
 @media(min-width: 768px) {
   h5.product-title , p.product-price-jackpot {
     margin: 10px;
   }
+  h5.product-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 
 h5.product-title a {
-  color: currentColor;
+  color: var(--app-textColor);
+  font-weight: 500;
   text-decoration: unset;
+  font-size: 12px;
 }
 
 button#add-to-cart-button-jackpot{
-  background: #000;
+  background: var(--button-bg);
   color: #fff;
   border: none;
   height: 40px;
@@ -184,7 +199,9 @@ h2.m-heading {
   .sub-heading {
     font-size: 18px;
   max-width: unset;
-
+}
+section.m-container{
+  gap: 2rem;
 }
 }
 .m-headers {
@@ -194,7 +211,7 @@ h2.m-heading {
 h2.m-heading.main-heading.text-center {
   color: var(--app-textColor);
   font-weight: 700;
-  font-family: system-ui;
+  font-family: inherit;
 }
 
 
@@ -227,21 +244,25 @@ h2.m-heading.main-heading.text-center {
     background: transparent;
 }
 section.spin-and-shop-container {
-  top: auto;
+  position: fixed;
+  inset: 0;
+  top: unset;
   margin: 0;
   width: 100%;
   max-width: 100%;
   border: none;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  transform: translateY(100%);
+  transform: translateY(100vh);
   transition: transform 1s;
   background: #fff;
   padding: 20px;
+  overflow: hidden;
 }
 section.spin-and-shop-container.active{
   transform: translateY(0);
   transition: transform 1s;
+  background : #fff;
 }
 
 dialog#spin-and-shop::backdrop {
@@ -267,6 +288,7 @@ button#add-to-cart-button-jackpot[disabled] {
     min-width: 300px;
     min-height: 200px;
 }
+
 }
 #spin-and-shop::-webkit-scrollbar, section.spin-and-shop-container::-webkit-scrollbar {
   display: none;
@@ -279,4 +301,66 @@ div#jackpot-close-button {
 }
 div#jackpot-close-button svg {
   fill: var(--app-textColor);
+}
+button#go-to-cart-button-jackpot {
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  height: 40px;
+  padding-inline: 0;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  margin-block: 1rem;
+  margin-inline: auto;
+}
+.hide{
+  display: none!important;
+}
+.show{
+  display: block!important;
+}
+button#jackpot-icon {
+  display: none;
+}
+@media(min-width:767px){
+  @keyframes flicker-zoom {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.2);
+    }
+    50% {
+      transform: scale(1);
+    }
+    75% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  button#jackpot-icon {
+    position: fixed;
+    bottom: 5rem;
+    right: 1rem;
+    display: block;
+    width: 60px;
+    aspect-ratio: 1/1;
+    font-size: 36px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    z-index: 99;
+    background: #ececee;
+    animation: flicker-zoom 4s infinite;
+  }
+  
+
+#jackpotOpenModal{
+  display: none;
+}
 }

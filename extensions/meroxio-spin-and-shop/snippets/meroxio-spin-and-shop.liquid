@@ -1,20 +1,30 @@
 {% assign product_list_1 = block.settings.product1 %}
+
+{% if block.settings.sameProduct %}
+{% assign product_list_2 = block.settings.product1 %}
+{% assign product_list_3 = block.settings.product1 %}
+{% else %}
+{% assign product_list_2 = block.settings.product2 %}
+{% assign product_list_3 = block.settings.product3 %}
+{% endif %}
 {% assign main_product = block.settings.main_product %}
 <style>
     :root
     {
-      --image-ratio-mobile: 100px;
+      --image-ratio-mobile: 180px;
+      --image-ratio-mobile-width: 100px;
       --image-ratio-desktop: 200px;
-      --app-textColor:{%if block.settings.textColor != blank%} {{block.settings.textColor}}#7bbbc2{%endif%}
+      --button-bg : {% if block.settings.buttonBg != blank %} {{block.settings.buttonBg}}{%endif%};
+      --app-textColor:{% if block.settings.textColor != blank %} {{block.settings.textColor}}{%endif%};
     }
 </style>
-
+<button id="jackpot-icon">🎰</button>
 <button id="jackpotOpenModal">Jackpot</button>
-<dialog id="spin-and-shop" data-actual-product='{{main_product.selected_or_first_available_variant.id}}'>
+<dialog id="spin-and-shop" data-actual-product='{{main_product.selected_or_first_available_variant.id}}' data-actual-price='{{ main_product.price | money }}' data--price='{{ main_product.price | money_without_currency }}'>
 <section class="spin-and-shop-container">
 <div id="minimize-btn"></div>
 <div id="jackpot-close-button">
-    <svg xmlns="http://www.w3.org/2000/svg" height="36" viewBox="0 -960 960 960" width="36"><path d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
 </div>
 <header class="m-headers"> 
 {%if block.settings.heading != blank %}<h2 class="m-heading main-heading text-center">{{ block.settings.heading }}</h2>{%else%}<h2 class="m-heading main-heading text-center">Spin the Jackpot! 🎰</h2>{%endif%}
@@ -52,7 +62,7 @@
 
     <div class="slot-jackpot">
       <ul class="list-jackpot">
-        {% for product in product_list_1 %}
+        {% for product in product_list_2 %}
           <li data-title="{{ product.title }}" class="product-jackpot">
             <img
               class="product-image-jackpot"
@@ -80,7 +90,7 @@
 
     <div class="slot-jackpot">
       <ul class="list-jackpot">
-        {% for product in product_list_1 %}
+        {% for product in product_list_3 %}
           <li data-title="{{ product.title }}" class="product-jackpot">
             <img
               class="product-image-jackpot"
@@ -130,8 +140,7 @@
 
   <div class="jackpot-product-details">
     <div class="mrp-price"><span id="mrp-price-jackpot"></span></div>
-    <div class="deal-price">Jackpot Price : ₹<span id="deal-price-jackpot">16.92
-  </span></div>
+    <div class="deal-price">Jackpot Price : ₹<span id="deal-price-jackpot">{{ main_product.price | money_without_currency }}</span></div>
     <div class="save-price"><span id="save-price-jackpot"></span></div>
 </div>
 
@@ -143,9 +152,10 @@
       <circle cx="50" cy="50" fill="none" stroke="#ffffff" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
         <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
       </circle>
-      </svg>
+    </svg>
     </span>
     </button>
+    <button style="display:none;" id="go-to-cart-button-jackpot">Go To Cart</button>
   </div>
 </div>
 </section>
