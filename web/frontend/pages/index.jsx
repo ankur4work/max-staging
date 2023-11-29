@@ -284,7 +284,7 @@ export default function HomePage() {
                   playsinline={true}
 
                 /> */}
-                <img style="width:100%" src="https://cdn.shopify.com/s/files/1/0749/4638/0075/files/Untitled_design_4.gif?v=1695986968" />
+                
               </div>
             </Card>
           </Layout.Section>
