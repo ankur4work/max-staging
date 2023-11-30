@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
 "use strict";
 
+
+  const maxClicks = 10; // Set this to whatever limit you want
+
   const spin_btn = document.querySelector("#spinButton-jackpot");
+  const limitMessage = document.getElementById("limit_message");
   const listContainer = document.querySelector(".list-jackpot");
   const listItems = listContainer.querySelectorAll("li");
   const totalItems = listItems.length;
@@ -19,6 +23,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (spin_btn) {
     spin_btn.addEventListener("click", function(e) {
+
+  // Get the current spin count
+  let spinCount = getSpinCount();
+
+  // Check if the maximum number of clicks has been reached
+  if (spinCount >= maxClicks) {
+    spin_btn.style.display = 'none';
+    limitMessage.style.display = 'block'; 
+    return;
+  }
+
+  // Increment and save the new spin count
+  spinCount++;
+  setSpinCount(spinCount);
+
       const slots = document.querySelectorAll(".slot-jackpot");
       addToCartButton.setAttribute("disabled",true)
       let indices = Array.from({
@@ -74,7 +93,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }, {once: true});
       });
+
+      if (spinCount >= maxClicks) {
+        spin_btn.style.display = 'none';
+        limitMessage.style.display = 'block'; 
+      }
+  
+
     });
+
+
   }
 });
 
@@ -191,4 +219,15 @@ console.log(isSpin)
       document.querySelector("#spin-up-jackpot").style.display = "block";
   });
   })
-   
+  
+  function getSpinCount() {
+    const matches = document.cookie.match(/(^| )spinCount=([^;]+)/);
+    return matches ? parseInt(matches[2], 10) : 0;
+  }
+
+  function setSpinCount(count) {
+    const now = new Date();
+    now.setTime(now.getTime() + (24 * 60 * 60 * 1000)); // 24 hours in milliseconds
+    const expires = "expires=" + now.toUTCString();
+    document.cookie = `spinCount=${count};${expires};path=/`;
+  }

@@ -24,7 +24,7 @@ import { shopifyBackground } from "../assets";
 import ReactPlayer from "react-player";
 import {
   ExternalMinor,
-  CircleTickMinor, HomeMajor, ChecklistMajor, QuestionMarkMajor, CashDollarMajor
+  CircleTickMinor, HomeMajor
 } from '@shopify/polaris-icons';
 
 import { useNavigate } from "react-router-dom";
