@@ -227,6 +227,21 @@ app.get("/api/hasActiveSubscription", async (req, res) => {
 });
 
 
+app.get("/api/getshop", async (req, res) => {
+  const session = res.locals.shopify.session;
+  let status = 200;
+  let error = null;
+  try {
+    var response = {'shop': session?.shop}
+    res.status(status).send(response);
+  } catch (e) {
+    console.log(`Failed to get Shop: ${e.message}`);
+    status = 500;
+    error = e.message;
+  }
+  
+});
+
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 

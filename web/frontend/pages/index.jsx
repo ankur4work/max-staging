@@ -54,16 +54,23 @@ export default function HomePage() {
   const [toastProps, setToastProps] = useState(emptyToastProps);
   const activator = <Button onClick={handleChange}>Quick Setup Guide</Button>;
 
+
   const {
     data,
   } = useAppQuery({
     url: "/api/getshop",
   });
 
+  const template = 'index'; // Replace with your actual template value
+  const uuid = '51b1bbbc-cc5e-42e6-9b97-899741c85f10'; // Replace with your actual UUID
+  const handle = 'meroxio-spin-and-shop'; // Replace with your actual handle
+  
+
 
   function openThemeEditor() {
-    console.log("Shop: " + data?.shop);
-    window.open("https://" + data?.shop + "/admin/themes/current/editor");
+    console.log("Shop: "+data?.shop);
+    const url = `https://${data?.shop}/admin/themes/current/editor?context=apps&template=${template}&activateAppId=${uuid}/${handle}`;
+    window.open(url);
   }
 
   async function subscribePlan() {
