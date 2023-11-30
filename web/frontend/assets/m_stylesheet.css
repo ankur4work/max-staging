@@ -7,6 +7,23 @@
     margin-bottom: 2rem !important;
 }
 
+.custom-callout-container .Polaris-Button {
+    /* Styles for your button */
+    background-color: rgba(0, 122, 92, 1);;
+    border-color: rgba(0, 122, 92, 1);;
+  
+    &:hover {
+      background-color: darkgreen;
+      border-color: darkgreen;
+    }
+  }
+
+  .custom-callout-container .Polaris-Button .Polaris-Button__Content .Polaris-Button__Text {
+    color: white
+  }
+  
+
+  
 .appEnableBtn {
     display: flex;
     margin-left: 1rem;

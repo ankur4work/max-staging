@@ -45,8 +45,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = useCallback(() => setActive(!active), [active]);
-  const handleChangelookbook = useCallback(() => setActiveLookbook(!activelookbook), [activelookbook]);
-  const handleChangevideofeed = useCallback(() => setActiveFeed(!activefeed), [activefeed]);
+
   const app = useAppBridge();
   const fetch = useAuthenticatedFetch();
   const redirect = Redirect.create(app);
@@ -64,13 +63,17 @@ export default function HomePage() {
   const template = 'index'; // Replace with your actual template value
   const uuid = '51b1bbbc-cc5e-42e6-9b97-899741c85f10'; // Replace with your actual UUID
   const handle = 'meroxio-spin-and-shop'; // Replace with your actual handle
-  
+  const reviewUrl = "https://apps.shopify.com/meroxio-product-video-feed"
 
 
   function openThemeEditor() {
-    console.log("Shop: "+data?.shop);
+    console.log("Shop: " + data?.shop);
     const url = `https://${data?.shop}/admin/themes/current/editor?context=apps&template=${template}&activateAppId=${uuid}/${handle}`;
     window.open(url);
+  }
+
+  function openReviewPage() {
+    window.open(reviewUrl);
   }
 
   async function subscribePlan() {
@@ -153,28 +156,14 @@ export default function HomePage() {
     navigate("/");
   }
 
-  const gotoInstallPage = () => {
-    navigate("/install");
-
-  }
-
-  const gotoSupportPage = () => {
-    navigate("/support");
-  }
-
-  const gotoPricingPage = () => {
-    navigate("/pricing");
-  }
-
-
 
   const secondaryMenuMarkup = (
     <TopBar.Menu
       activatorContent={
         <div className="main-icon">
           <div className="main-icon-1"><Button onClick={gotoHomePage} plain monochrome removeUnderline fullWidth >
-          <div className="m-icon-show-1"><Icon source={HomeMajor} /><span className="m-hover-text-1"> <h1>Home</h1></span></div></Button>
-        </div>
+            <div className="m-icon-show-1"><Icon source={HomeMajor} /><span className="m-hover-text-1"> <h1>Home</h1></span></div></Button>
+          </div>
         </div>
       }
 
@@ -194,13 +183,25 @@ export default function HomePage() {
 
 
 
-
   return (
     <Frame topBar={topBarMarkup} logo={logo} >
       <Page>
         {toastMarkup}
         <Layout>
+          <Layout.Section>
+            <div className="custom-callout-container">
+              <CalloutCard
+                title="Activate Jackpot Spin and Shop"
+                illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
+                primaryAction={{ content: 'Enable Now ➡️', onAction: openThemeEditor, accessibilityLabel: 'Enable Now' }}
 
+              >
+                <p>
+                  Ready to enhance your store's experience? Click 'Enable' to activate the Jackpot Spin and Shop feature. Once enabled, you can easily customize settings and personalize the app to match your store's style. Elevate your customer's shopping journey today!
+                </p>
+              </CalloutCard>
+            </div>
+          </Layout.Section>
           <Layout.Section>
 
             <TextContainer>
@@ -221,7 +222,7 @@ export default function HomePage() {
                 <li><strong>Pricing and Total Calculation:</strong>  The application calculates the real-time total cost of the custom box, including item prices, quantities, and any additional charges.</li>
                 <li><strong>Visual Representation:</strong>  Customers can see a preview of how their chosen products will be arranged in the box.</li>
                 <li><strong>Mobile-Friendly Design:</strong>  The application is optimized for mobile devices, allowing customers to customize their boxes conveniently on smartphones or tablets.</li>
-            </ul>
+              </ul>
 
             </TextContainer>
 
@@ -267,14 +268,14 @@ export default function HomePage() {
                   playsinline={true}
 
                 /> */}
-                
+
               </div>
             </Card>
           </Layout.Section>
 
           <Layout.Section>
 
-         
+
 
             <div className="planComparison">
               <Card title="Plan Comparison" sectioned
@@ -316,112 +317,21 @@ export default function HomePage() {
             </div>
           </Layout.Section>
 
-          {/* m-Previous-meroxIO-application-section */}
+          <Layout.Section>
 
-          <div className="m-mediacard-container">
-
-            <div className="m-mediacard-container-1">
-              <MediaCard
-                portrait
-                title="Lookbook"
+              <CalloutCard
+                title="How is your experience with our app ?"
+                illustration="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/customer-review.gif?v=1668584409"
                 primaryAction={{
-                  content: 'View on Shopify app store',
-                  url: 'https://apps.shopify.com/meroxio-lookbook',
-
-                }}
-                description="Lookbooks are a great way to show shoppers what your store is all about.A lookbook is a collection of images that represent a certain style or concept. They are often used in fashion and design to give an overview of a season's trends or to showcase a specific style."
-                secondaryAction={{
-                  content: 'Demo app store',
-                  url: 'https://apps.meroxio.com/pages/lookbook',
-
+                  content: 'Leave a 5-Star Review',
+                  onAction: openReviewPage
                 }}
               >
-                <VideoThumbnail
-                  videoLength={0}
-                  thumbnailUrl="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/Lookbook.png?v=1668583221"
-                  onClick={handleChangelookbook}
-                />
+                <p>🌟 "We're always striving to make our App better for you, and your feedback lights the way! 🚀 Your thoughts and experiences are invaluable to us. If you've enjoyed using our app, we'd be thrilled if you could share your positive experiences with a ⭐⭐⭐⭐⭐ review on the Shopify App Store. Your support not only motivates our team but also helps other merchants discover the benefits of our App! Thank you for being an amazing part of our journey!" 🙌</p>
+              </CalloutCard>
+           
 
-              </MediaCard>
-
-            </div>
-
-            {/* m-lookbook-video-modal */}
-
-            <Modal
-              open={activelookbook}
-              onClose={handleChangelookbook}
-              title="Quick Setup in 2.0 themes"
-            >
-              <Modal.Section>
-                <div style={{ padding: '56% 0 0 0', position: 'relative' }}><iframe src="https://cdn.shopify.com/videos/c/o/v/02577a268ca04d03a9e085966d63c02a.mp4?portrait=0&loop=1&title=0&byline=0&sidedock=0&h=881b23983c&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }} title="Quick Setup"></iframe></div>
-              </Modal.Section>
-            </Modal>
-
-
-
-            <div className="m-mediacard-container-2">
-              <MediaCard
-                portrait
-                title="Product Video Feed"
-                primaryAction={{
-                  content: 'View on Shopify app store',
-
-                  url: 'https://apps.shopify.com/meroxio-product-video-feed',
-
-                }}
-                description="With our Product Video Feed, you can create powerful, custom slides with shoppable videos for your product upsell using your Instagram reels, TikTok videos Add unique videos on thousands of pages with just one click using our Product Video Feed."
-                secondaryAction={{
-                  content: 'Demo app store',
-                  url: 'https://apps.meroxio.com/',
-
-                }}
-              >
-                <VideoThumbnail
-                  videoLength={0}
-                  thumbnailUrl="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/meroxIO_image.png?v=1666008103"
-                  onClick={handleChangevideofeed}
-                />
-
-              </MediaCard>
-
-            </div>
-
-            {/* m-videofeed-video-modal */}
-
-
-            <Modal
-              open={activefeed}
-              onClose={handleChangevideofeed}
-              title="Quick Setup in 2.0 themes"
-            >
-              <Modal.Section>
-                <div style={{ padding: '56% 0 0 0', position: 'relative' }}><iframe src="https://cdn.shopify.com/videos/c/o/v/d6ddb66559334f44ab27f9ad5c8bbe13.mp4?portrait=0&loop=1&title=0&byline=0&sidedock=0&h=881b23983c&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }} title="Quick Setup"></iframe></div>
-              </Modal.Section>
-            </Modal>
-          </div>
-
-
-
-
-
-
-          {/* reviews-part */}
-          <div className='container merox-reviews-part'>
-
-            <CalloutCard
-              title="How is your experience with our app ?"
-              illustration="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/customer-review.gif?v=1668584409"
-              primaryAction={{
-                content: 'Review',
-                url: 'https://apps.shopify.com/meroxio-view-similar-products',
-              }}
-            >
-            <p className='paragraph'>"Your honest feedback helps encourage us and make improvements to our app! Please leave a review on the Shopify App Store.”</p>
-            </CalloutCard>
-          </div>
-
-
+          </Layout.Section>
 
         </Layout>
 

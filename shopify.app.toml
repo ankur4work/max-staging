@@ -2,7 +2,7 @@
 
 name = "animesh-dev-jackpot"
 client_id = "8bdb5503a0e9f163585dbd479879b0e5"
-application_url = "https://routes-telling-arrivals-increased.trycloudflare.com"
+application_url = "https://hearings-rangers-ht-ranking.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://routes-telling-arrivals-increased.trycloudflare.com/auth/callback",
-  "https://routes-telling-arrivals-increased.trycloudflare.com/auth/shopify/callback",
-  "https://routes-telling-arrivals-increased.trycloudflare.com/api/auth/callback"
+  "https://hearings-rangers-ht-ranking.trycloudflare.com/auth/callback",
+  "https://hearings-rangers-ht-ranking.trycloudflare.com/auth/shopify/callback",
+  "https://hearings-rangers-ht-ranking.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
