@@ -123,18 +123,17 @@ export default function HomePage() {
 
 
   const rows = [
-    ['Cost', 'Free', '$9.99/month',],
-    ['Product Collection Selection ', tickIcon, tickIcon,],
-    ['Bundle product limit per product', '2', '5',],
-    ['Embed button in product image', '-', tickIcon,],
-    ['Product CTA(Add to cart)', tickIcon, tickIcon,],
-    ['No Powered By MeroxIO', '-', tickIcon,],
-    ['Custom Style Settings', '-', tickIcon,],
-    ['Email/Chat Support', '-', tickIcon,],
-    ['Free installation support', '-', tickIcon,],
-    ['Theme Selection', '-', tickIcon,]
+    ['Cost', 'Free', '$9.99/month'],
+    ['Daily Spin Limit per Customer', '5 spins', 'Unlimited spins'],
+    ['No Powered By MeroxIO Branding', '-', tickIcon],
+    ['Interactive Spin-to-Win Mechanism', tickIcon, tickIcon],
+    ['Exciting Product Discovery', tickIcon, tickIcon],
+    ['Exclusive Discount Offers', tickIcon, tickIcon],
+    ['Customizable Spin Experience', '-', tickIcon],
+    ['Responsive Design', tickIcon, tickIcon],
+    ['Priority Email/Chat Support', '-', tickIcon]
   ];
-
+  
 
   // m-lookbook-hearder-part-starting
 
@@ -207,22 +206,17 @@ export default function HomePage() {
             <TextContainer>
               <DisplayText size="Large"><span>Introduction</span></DisplayText>
 
-              {/* <p>Welcome to our guide on building a custom box Shopify application block!</p>
-              <p>In this tutorial, we will walk you through creating a powerful box customization feature for your Shopify store. Enable customers to personalize their purchases and enhance their shopping experience.</p>
-              <p>Integrate the custom box application block to empower customers to select and customize items for their box. Mix and match products, choose quantities, and personalize the box itself.</p>
-              <p>Offering a custom box option can boost customer satisfaction, engagement, and sales. Follow this guide to seamlessly build and integrate this feature into your Shopify store for an interactive shopping experience.</p>
-              <p>Learn the necessary steps, from setting up the development environment to implementing the application block's functionality. Get code snippets, best practices, and tips to create your custom box Shopify application block.</p>
-              <p>Let's embark on this exciting journey of building your own custom box application block and elevate your Shopify store!</p> */}
-              <p>MeroxIo BYOB (Build Your Own Bundle) allows you to create custom bundle pages to boost AOV. Bundles are treated as products with a customizable template that can be styled in the theme editor. Customers can mix and match products on a single page.</p>
+              <p>Welcome to MeroxIO Jackpot Spin and Shop! Our innovative app revolutionizes the shopping experience on your Shopify store. MeroxIO Jackpot Spin and Shop offers a unique and interactive way for customers to discover and purchase products. Inspired by the excitement of slot machines, this app allows customers to spin a virtual wheel and land on a set of three random products from your store's offerings.</p>
 
               <h2><b>Key Features:</b></h2>
               <ul className="appFeatures">
-                <li><strong>Product Selection:</strong>  Customers can browse and choose products from your store's inventory for their custom box.</li>
-                <li><strong>Quantity Customization:</strong>  Customers can specify the quantity of each product they want in their custom box.</li>
-                <li><strong>Pricing and Total Calculation:</strong>  The application calculates the real-time total cost of the custom box, including item prices, quantities, and any additional charges.</li>
-                <li><strong>Visual Representation:</strong>  Customers can see a preview of how their chosen products will be arranged in the box.</li>
-                <li><strong>Mobile-Friendly Design:</strong>  The application is optimized for mobile devices, allowing customers to customize their boxes conveniently on smartphones or tablets.</li>
+                <li><strong>Interactive Spin-to-Win Mechanism:</strong> Customers can click the 'spin' button to start the slot machine, randomly selecting three products from your inventory.</li>
+                <li><strong>Exciting Product Discovery:</strong> Each spin showcases different products, offering a new and thrilling way to explore your catalog.</li>
+                <li><strong>Exclusive Discount Offers:</strong> Products selected by the spin come with special discounted rates, set by the shop admin, encouraging immediate purchases.</li>
+                <li><strong>Customizable Spin Experience:</strong> Tailor the look and feel of the spin mechanism to match your store's branding and aesthetics.</li>
+                <li><strong>Responsive Design:</strong> Optimized for a seamless experience across desktop, tablet, and mobile devices.</li>
               </ul>
+
 
             </TextContainer>
 
@@ -319,17 +313,17 @@ export default function HomePage() {
 
           <Layout.Section>
 
-              <CalloutCard
-                title="How is your experience with our app ?"
-                illustration="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/customer-review.gif?v=1668584409"
-                primaryAction={{
-                  content: 'Leave a 5-Star Review',
-                  onAction: openReviewPage
-                }}
-              >
-                <p>🌟 "We're always striving to make our App better for you, and your feedback lights the way! 🚀 Your thoughts and experiences are invaluable to us. If you've enjoyed using our app, we'd be thrilled if you could share your positive experiences with a ⭐⭐⭐⭐⭐ review on the Shopify App Store. Your support not only motivates our team but also helps other merchants discover the benefits of our App! Thank you for being an amazing part of our journey!" 🙌</p>
-              </CalloutCard>
-           
+            <CalloutCard
+              title="How is your experience with our app ?"
+              illustration="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/customer-review.gif?v=1668584409"
+              primaryAction={{
+                content: 'Leave a 5-Star Review',
+                onAction: openReviewPage
+              }}
+            >
+              <p>🌟 "We're always striving to make our App better for you, and your feedback lights the way! 🚀 Your thoughts and experiences are invaluable to us. If you've enjoyed using our app, we'd be thrilled if you could share your positive experiences with a ⭐⭐⭐⭐⭐ review on the Shopify App Store. Your support not only motivates our team but also helps other merchants discover the benefits of our App! Thank you for being an amazing part of our journey!" 🙌</p>
+            </CalloutCard>
+
 
           </Layout.Section>
 

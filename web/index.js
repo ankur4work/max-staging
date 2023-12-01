@@ -56,7 +56,7 @@ app.get("/api/createSubscription", async (req, res) => {
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: [PREMIUM_PLAN],
-      isTest: true,
+     
     });
 
     if (hasPayment) {
@@ -68,7 +68,7 @@ app.get("/api/createSubscription", async (req, res) => {
       const redirectUrl = await shopify.api.billing.request({
         session,
         plan: PREMIUM_PLAN,
-        isTest: true,
+        //isTest: true,
       });
       console.log("Redirect URL: " + redirectUrl);
       res.status(200).send({
@@ -92,7 +92,7 @@ app.get("/api/cancelSubscription", async (req, res) => {
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: [PREMIUM_PLAN],
-      isTest: true,
+      //isTest: true,
     });
 
     if (hasPayment) {
@@ -162,7 +162,7 @@ app.get("/api/hasActiveSubscription", async (req, res) => {
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: [PREMIUM_PLAN],
-      isTest: true,
+      //isTest: true,
     });
 
     if (hasPayment) {
