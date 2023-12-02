@@ -46,7 +46,7 @@ app.use(express.json());
 
 const PREMIUM_PLAN = 'MeroxIO Premium';
 const MEROXIO = "meroxio";
-const PREMIUM_PLAN_KEY = "jackpot_premium";
+const PREMIUM_PLAN_KEY = "comparison_premium";
 
 
 
