@@ -47,6 +47,7 @@ app.use(express.json());
 const PREMIUM_PLAN = 'MeroxIO Premium';
 const MEROXIO = "meroxio";
 const PREMIUM_PLAN_KEY = "comparison_premium";
+const IS_TEST = true;
 
 
 
@@ -68,7 +69,7 @@ app.get("/api/createSubscription", async (req, res) => {
       const redirectUrl = await shopify.api.billing.request({
         session,
         plan: PREMIUM_PLAN,
-        //isTest: true,
+        isTest: IS_TEST,
       });
       console.log("Redirect URL: " + redirectUrl);
       res.status(200).send({
@@ -92,7 +93,7 @@ app.get("/api/cancelSubscription", async (req, res) => {
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: [PREMIUM_PLAN],
-      //isTest: true,
+      isTest: IS_TEST,
     });
 
     if (hasPayment) {
@@ -162,7 +163,7 @@ app.get("/api/hasActiveSubscription", async (req, res) => {
     const hasPayment = await shopify.api.billing.check({
       session,
       plans: [PREMIUM_PLAN],
-      //isTest: true,
+      isTest: IS_TEST,
     });
 
     if (hasPayment) {
