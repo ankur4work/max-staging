@@ -198,7 +198,7 @@ export default function HomePage() {
 
               >
                 <p>
-                  Ready to enhance your store's experience? Click 'Enable' to activate the Jackpot Spin and Shop feature. Once enabled, you can easily customize settings and personalize the app to match your store's style. Elevate your customer's shopping journey today!
+                Are you prepared to upgrade your store's display? Click 'Enable' to activate the MeroxIO Comparison Slider. Once active, effortlessly adjust settings and tailor the app to complement your store's aesthetic. Enhance your customers' viewing experience now!
                 </p>
               </CalloutCard>
             </div>
@@ -312,6 +312,10 @@ export default function HomePage() {
               </Card>
             </div>
           </Layout.Section>
+
+          <Layout.Section>
+          <ActiveSubscription />
+        </Layout.Section>
 
           <Layout.Section>
 
