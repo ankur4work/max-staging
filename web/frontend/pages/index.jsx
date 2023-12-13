@@ -66,7 +66,7 @@ export default function HomePage() {
   const template = 'index'; // Replace with your actual template value
   const uuid = '0f3ce9d4-4972-47a6-b59e-82dff59be994'; // Replace with your actual UUID
   const handle = 'meroxio_comparison_slider'; // Replace with your actual handle
-  const reviewUrl = "https://apps.shopify.com/meroxio-product-video-feed"
+  const reviewUrl = "https://apps.shopify.com/meroxio-comparison-slider#modal-show=WriteReviewModal"
 
 
   function openThemeEditor() {
