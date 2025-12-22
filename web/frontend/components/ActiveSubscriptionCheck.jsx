@@ -36,27 +36,41 @@ import {
   
   
     return (
-      <div id="subscriptionBanner">
-  
-        {isLoadingCount ? "" :
-          data?.hasActiveSubscription ?
-            <Banner title="Current Plan: MeroxIO Gold" status="success" onDismiss={() => { handleDismiss() }}>
-              <p>Congratulations🎉🎉, You are now our pro <strong>MeroxIO Gold</strong> customer and can access all features of this app without any limitation.</p>
-              <p><strong>Enable Steps: </strong> Open Theme Customization &gt; Select Add Section &gt; MeroxIO Comparison Slider - Pro</p>
-  
-            </Banner>
-            :
-            <Banner title="Current Plan: Free" status="warning" onDismiss={() => { handleDismiss() }}>
-              <p>- You are currently on Free plan with limited features.</p>
-              <p>- <strong>Enable Steps: </strong> Open Theme Customization &gt; Select Add Section &gt; MeroxIO Comparison Slider - Free</p>
-              <p>- Compare plans below for better insights. </p>
-              <p>- We are running 7 days free trial for <strong>MeroxIO Gold</strong> plan, Grab the deal now!!</p>
-  
-            </Banner>
-        }
-  
-  
-      </div>
+    <div id="subscriptionBanner">
+  {isLoadingCount ? "" :
+    data?.hasActiveSubscription ? (
+      <Banner
+        title="Current Plan: Premium Gold"
+        status="success"
+        onDismiss={() => { handleDismiss() }}
+      >
+        <p>
+          Congratulations 🎉🎉 You are now a <strong> Premium Gold</strong> customer and
+          can access all features of this app without any limitations.
+        </p>
+        <p>
+          <strong>Enable Steps: </strong>
+          Open Theme Customization &gt; Select Add Section &gt; Comparison Slider – Pro
+        </p>
+      </Banner>
+    ) : (
+      <Banner
+        title="Current Plan: Free"
+        status="warning"
+        onDismiss={() => { handleDismiss() }}
+      >
+        <p>- You are currently on the Free plan with limited features.</p>
+        <p>
+          - <strong>Enable Steps: </strong>
+          Open Theme Customization &gt; Select Add Section &gt; Comparison Slider – Free
+        </p>
+        <p>- Compare plans below for better insights.</p>
+      
+      </Banner>
+    )
+  }
+</div>
+
   
     );
   }

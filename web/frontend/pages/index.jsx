@@ -126,9 +126,9 @@ export default function HomePage() {
 
 
   const rows = [
-    ['Cost', 'Free', '$4.99/month'],
+    ['Cost', 'Free', '$100.00/month'],
     ['Interactive Visual Comparison', 'Basic', 'Enhanced'],
-    ['No Powered By MeroxIO Branding', '-', tickIcon],
+   
     ['Customizable Overlay Settings', 'Limited', tickIcon],
     ['Effortless Integration', 'Standard', 'Priority'],
     ['Responsive Design', tickIcon, tickIcon],
@@ -143,11 +143,11 @@ export default function HomePage() {
 
   const logo = {
 
-    width: 450,
-    height: 90,
+    width: 50,
+    height: 20,
 
     topBarSource:
-      `https://cdn.shopify.com/s/files/1/0629/5522/5264/files/MeroxIO_Comparison_Slider.png?v=1702290807`,
+      `https://cdn.shopify.com/s/files/1/0568/7754/7671/files/Untitled_design_22.png?v=1766405740`,
     url: '/',
     accessibilityLabel: 'https://cdn.shopify.com/s/files/1/0627/5727/3793/files/lookbook_logo.png?v=1666164778',
 
@@ -192,13 +192,13 @@ export default function HomePage() {
           <Layout.Section>
             <div className="custom-callout-container">
               <CalloutCard
-                title="Activate MeroxIO Comaprison Slider"
+                title="Activate  Comaprison Slider"
                 illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
                 primaryAction={{ content: 'Enable Now ➡️', onAction: openThemeEditor, accessibilityLabel: 'Enable Now' }}
 
               >
                 <p>
-                Are you prepared to upgrade your store's display? Click 'Enable' to activate the MeroxIO Comparison Slider. Once active, effortlessly adjust settings and tailor the app to complement your store's aesthetic. Enhance your customers' viewing experience now!
+                Are you prepared to upgrade your store's display? Click 'Enable' to activate the  Comparison Slider. Once active, effortlessly adjust settings and tailor the app to complement your store's aesthetic. Enhance your customers' viewing experience now!
                 </p>
               </CalloutCard>
             </div>
@@ -208,7 +208,7 @@ export default function HomePage() {
             <TextContainer>
               <DisplayText size="Large"><span>Introduction</span></DisplayText>
 
-              <p>Welcome to a new era of dynamic and captivating product presentation with Comparison Slider – the innovative solution designed to transform your Shopify store. Developed by MeroxIO, our app redefines the way you showcase products, offering an engaging blend of visual comparison and informative text elements.</p>
+              <p>Welcome to a new era of dynamic and captivating product presentation with Comparison Slider – the innovative solution designed to transform your Shopify store. our app redefines the way you showcase products, offering an engaging blend of visual comparison and informative text elements.</p>
 
               <h2><b>Key Features:</b></h2>
               <ul className="appFeatures">
@@ -224,19 +224,7 @@ export default function HomePage() {
 
             <div style={{ display: "flex" }}>
 
-              <Modal
-                activator={activator}
-                open={active}
-                onClose={handleChange}
-                title="Quick Setup in 2.0 themes"
-              >
-                <Modal.Section>
-                  <div>
-
-                    <div style={{ padding: '56% 0 0 0', position: 'relative' }}><iframe src="https://cdn.shopify.com/videos/c/o/v/cf61027e625d4f5b90c5fea31bc2de2e.mp4" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }} title="Quick Setup"></iframe></div>
-                  </div>
-                </Modal.Section>
-              </Modal>
+        
 
 
               <Button plain onClick={openThemeEditor} style={{ marginLeft: "auto" }}>
@@ -277,21 +265,13 @@ export default function HomePage() {
               <Card title="Plan Comparison" sectioned
 
                 primaryFooterAction={{
-                  content: 'Subscribe to MeroxIO Gold',
+                  content: 'Subscribe to Premium plan',
                   onAction: () => {
                     subscribePlan()
                   },
                   loading: isLoadingSubscribe
                 }}
-                secondaryFooterActions={[{
-                  content: 'Cancel Subscription',
-                  onAction: () => {
-                    cancelSubscription()
-                  },
-                  destructive: true,
-                  loading: isLoadingCancelSubscribe
-                }
-                ]}
+              
               >
                 <DataTable
                   columnContentTypes={[
@@ -302,7 +282,7 @@ export default function HomePage() {
                   headings={[
                     'Features',
                     'Free version',
-                    'MeroxIO Gold',
+                    'Premium plan',
                   ]}
                   rows={rows}
                   increasedTableDensity

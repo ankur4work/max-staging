@@ -44,7 +44,7 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-const PREMIUM_PLAN = 'MeroxIO Premium';
+const PREMIUM_PLAN = 'Premium plan';
 const MEROXIO = "meroxio";
 const PREMIUM_PLAN_KEY = "comparison_premium";
 const IS_TEST = false;
