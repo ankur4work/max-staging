@@ -144,10 +144,10 @@ export default function HomePage() {
   const logo = {
 
     width: 50,
-    height: 20,
+    height: 25,
 
     topBarSource:
-      `https://cdn.shopify.com/s/files/1/0568/7754/7671/files/Untitled_design_22.png?v=1766405740`,
+      `https://cdn.shopify.com/s/files/1/0568/7754/7671/files/Untitled_design_24.png?v=1766553044`,
     url: '/',
     accessibilityLabel: 'https://cdn.shopify.com/s/files/1/0627/5727/3793/files/lookbook_logo.png?v=1666164778',
 
@@ -297,21 +297,7 @@ export default function HomePage() {
           <ActiveSubscription />
         </Layout.Section>
 
-          <Layout.Section>
-
-            <CalloutCard
-              title="How is your experience with our app ?"
-              illustration="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/customer-review.gif?v=1668584409"
-              primaryAction={{
-                content: 'Leave a 5-Star Review',
-                onAction: openReviewPage
-              }}
-            >
-              <p>🌟 "We're always striving to make our App better for you, and your feedback lights the way! 🚀 Your thoughts and experiences are invaluable to us. If you've enjoyed using our app, we'd be thrilled if you could share your positive experiences with a ⭐⭐⭐⭐⭐ review on the Shopify App Store. Your support not only motivates our team but also helps other merchants discover the benefits of our App! Thank you for being an amazing part of our journey!" 🙌</p>
-            </CalloutCard>
-
-
-          </Layout.Section>
+    
 
         </Layout>
 
