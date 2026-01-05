@@ -296,7 +296,21 @@ export default function HomePage() {
           <Layout.Section>
           <ActiveSubscription />
         </Layout.Section>
+       <Layout.Section>
 
+            <CalloutCard
+              title="How is your experience with our app ?"
+              illustration="https://cdn.shopify.com/s/files/1/0627/5727/3793/files/customer-review.gif?v=1668584409"
+              primaryAction={{
+                content: 'Leave a 5-Star Review',
+                onAction: openReviewPage
+              }}
+            >
+              <p>🌟 "We're always striving to make our App better for you, and your feedback lights the way! 🚀 Your thoughts and experiences are invaluable to us. If you've enjoyed using our app, we'd be thrilled if you could share your positive experiences with a ⭐⭐⭐⭐⭐ review on the Shopify App Store. Your support not only motivates our team but also helps other merchants discover the benefits of our App! Thank you for being an amazing part of our journey!" 🙌</p>
+            </CalloutCard>
+
+
+          </Layout.Section>
     
 
         </Layout>
