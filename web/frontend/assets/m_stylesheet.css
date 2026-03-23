@@ -153,9 +153,10 @@
   box-shadow: var(--m-shadow-sm);
 }
 
-.m-video-wrapper > div {
-  width: 100% !important;
-  height: 100% !important;
+.m-video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ── Section ── */
