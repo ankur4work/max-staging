@@ -3,7 +3,6 @@ import {
   Card,
   Page,
   Button,
-  Icon,
   DataTable,
   Frame,
   TopBar,
@@ -12,12 +11,6 @@ import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 import { ActiveSubscription } from "../components/ActiveSubscriptionCheck";
 import { shopifyBackground } from "../assets";
 import ReactPlayer from "react-player";
-import {
-  ExternalMinor,
-  CircleTickMinor,
-  HomeMajor,
-} from "@shopify/polaris-icons";
-import { useNavigate } from "react-router-dom";
 import { Redirect } from "@shopify/app-bridge/actions";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { Toast } from "@shopify/app-bridge-react";
@@ -30,7 +23,6 @@ export default function HomePage() {
   const app = useAppBridge();
   const fetch = useAuthenticatedFetch();
   const redirect = Redirect.create(app);
-  const navigate = useNavigate();
 
   const { data } = useAppQuery({ url: "/api/getshop" });
   const { data: subData } = useAppQuery({
@@ -78,17 +70,17 @@ export default function HomePage() {
     <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
   );
 
-  const tickIcon = <Icon source={CircleTickMinor} color="success" />;
-  const dashIcon = <span className="plan-dash">&mdash;</span>;
+  const tick = <span style={{ color: "#008060", fontSize: "16px" }}>&#10003;</span>;
+  const dash = <span className="plan-dash">&mdash;</span>;
 
   const rows = [
     ["Cost", "Free", "$149.00/month"],
     ["Interactive Visual Comparison", "Basic", "Enhanced"],
-    ["Customizable Overlay Settings", "Limited", tickIcon],
+    ["Customizable Overlay Settings", "Limited", tick],
     ["Effortless Integration", "Standard", "Priority"],
-    ["Responsive Design", tickIcon, tickIcon],
-    ["Details Text", dashIcon, tickIcon],
-    ["Priority Email/Chat Support", dashIcon, tickIcon],
+    ["Responsive Design", tick, tick],
+    ["Details Text", dash, tick],
+    ["Priority Email/Chat Support", dash, tick],
   ];
 
   const logo = {
@@ -100,32 +92,7 @@ export default function HomePage() {
     accessibilityLabel: "MeroxIO Comparison Slider",
   };
 
-  const secondaryMenuMarkup = (
-    <TopBar.Menu
-      activatorContent={
-        <div className="main-icon">
-          <div className="main-icon-1">
-            <Button
-              onClick={() => navigate("/")}
-              plain
-              monochrome
-              removeUnderline
-              fullWidth
-            >
-              <div className="m-icon-show-1">
-                <Icon source={HomeMajor} />
-                <span className="m-hover-text-1">
-                  <h1>Home</h1>
-                </span>
-              </div>
-            </Button>
-          </div>
-        </div>
-      }
-    />
-  );
-
-  const topBarMarkup = <TopBar secondaryMenu={secondaryMenuMarkup} />;
+  const topBarMarkup = <TopBar />;
 
   return (
     <Frame topBar={topBarMarkup} logo={logo}>
@@ -133,7 +100,6 @@ export default function HomePage() {
         {toastMarkup}
 
         <div className="m-dashboard">
-          {/* Subscription Banner */}
           <ActiveSubscription />
 
           {/* Hero Section */}
@@ -242,9 +208,7 @@ export default function HomePage() {
           <div className="m-review-bar">
             <span>Enjoying the app? Your feedback helps us improve.</span>
             <Button plain onClick={() => window.open(reviewUrl)}>
-              <span className="m-review-link">
-                Leave a Review <Icon source={ExternalMinor} color="base" />
-              </span>
+              Leave a Review
             </Button>
           </div>
         </div>
