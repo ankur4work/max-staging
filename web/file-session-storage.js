@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
+import { Session } from "@shopify/shopify-api";
 
 const SESSION_FILE = resolve(process.cwd(), "sessions.json");
 
@@ -18,6 +19,19 @@ function saveSessions(sessions) {
   writeFileSync(SESSION_FILE, JSON.stringify(sessions, null, 2));
 }
 
+function toSession(data) {
+  if (!data) return undefined;
+  return new Session({
+    id: data.id,
+    shop: data.shop,
+    state: data.state,
+    isOnline: data.isOnline,
+    scope: data.scope,
+    accessToken: data.accessToken,
+    expires: data.expires ? new Date(data.expires) : undefined,
+  });
+}
+
 export class FileSessionStorage {
   async storeSession(session) {
     const sessions = loadSessions();
@@ -28,9 +42,7 @@ export class FileSessionStorage {
 
   async loadSession(id) {
     const sessions = loadSessions();
-    const data = sessions[id];
-    if (!data) return undefined;
-    return data;
+    return toSession(sessions[id]);
   }
 
   async deleteSession(id) {
@@ -51,6 +63,9 @@ export class FileSessionStorage {
 
   async findSessionsByShop(shop) {
     const sessions = loadSessions();
-    return Object.values(sessions).filter((s) => s.shop === shop);
+    return Object.values(sessions)
+      .filter((s) => s.shop === shop)
+      .map(toSession)
+      .filter(Boolean);
   }
 }
