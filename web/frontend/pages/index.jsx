@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Page } from "@shopify/polaris";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 import "../assets/m_stylesheet.css";
+import ReactPlayer from "react-player";
 import { Redirect } from "@shopify/app-bridge/actions";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { Toast } from "@shopify/app-bridge-react";
@@ -92,6 +93,20 @@ export default function HomePage() {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Video */}
+        <div className="m-video-wrapper">
+          <ReactPlayer
+            url="https://cdn.shopify.com/videos/c/o/v/ebf447344ab14bcc95b526034be22691.mp4"
+            playing={true}
+            controls={true}
+            loop={true}
+            muted={true}
+            playsinline={true}
+            width="100%"
+            height="100%"
+          />
         </div>
 
         {/* Features */}

@@ -143,6 +143,21 @@
   background: #b71c1c;
 }
 
+/* ── Video ── */
+
+.m-video-wrapper {
+  border-radius: var(--m-radius);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  box-shadow: var(--m-shadow-sm);
+}
+
+.m-video-wrapper > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* ── Section ── */
 
 .m-section {
