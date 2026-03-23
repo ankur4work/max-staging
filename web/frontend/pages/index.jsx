@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Page } from "@shopify/polaris";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
+import "../assets/m_stylesheet.css";
 import { Redirect } from "@shopify/app-bridge/actions";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { Toast } from "@shopify/app-bridge-react";
@@ -60,158 +61,129 @@ export default function HomePage() {
   );
 
   return (
-    <Page title="Comparison Slider">
+    <Page>
       {toastMarkup}
-
-      <div style={{ padding: "20px" }}>
-        {/* Subscription Status */}
-        <div style={{
-          padding: "16px",
-          marginBottom: "24px",
-          borderRadius: "8px",
-          background: hasSubscription ? "#e3f1df" : "#fff3cd",
-          border: hasSubscription ? "1px solid #008060" : "1px solid #b98900",
-        }}>
+      <div className="m-dashboard">
+        {/* Subscription Banner */}
+        <div className={`m-status-banner ${hasSubscription ? "m-status-premium" : "m-status-free"}`}>
           <strong>{hasSubscription ? "Plan: Premium Gold" : "Plan: Free"}</strong>
-          <p style={{ margin: "4px 0 0" }}>
+          <p>
             {hasSubscription
-              ? "You have access to all features."
+              ? "You have access to all premium features."
               : "You are on the Free plan with limited features."}
           </p>
         </div>
 
         {/* Hero */}
-        <div style={{
-          background: "linear-gradient(135deg, #5c6ac4, #6f7ff7)",
-          borderRadius: "12px",
-          padding: "36px",
-          color: "#fff",
-          marginBottom: "24px",
-        }}>
-          <h1 style={{ margin: "0 0 12px", fontSize: "28px" }}>Comparison Slider</h1>
-          <p style={{ margin: "0 0 20px", opacity: 0.9 }}>
-            Transform your product presentation with interactive before-and-after
-            comparisons that drive engagement and conversions.
-          </p>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <button
-              onClick={openThemeEditor}
-              style={{
-                padding: "10px 20px",
-                background: "#fff",
-                color: "#5c6ac4",
-                border: "none",
-                borderRadius: "6px",
-                fontWeight: 600,
-                cursor: "pointer",
-              }}
-            >
-              Open Theme Editor
-            </button>
-            <button
-              onClick={() => window.open(reviewUrl)}
-              style={{
-                padding: "10px 20px",
-                background: "transparent",
-                color: "#fff",
-                border: "1px solid rgba(255,255,255,0.5)",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
-              Leave a Review
-            </button>
+        <div className="m-hero">
+          <div className="m-hero-content">
+            <h1 className="m-hero-title">Comparison Slider</h1>
+            <p className="m-hero-subtitle">
+              Transform your product presentation with interactive
+              before-and-after comparisons that drive engagement and
+              conversions.
+            </p>
+            <div className="m-hero-actions">
+              <button className="m-btn m-btn-white" onClick={openThemeEditor}>
+                Open Theme Editor
+              </button>
+              <button className="m-btn m-btn-outline" onClick={() => window.open(reviewUrl)}>
+                Leave a Review
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Features */}
-        <h2 style={{ fontSize: "20px", marginBottom: "16px" }}>Why Comparison Slider?</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "16px", marginBottom: "24px" }}>
-          {[
-            { title: "Interactive Comparison", desc: "Drag-to-compare slider for dynamic image comparisons." },
-            { title: "Brand Customization", desc: "Match colors and styling to your brand." },
-            { title: "Zero-Code Setup", desc: "Add to any theme in clicks — no coding required." },
-            { title: "Fully Responsive", desc: "Looks great on all devices with automatic resizing." },
-          ].map((f) => (
-            <div key={f.title} style={{
-              background: "#fff",
-              borderRadius: "12px",
-              padding: "20px",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-              border: "1px solid rgba(0,0,0,0.06)",
-            }}>
-              <strong style={{ display: "block", marginBottom: "8px" }}>{f.title}</strong>
-              <p style={{ margin: 0, fontSize: "13px", color: "#637381" }}>{f.desc}</p>
+        <div className="m-section">
+          <h2 className="m-section-title">Why Comparison Slider?</h2>
+          <div className="m-features">
+            <div className="m-feature-card">
+              <div className="m-feature-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--m-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+              </div>
+              <h3>Interactive Comparison</h3>
+              <p>Drag-to-compare slider for dynamic image comparisons that engage customers instantly.</p>
             </div>
-          ))}
-        </div>
-
-        {/* Plan Table */}
-        <h2 style={{ fontSize: "20px", marginBottom: "16px" }}>Choose Your Plan</h2>
-        <div style={{
-          background: "#fff",
-          borderRadius: "12px",
-          padding: "20px",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-          border: "1px solid rgba(0,0,0,0.06)",
-          marginBottom: "24px",
-        }}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr style={{ borderBottom: "2px solid #f0f0f0" }}>
-                <th style={{ textAlign: "left", padding: "10px", fontSize: "13px", textTransform: "uppercase", color: "#637381" }}>Features</th>
-                <th style={{ textAlign: "center", padding: "10px", fontSize: "13px", textTransform: "uppercase", color: "#637381" }}>Free</th>
-                <th style={{ textAlign: "center", padding: "10px", fontSize: "13px", textTransform: "uppercase", color: "#5c6ac4" }}>Premium</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ["Cost", "Free", "$149.00/month"],
-                ["Interactive Visual Comparison", "Basic", "Enhanced"],
-                ["Customizable Overlay Settings", "Limited", "\u2713"],
-                ["Effortless Integration", "Standard", "Priority"],
-                ["Responsive Design", "\u2713", "\u2713"],
-                ["Details Text", "\u2014", "\u2713"],
-                ["Priority Support", "\u2014", "\u2713"],
-              ].map((row, i) => (
-                <tr key={i} style={{ borderBottom: "1px solid #f0f0f0", background: i % 2 ? "#fafafa" : "#fff" }}>
-                  <td style={{ padding: "10px", fontWeight: 500 }}>{row[0]}</td>
-                  <td style={{ padding: "10px", textAlign: "center" }}>{row[1]}</td>
-                  <td style={{ padding: "10px", textAlign: "center" }}>{row[2]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div style={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px solid #f0f0f0" }}>
-            {hasSubscription ? (
-              <button
-                onClick={cancelSubscription}
-                style={{ padding: "10px 20px", background: "#d72c0d", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer" }}
-              >
-                Cancel Subscription
-              </button>
-            ) : (
-              <button
-                onClick={subscribePlan}
-                disabled={isLoadingSubscribe}
-                style={{ padding: "10px 20px", background: "#5c6ac4", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer" }}
-              >
-                {isLoadingSubscribe ? "Loading..." : "Upgrade to Premium"}
-              </button>
-            )}
+            <div className="m-feature-card">
+              <div className="m-feature-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--m-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              </div>
+              <h3>Brand Customization</h3>
+              <p>Match colors, fonts, and styling to your brand for a seamless, consistent look.</p>
+            </div>
+            <div className="m-feature-card">
+              <div className="m-feature-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--m-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <h3>Zero-Code Setup</h3>
+              <p>Add to any theme in clicks — no developer or coding skills required.</p>
+            </div>
+            <div className="m-feature-card">
+              <div className="m-feature-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--m-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <h3>Fully Responsive</h3>
+              <p>Looks great on desktops, tablets, and phones with automatic resizing.</p>
+            </div>
           </div>
         </div>
 
-        {/* Review */}
-        <div style={{
-          textAlign: "center",
-          padding: "16px",
-          border: "1px dashed #c4cdd5",
-          borderRadius: "12px",
-          color: "#637381",
-        }}>
-          Enjoying the app? <a href={reviewUrl} target="_blank" rel="noopener noreferrer" style={{ color: "#5c6ac4" }}>Leave a Review</a>
+        {/* Plan Comparison */}
+        <div className="m-section">
+          <h2 className="m-section-title">Choose Your Plan</h2>
+          <div className="m-plan-card">
+            <table className="m-plan-table">
+              <thead>
+                <tr>
+                  <th className="m-th-left">Features</th>
+                  <th>Free</th>
+                  <th className="m-th-premium">Premium</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Cost", "Free", "$149.00/month"],
+                  ["Interactive Visual Comparison", "Basic", "Enhanced"],
+                  ["Customizable Overlay Settings", "Limited", "\u2713"],
+                  ["Effortless Integration", "Standard", "Priority"],
+                  ["Responsive Design", "\u2713", "\u2713"],
+                  ["Details Text", "\u2014", "\u2713"],
+                  ["Priority Support", "\u2014", "\u2713"],
+                ].map((row, i) => (
+                  <tr key={i} className={i % 2 ? "m-row-alt" : ""}>
+                    <td className="m-td-feature">{row[0]}</td>
+                    <td className="m-td-center">{row[1]}</td>
+                    <td className="m-td-center">{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="m-plan-actions">
+              {hasSubscription ? (
+                <button className="m-btn m-btn-danger" onClick={cancelSubscription}>
+                  Cancel Subscription
+                </button>
+              ) : (
+                <button
+                  className="m-btn m-btn-primary"
+                  onClick={subscribePlan}
+                  disabled={isLoadingSubscribe}
+                >
+                  {isLoadingSubscribe ? "Loading..." : "Upgrade to Premium"}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Review Bar */}
+        <div className="m-review-bar">
+          <span>Enjoying the app? Your feedback helps us improve.</span>
+          <a href={reviewUrl} target="_blank" rel="noopener noreferrer" className="m-review-link">
+            Leave a Review
+          </a>
         </div>
       </div>
     </Page>

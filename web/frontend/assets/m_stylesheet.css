@@ -16,99 +16,131 @@
   --m-radius: 12px;
 }
 
-/* ── Page ── */
-
-.Polaris-Page {
-  padding: 0;
-  max-width: 1100px;
-}
+/* ── Dashboard ── */
 
 .m-dashboard {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding: 24px 0;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 0 32px;
+}
+
+/* ── Status Banner ── */
+
+.m-status-banner {
+  padding: 16px 20px;
+  border-radius: var(--m-radius);
+}
+
+.m-status-banner strong {
+  font-size: 15px;
+}
+
+.m-status-banner p {
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+.m-status-free {
+  background: #fef3cd;
+  border: 1px solid #f5c518;
+  color: #665200;
+}
+
+.m-status-premium {
+  background: #d4edda;
+  border: 1px solid #008060;
+  color: #004d3a;
 }
 
 /* ── Hero ── */
 
 .m-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
   background: linear-gradient(135deg, #5c6ac4 0%, #6f7ff7 100%);
   border-radius: var(--m-radius);
-  padding: 36px;
+  padding: 40px 36px;
   color: #fff;
-  overflow: hidden;
-}
-
-.m-hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
 }
 
 .m-hero-title {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
-  margin: 0;
-  line-height: 1.2;
+  margin: 0 0 12px;
   letter-spacing: -0.5px;
 }
 
 .m-hero-subtitle {
   font-size: 15px;
   line-height: 1.6;
-  margin: 0;
+  margin: 0 0 24px;
   opacity: 0.9;
+  max-width: 560px;
 }
 
 .m-hero-actions {
   display: flex;
   gap: 10px;
-  margin-top: 8px;
 }
 
-.m-hero-actions .Polaris-Button--primary {
-  background: #fff !important;
-  color: var(--m-primary) !important;
-  border: none !important;
+/* ── Buttons ── */
+
+.m-btn {
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
 }
 
-.m-hero-actions .Polaris-Button--primary:hover {
-  background: #f0f0ff !important;
+.m-btn:hover {
+  transform: translateY(-1px);
 }
 
-.m-hero-actions .Polaris-Button:not(.Polaris-Button--primary) {
-  color: #fff !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
+.m-btn-white {
+  background: #fff;
+  color: var(--m-primary);
 }
 
-.m-hero-actions .Polaris-Button:not(.Polaris-Button--primary):hover {
-  border-color: #fff !important;
+.m-btn-white:hover {
+  background: #f0f0ff;
 }
 
-.m-hero-video {
-  display: flex;
-  align-items: center;
+.m-btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
-.m-video-container {
-  border-radius: 10px;
-  overflow: hidden;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.m-btn-outline:hover {
+  border-color: #fff;
 }
 
-.m-video-container div {
-  width: 100% !important;
-  height: 100% !important;
+.m-btn-primary {
+  background: var(--m-primary);
+  color: #fff;
+}
+
+.m-btn-primary:hover {
+  background: var(--m-primary-dark);
+}
+
+.m-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.m-btn-danger {
+  background: #d72c0d;
+  color: #fff;
+}
+
+.m-btn-danger:hover {
+  background: #b71c1c;
 }
 
 /* ── Section ── */
@@ -116,7 +148,7 @@
 .m-section {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .m-section-title {
@@ -174,12 +206,58 @@
   margin: 0;
 }
 
-/* ── Plans ── */
+/* ── Plan Card ── */
 
-.m-plans-wrapper .Polaris-Card {
+.m-plan-card {
+  background: var(--m-card-bg);
   border-radius: var(--m-radius);
+  padding: 24px;
   box-shadow: var(--m-shadow-sm);
   border: 1px solid var(--m-border);
+}
+
+.m-plan-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.m-plan-table th {
+  padding: 12px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--m-text-muted);
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.m-th-left {
+  text-align: left !important;
+}
+
+.m-th-premium {
+  color: var(--m-primary) !important;
+}
+
+.m-plan-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.m-td-feature {
+  font-weight: 500;
+  color: var(--m-text);
+}
+
+.m-td-center {
+  text-align: center;
+  color: var(--m-text-muted);
+}
+
+.m-row-alt {
+  background: #fafafa;
 }
 
 .m-plan-actions {
@@ -188,37 +266,6 @@
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid #f0f0f0;
-}
-
-/* Plan table styling */
-
-table.Polaris-DataTable__Table th:not(:first-child),
-table.Polaris-DataTable__Table td,
-table.Polaris-DataTable__Table td * {
-  text-align: center;
-  margin: 0 auto;
-}
-
-table.Polaris-DataTable__Table thead th {
-  font-size: 13px !important;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--m-text-muted);
-}
-
-table.Polaris-DataTable__Table thead th:last-child {
-  color: var(--m-primary);
-}
-
-table.Polaris-DataTable__Table td:first-child {
-  font-weight: 500;
-  color: var(--m-text);
-}
-
-.plan-dash {
-  color: #c4cdd5;
-  font-size: 16px;
 }
 
 /* ── Review Bar ── */
@@ -237,69 +284,30 @@ table.Polaris-DataTable__Table td:first-child {
 }
 
 .m-review-link {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* ── Header / TopBar ── */
-
-.Polaris-TopBar__LogoLink {
-  cursor: pointer;
-}
-
-.main-icon {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.main-icon-1 {
-  width: 3rem;
-  right: 30px;
-}
-
-.main-icon-1:hover {
-  cursor: pointer;
   color: var(--m-primary);
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.m-hover-text-1 {
-  visibility: hidden;
-  width: 55px;
-  background-color: var(--m-text);
-  color: white;
-  text-align: center;
-  border-radius: 4px;
-  padding: 5px 0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 10px;
-  font-size: 12px;
-}
-
-.main-icon-1:hover .m-hover-text-1 {
-  visibility: visible;
+.m-review-link:hover {
+  text-decoration: underline;
 }
 
 /* ── Responsive ── */
 
 @media (max-width: 900px) {
-  .m-hero {
-    grid-template-columns: 1fr;
-    padding: 28px;
-  }
-
   .m-features {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .m-hero {
+    padding: 28px;
   }
 }
 
 @media (max-width: 600px) {
   .m-dashboard {
     gap: 20px;
-    padding: 16px 0;
   }
 
   .m-hero {
