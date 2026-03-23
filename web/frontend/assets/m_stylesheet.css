@@ -148,15 +148,18 @@
 .m-video-wrapper {
   border-radius: var(--m-radius);
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
   box-shadow: var(--m-shadow-sm);
 }
 
 .m-video-wrapper video {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* ── Section ── */

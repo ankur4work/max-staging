@@ -22,8 +22,7 @@ export default function HomePage() {
 
   const hasSubscription = subData?.hasActiveSubscription === true;
 
-  const reviewUrl =
-    "https://apps.shopify.com/meroxio-comparison-slider#modal-show=WriteReviewModal";
+  const supportEmail = "mailto:support@meroxioapps.com";
 
   function openThemeEditor() {
     const url = `https://${data?.shop}/admin/themes/current/editor?template=index`;
@@ -32,16 +31,24 @@ export default function HomePage() {
 
   async function subscribePlan() {
     setIsLoadingSubscribe(true);
-    const res = await fetch("/api/createSubscription");
-    const data = await res.json();
-    setIsLoadingSubscribe(false);
-    if (data.error) {
-      setToastProps({ content: "Failed to create subscription", error: true });
-    } else if (data.confirmationUrl) {
-      setToastProps({ content: "Redirecting to payment page.." });
-      redirect.dispatch(Redirect.Action.REMOTE, data.confirmationUrl);
-    } else if (data.isActiveSubscription) {
-      setToastProps({ content: "You already have an active subscription" });
+    try {
+      const res = await fetch("/api/createSubscription");
+      if (!res.ok) {
+        throw new Error("Server error");
+      }
+      const data = await res.json();
+      setIsLoadingSubscribe(false);
+      if (data.error) {
+        setToastProps({ content: "Failed to create subscription", error: true });
+      } else if (data.confirmationUrl) {
+        setToastProps({ content: "Redirecting to payment page.." });
+        redirect.dispatch(Redirect.Action.REMOTE, data.confirmationUrl);
+      } else if (data.isActiveSubscription) {
+        setToastProps({ content: "You already have an active subscription" });
+      }
+    } catch (e) {
+      setIsLoadingSubscribe(false);
+      setToastProps({ content: "Something went wrong. Please try again.", error: true });
     }
   }
 
@@ -87,8 +94,8 @@ export default function HomePage() {
               <button className="m-btn m-btn-white" onClick={openThemeEditor}>
                 Open Theme Editor
               </button>
-              <button className="m-btn m-btn-outline" onClick={() => window.open(reviewUrl)}>
-                Leave a Review
+              <button className="m-btn m-btn-outline" onClick={() => window.open(supportEmail)}>
+                Contact Support
               </button>
             </div>
           </div>
@@ -190,11 +197,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Review Bar */}
+        {/* Support Bar */}
         <div className="m-review-bar">
-          <span>Enjoying the app? Your feedback helps us improve.</span>
-          <a href={reviewUrl} target="_blank" rel="noopener noreferrer" className="m-review-link">
-            Leave a Review
+          <span>Need help? Reach out to us.</span>
+          <a href={supportEmail} className="m-review-link">
+            Contact Support
           </a>
         </div>
       </div>
