@@ -2,8 +2,7 @@ import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
 import { BillingInterval, LATEST_API_VERSION } from "@shopify/shopify-api";
 import { shopifyApp } from "@shopify/shopify-app-express";
-import { MemorySessionStorage } from "@shopify/shopify-app-session-storage-memory";
-import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mongodb";
+import { FileSessionStorage } from "./file-session-storage.js";
 import { restResources } from "@shopify/shopify-api/rest/admin/2023-04";
 import dotenv from "dotenv";
 
@@ -58,18 +57,7 @@ if (missingEnv.length) {
 }
 
 function createSessionStorage() {
-  const mongoUrl = process.env.MONGODB_URL;
-  const mongoDbName = process.env.MONGODB_DB_NAME;
-
-  if (mongoUrl && mongoDbName) {
-    return new MongoDBSessionStorage(new URL(mongoUrl), mongoDbName);
-  }
-
-  console.warn(
-    "MONGODB_URL/MONGODB_DB_NAME not set. Using in-memory session storage for local development."
-  );
-
-  return new MemorySessionStorage();
+  return new FileSessionStorage();
 }
 
 const shopify = shopifyApp({
