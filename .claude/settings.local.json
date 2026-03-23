@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(toml|json|env\\)$\")",
+      "WebSearch",
+      "WebFetch(domain:community.shopify.dev)",
+      "Bash(cd:*)",
+      "Bash(npm install:*)",
+      "Bash(npm view:*)",
+      "Bash(npx shopify:*)",
+      "Bash(grep -E \"\\\\.jsx?$\")",
+      "Bash(node -e \"const pkg = require\\(''./node_modules/@shopify/shopify-api/package.json''\\); console.log\\(pkg.version\\)\")"
+    ]
+  }
+}

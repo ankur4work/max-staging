@@ -1,556 +1,329 @@
-.appIntro {
-    margin-top: 2rem !important;
+/* ══════════════════════════════════════════════
+   MeroxIO Comparison Slider – Dashboard Theme
+   ══════════════════════════════════════════════ */
+
+:root {
+  --m-primary: #5c6ac4;
+  --m-primary-dark: #4959bd;
+  --m-accent: #00c2b7;
+  --m-bg: #f4f6f8;
+  --m-card-bg: #ffffff;
+  --m-text: #212b36;
+  --m-text-muted: #637381;
+  --m-border: rgba(0, 0, 0, 0.06);
+  --m-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --m-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --m-radius: 12px;
 }
 
-.appFeatures,
-.appSetupGuide {
-    margin-bottom: 2rem !important;
-}
-
-.custom-callout-container .Polaris-Button {
-    /* Styles for your button */
-    background-color: rgba(0, 122, 92, 1);;
-    border-color: rgba(0, 122, 92, 1);;
-  
-    &:hover {
-      background-color: darkgreen;
-      border-color: darkgreen;
-    }
-  }
-
-  .custom-callout-container .Polaris-Button .Polaris-Button__Content .Polaris-Button__Text {
-    color: white
-  }
-  
-
-  
-.appEnableBtn {
-    display: flex;
-    margin-left: 1rem;
-    align-items: center;
-}
-
-.appEnableBtn span:first-child {
-    margin-right: 5px;
-}
-
-.faq .Polaris-Button .Polaris-Icon {
-    transition: transform .15s var(--p-ease-in-out);
-}
-
-.faq [aria-expanded=true] .Polaris-Icon {
-    transform: rotate(180deg);
-}
-
-.faq {
-    margin-top: 20px;
-}
-
-#faqHeading,
-#stepsHeading {
-    margin: 40px 0 20px 0;
-}
-
-.faqBlock {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#faqHeading {
-    margin-top: 30px;
-    font-size: 20px;
-    position: relative;
-    /* right: 30px; */
-}
-
-
-
-.faq .Polaris-Card__Section {
-    padding: 15px 10px;
-}
-
-.faq .Polaris-Button span {
-    width: 100%;
-}
-
-.faq .faqBlock span {
-    width: auto;
-    margin: 0;
-}
-
-.faq .Polaris-TextContainer {
-    padding: 20px 10px 10px;
-}
-
-.faq .Polaris-Stack__Item:last-child {
-    margin: 0 !important;
-}
-
-.faq .Polaris-Button--plain:active:not(.Polaris-Button--iconOnly)>.Polaris-Button__Content {
-    padding: 0;
-    margin: 0;
-}
-
-.setupCard {
-    width: 100%;
-}
-
-.setupCard .Polaris-MediaCard__ActionContainer.Polaris-MediaCard--portrait {
-    padding-top: 10px;
-}
-
-.stepsGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-}
-
-.stepsGrid .Polaris-Card {
-    margin-top: 0 !important;
-    width: 100%;
-}
+/* ── Page ── */
 
 .Polaris-Page {
-    padding: 20px;
+  padding: 0;
+  max-width: 1100px;
 }
 
-
-.videoWrapper {
-    border-radius: 6px;
-    height: 540px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+.m-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 24px 0;
 }
 
-.videoWrapper div {
-    width: auto !important;
-    height: 100% !important;
+/* ── Hero ── */
+
+.m-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  background: linear-gradient(135deg, #5c6ac4 0%, #6f7ff7 100%);
+  border-radius: var(--m-radius);
+  padding: 36px;
+  color: #fff;
+  overflow: hidden;
 }
+
+.m-hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.m-hero-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.m-hero-subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.m-hero-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.m-hero-actions .Polaris-Button--primary {
+  background: #fff !important;
+  color: var(--m-primary) !important;
+  border: none !important;
+  font-weight: 600;
+}
+
+.m-hero-actions .Polaris-Button--primary:hover {
+  background: #f0f0ff !important;
+}
+
+.m-hero-actions .Polaris-Button:not(.Polaris-Button--primary) {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.m-hero-actions .Polaris-Button:not(.Polaris-Button--primary):hover {
+  border-color: #fff !important;
+}
+
+.m-hero-video {
+  display: flex;
+  align-items: center;
+}
+
+.m-video-container {
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.m-video-container div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ── Section ── */
+
+.m-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.m-section-title {
+  font-size: 20px;
+  font-weight: 650;
+  color: var(--m-text);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* ── Features ── */
+
+.m-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.m-feature-card {
+  background: var(--m-card-bg);
+  border-radius: var(--m-radius);
+  padding: 24px 20px;
+  box-shadow: var(--m-shadow-sm);
+  border: 1px solid var(--m-border);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.m-feature-card:hover {
+  box-shadow: var(--m-shadow-md);
+  transform: translateY(-2px);
+}
+
+.m-feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: #f4f5fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.m-feature-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--m-text);
+  margin: 0 0 8px;
+}
+
+.m-feature-card p {
+  font-size: 13px;
+  color: var(--m-text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Plans ── */
+
+.m-plans-wrapper .Polaris-Card {
+  border-radius: var(--m-radius);
+  box-shadow: var(--m-shadow-sm);
+  border: 1px solid var(--m-border);
+}
+
+.m-plan-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Plan table styling */
 
 table.Polaris-DataTable__Table th:not(:first-child),
 table.Polaris-DataTable__Table td,
 table.Polaris-DataTable__Table td * {
-    text-align: center;
-    margin: 0 auto
+  text-align: center;
+  margin: 0 auto;
 }
 
 table.Polaris-DataTable__Table thead th {
-    font-size: 15px !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--m-text-muted);
 }
 
-.planComparison h2.Polaris-Heading {
-    font-size: 18px;
+table.Polaris-DataTable__Table thead th:last-child {
+  color: var(--m-primary);
 }
 
-
-
-
-.plansGif {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+table.Polaris-DataTable__Table td:first-child {
+  font-weight: 500;
+  color: var(--m-text);
 }
 
+.plan-dash {
+  color: #c4cdd5;
+  font-size: 16px;
+}
 
-/* headerpart cursor */
+/* ── Review Bar ── */
+
+.m-review-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: var(--m-radius);
+  background: var(--m-card-bg);
+  border: 1px dashed #c4cdd5;
+  color: var(--m-text-muted);
+  font-size: 14px;
+}
+
+.m-review-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Header / TopBar ── */
+
 .Polaris-TopBar__LogoLink {
-    cursor: pointer;
+  cursor: pointer;
 }
-
-
-
-
-
-
-
-/* m-meta-card-design-for-lookbook-keyfeature */
-
-
-.meta-card-data-wrapper {
-    position: relative;
-    height: 100%;
-}
-
-.meta-card-data-1 {
-    display: flex;
-    flex-direction: column;
-    margin: -16px 0px 0px;
-    padding: 30px;
-
-}
-
-
-
-
-.meta-image-1 img {
-    width: 75px;
-    position: relative;
-    left: 47px;
-    top: -23px;
-    opacity: 1;
-}
-
-
-
-
-.meta-product-1 {
-    text-align: center;
-    font-size: 1em;
-}
-
-
-.meta-card-hovered-data {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 0;
-    visibility: hidden;
-    transition: all .2s ease-in-out;
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-    padding-top: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-
-}
-
-.meta-card-hovered-data-paragraph-1 {
-    text-align: center;
-    padding: 10px;
-}
-
-
-
-.meta-card-data-wrapper:hover .meta-card-hovered-data {
-    visibility: visible;
-    background-color: #24ade3;
-    color: var(--p-text-on-critical);
-
-    height: 100px;
-
-
-}
-
-
-/*  m-meta-card-design-for-lookbook-keyfeature(calling_part)*/
-
-
-.m-keyfeature-container-1 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
-}
-
-
-
-
-
-
-/* m-header-part-of-lookbook-starting */
 
 .main-icon {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-
-.meta-card-1 {
-    width: 24%;
-    margin: 34px 44px;
-    height: 100%;
-
-}
-
-
-.meta-card-1>div {
-    height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .main-icon-1 {
-
-    width: 3rem;
-    right: 30px;
-}
-
-
-.m-hover-text-1 {
-    visibility: hidden;
-    width: 55px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 2px;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 10px;
-
-
+  width: 3rem;
+  right: 30px;
 }
 
 .main-icon-1:hover {
-    cursor: pointer;
-    color: rgb(80, 179, 255);
+  cursor: pointer;
+  color: var(--m-primary);
+}
+
+.m-hover-text-1 {
+  visibility: hidden;
+  width: 55px;
+  background-color: var(--m-text);
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+  font-size: 12px;
 }
 
 .main-icon-1:hover .m-hover-text-1 {
-    visibility: visible;
+  visibility: visible;
 }
 
+/* ── Responsive ── */
 
-.main-icon-2 {
+@media (max-width: 900px) {
+  .m-hero {
+    grid-template-columns: 1fr;
+    padding: 28px;
+  }
 
-    width: 3rem;
-    right: 30px;
+  .m-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.m-hover-text-2 {
-    visibility: hidden;
-    width: 75px;
-    background-color: black;
-    color: white;
+@media (max-width: 600px) {
+  .m-dashboard {
+    gap: 20px;
+    padding: 16px 0;
+  }
 
+  .m-hero {
+    padding: 24px;
+  }
+
+  .m-hero-title {
+    font-size: 24px;
+  }
+
+  .m-features {
+    grid-template-columns: 1fr;
+  }
+
+  .m-hero-actions {
+    flex-direction: column;
+  }
+
+  .m-plan-actions {
+    flex-direction: column;
+  }
+
+  .m-review-bar {
+    flex-direction: column;
     text-align: center;
-    border-radius: 2px;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 10px;
-
-
-}
-
-.main-icon-2:hover {
-    cursor: pointer;
-    color: rgb(80, 179, 255);
-}
-
-.main-icon-2:hover .m-hover-text-2 {
-    visibility: visible;
-}
-
-.main-icon-3 {
-
-    width: 3rem;
-    right: 30px;
-}
-
-.m-hover-text-3 {
-    visibility: hidden;
-    width: 65px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 2px;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 10px;
-
-
-}
-
-.main-icon-3:hover {
-    cursor: pointer;
-    color: rgb(80, 179, 255);
-}
-
-.main-icon-3:hover .m-hover-text-3 {
-    visibility: visible;
-}
-
-.main-icon-4 {
-
-    width: 3rem;
-    right: 30px;
-}
-
-.m-hover-text-4 {
-    visibility: hidden;
-    width: 65px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 2px;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 10px;
-
-
-}
-
-.main-icon-4:hover {
-    cursor: pointer;
-    color: rgb(80, 179, 255);
-}
-
-.main-icon-4:hover .m-hover-text-4 {
-    visibility: visible;
-}
-
-
-
-/* Alumni-card */
-
-.card-container {
-    margin-top: 30px;
-}
-
-
-.Alumni-card {
-    display: flex;
-    flex-direction: row;
-}
-
-.Alumni-card-1 {
-    margin-right: 12px;
-}
-
-.Alumni-card-2 {
-    margin-right: 12px;
-}
-
-
-.Placeholder-Image {
-    position: relative;
-    left: 50px
-}
-
-
-
-/* Review-part */
-
-.container {
-    margin-top: -15px;
-}
-
-.container .Polaris-CalloutCard__Image {
-
-    width: 25%;
-}
-
-.container .Polaris-Heading {
-    font-size: 30px;
-    margin-bottom: 12%;
-}
-
-.container .Polaris-TextContainer {
-    font-size: 18px;
-}
-
-.paragraph {
-    position: relative;
-    bottom: 30px;
-    line-height: 26px;
-}
-
-/*m-mediacard-container */
-
-.m-mediacard-container {
-    margin-top: 30px;
-    display: flex;
-    gap: 2em;
-    margin-bottom: 3em;
-}
-
-
-.m-mediacard-container > div {
-    max-width: 300px;
-    width: 100%;
-}
-
-.m-mediacard-container .Polaris-MediaCard__MediaContainer {
-    object-fit: fill;
-    object-position: center center;
-
-}
-
-.m-mediacard-container .Polaris-Heading {
-    font-size: 22px;
-}
-
-.container.merox-reviews-part h2 {
-    display: inline-block;
-    margin-bottom: 1rem;
-    font-size: 22px;
-}
-/* media Quary */
-@media(max-width: 600px) {
-    .meta-card-1 {
-        width: 45%;
-        padding: 10px;
-        margin: 0;
-    }
-
-    .meta-image-1 {
-        position: relative;
-        left: -23px;
-    }
-
-    .meta-product-1 h1 {
-        font-size: 15px;
-    }
-
-    .container .Polaris-Heading {
-        line-height: 35px;
-    }
-
-    .paragraph {
-        line-height: 28px;
-    }
-
-
-}
-
-
-
-
-/* m-image-slider */
-
-.m-image-slider {
-    position: relative;
-    left: -10px;
-}
-
-.m-carousel-container {
-    position: relative;
-    left: 9.5px;
-}
-
-.m-appblock {
-
-    font-size: var(--p-font-size-12);
-    margin-top: 18px;
-    position: relative;
-    /* right: 32px; */
-    line-height: var(--p-line-height-5);
-}
-
-.m-image-slider .carousel .carousel-status {
-    position: absolute;
-    top: 25px;
-    right: 23px;
-    font-size: 21px;
-    color: #111010;
+  }
 }

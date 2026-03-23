@@ -1,24 +1,76 @@
+import { existsSync, readFileSync } from "fs";
+import { resolve } from "path";
 import { BillingInterval, LATEST_API_VERSION } from "@shopify/shopify-api";
 import { shopifyApp } from "@shopify/shopify-app-express";
-import {MongoDBSessionStorage} from '@shopify/shopify-app-session-storage-mongodb';
+import { MemorySessionStorage } from "@shopify/shopify-app-session-storage-memory";
+import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mongodb";
 import { restResources } from "@shopify/shopify-api/rest/admin/2023-04";
 import dotenv from "dotenv";
 
+const ENV_FILES = [
+  resolve(process.cwd(), ".env"),
+  resolve(process.cwd(), "..", ".env"),
+];
 
-dotenv.config();
+for (const envFile of ENV_FILES) {
+  if (existsSync(envFile)) {
+    const parsed = dotenv.parse(readFileSync(envFile));
 
+    for (const [key, value] of Object.entries(parsed)) {
+      if (process.env[key] === undefined || process.env[key] === "") {
+        process.env[key] = value;
+      }
+    }
+  }
+}
 
-// The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
-// See the ensureBilling helper to learn more about billing in this template.
 const billingConfig = {
   "Premium plan": {
-    // This is an example configuration that would do a one-time charge for $5 (only USD is currently supported)
-    amount: 100.00,
+    amount: 149.0,
     currencyCode: "USD",
     trialDays: 0,
     interval: BillingInterval.Every30Days,
   },
 };
+
+const appUrl =
+  process.env.HOST || process.env.SHOPIFY_APP_URL || "http://localhost:3000";
+
+const scopes = (process.env.SCOPES || "")
+  .split(",")
+  .map((scope) => scope.trim())
+  .filter(Boolean);
+
+const missingEnv = ["SHOPIFY_API_KEY", "SHOPIFY_API_SECRET"].filter(
+  (key) => !process.env[key]
+);
+
+if (!scopes.length) {
+  missingEnv.push("SCOPES");
+}
+
+if (missingEnv.length) {
+  throw new Error(
+    `Missing required Shopify environment variables: ${missingEnv.join(
+      ", "
+    )}. Copy .env.example to .env and fill them in, or run the app from the repo root with "npm run dev" so Shopify CLI can inject them.`
+  );
+}
+
+function createSessionStorage() {
+  const mongoUrl = process.env.MONGODB_URL;
+  const mongoDbName = process.env.MONGODB_DB_NAME;
+
+  if (mongoUrl && mongoDbName) {
+    return new MongoDBSessionStorage(new URL(mongoUrl), mongoDbName);
+  }
+
+  console.warn(
+    "MONGODB_URL/MONGODB_DB_NAME not set. Using in-memory session storage for local development."
+  );
+
+  return new MemorySessionStorage();
+}
 
 const shopify = shopifyApp({
   api: {
@@ -26,9 +78,9 @@ const shopify = shopifyApp({
     restResources,
     apiKey: process.env.SHOPIFY_API_KEY,
     apiSecretKey: process.env.SHOPIFY_API_SECRET,
-    hostName: process.env.HOST.replace(/https?:\/\//, ""),
-    scopes: process.env.SCOPES.split(","),
-    billing: billingConfig, // or replace with billingConfig above to enable example billing
+    hostName: appUrl.replace(/https?:\/\//, ""),
+    scopes,
+    billing: billingConfig,
   },
   auth: {
     path: "/api/auth",
@@ -37,11 +89,7 @@ const shopify = shopifyApp({
   webhooks: {
     path: "/api/webhooks",
   },
-  // This should be replaced with your preferred storage strategy
-  sessionStorage: new MongoDBSessionStorage(
-    'mongodb+srv://meroxio:%40%23MeroxIO%23%40@cluster0.xcu2ogt.mongodb.net/?retryWrites=true&w=majority',
-    'meroxio-comparison-slider',
-  ),
+  sessionStorage: createSessionStorage(),
 });
 
 export default shopify;

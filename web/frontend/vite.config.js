@@ -4,11 +4,21 @@ import { fileURLToPath } from "url";
 import https from "https";
 import react from "@vitejs/plugin-react";
 
-process.env = {...process.env, ...loadEnv("", process.cwd())};
+const frontendDir = dirname(fileURLToPath(import.meta.url));
+const webDir = dirname(frontendDir);
+const projectDir = dirname(webDir);
 
+process.env = {
+  ...loadEnv("", projectDir),
+  ...loadEnv("", webDir),
+  ...loadEnv("", frontendDir),
+  ...process.env,
+};
 
-console.log("API key: ", process.env.SHOPIFY_API_KEY);
-console.log("Host: ", process.env.HOST);
+const backendPort = process.env.BACKEND_PORT || "3000";
+const frontendPort = process.env.FRONTEND_PORT || "3001";
+const appHost =
+  process.env.HOST || process.env.SHOPIFY_APP_URL || "http://localhost:3000";
 
 if (
   process.env.npm_lifecycle_event === "build" &&
@@ -21,15 +31,13 @@ if (
 }
 
 const proxyOptions = {
-  target: `http://127.0.0.1:${process.env.BACKEND_PORT}`,
+  target: `http://127.0.0.1:${backendPort}`,
   changeOrigin: false,
   secure: true,
   ws: false,
 };
 
-const host = process.env.HOST
-  ? process.env.HOST.replace(/https?:\/\//, "")
-  : "localhost";
+const host = appHost.replace(/https?:\/\//, "");
 
 let hmrConfig;
 if (host === "localhost") {
@@ -43,13 +51,13 @@ if (host === "localhost") {
   hmrConfig = {
     protocol: "wss",
     host: host,
-    port: process.env.FRONTEND_PORT,
+    port: frontendPort,
     clientPort: 443,
   };
 }
 
 export default defineConfig({
-  root: dirname(fileURLToPath(import.meta.url)),
+  root: frontendDir,
   plugins: [react()],
   define: {
     "process.env.SHOPIFY_API_KEY": JSON.stringify(process.env.SHOPIFY_API_KEY),
@@ -59,7 +67,7 @@ export default defineConfig({
   },
   server: {
     host: "localhost",
-    port: process.env.FRONTEND_PORT,
+    port: frontendPort,
     hmr: hmrConfig,
     proxy: {
       "^/(\\?.*)?$": proxyOptions,
