@@ -1,24 +1,16 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import https from "https";
 import react from "@vitejs/plugin-react";
+import { loadEnvironment, resolveAppUrl } from "../app-config.js";
 
 const frontendDir = dirname(fileURLToPath(import.meta.url));
-const webDir = dirname(frontendDir);
-const projectDir = dirname(webDir);
-
-process.env = {
-  ...loadEnv("", projectDir),
-  ...loadEnv("", webDir),
-  ...loadEnv("", frontendDir),
-  ...process.env,
-};
+loadEnvironment({ searchFromDir: frontendDir });
 
 const backendPort = process.env.BACKEND_PORT || "3000";
 const frontendPort = process.env.FRONTEND_PORT || "3001";
-const appHost =
-  process.env.HOST || process.env.SHOPIFY_APP_URL || "http://localhost:3000";
+const appHost = resolveAppUrl({ searchFromDir: frontendDir });
 
 if (
   process.env.npm_lifecycle_event === "build" &&

@@ -4,19 +4,14 @@ import { TitleBar } from "@shopify/app-bridge-react";
 export default function PageName() {
   return (
     <Page>
-      <TitleBar
-        title="Page name"
-        primaryAction={{
-          content: "Primary action",
-          onAction: () => console.log("Primary action"),
-        }}
-        secondaryActions={[
-          {
-            content: "Secondary action",
-            onAction: () => console.log("Secondary action"),
-          },
-        ]}
-      />
+      <TitleBar title="Page name">
+        <button variant="primary" onClick={() => console.log("Primary action")}>
+          Primary action
+        </button>
+        <button onClick={() => console.log("Secondary action")}>
+          Secondary action
+        </button>
+      </TitleBar>
       <Layout>
         <Layout.Section>
           <Card sectioned>

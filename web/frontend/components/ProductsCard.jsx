@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Card, TextContainer, Text } from "@shopify/polaris";
-import { Toast } from "@shopify/app-bridge-react";
+import { useAppBridge } from "@shopify/app-bridge-react";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 
 export function ProductsCard() {
-  const emptyToastProps = { content: null };
   const [isLoading, setIsLoading] = useState(true);
-  const [toastProps, setToastProps] = useState(emptyToastProps);
+  const shopify = useAppBridge();
   const fetch = useAuthenticatedFetch();
 
   const {
@@ -23,29 +22,25 @@ export function ProductsCard() {
     },
   });
 
-  const toastMarkup = toastProps.content && !isRefetchingCount && (
-    <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
-  );
-
   const handlePopulate = async () => {
     setIsLoading(true);
     const response = await fetch("/api/products/create");
 
     if (response.ok) {
       await refetchProductCount();
-      setToastProps({ content: "5 products created!" });
+      if (!isRefetchingCount) {
+        shopify.toast.show("5 products created!");
+      }
     } else {
       setIsLoading(false);
-      setToastProps({
-        content: "There was an error creating products",
-        error: true,
+      shopify.toast.show("There was an error creating products", {
+        isError: true,
       });
     }
   };
 
   return (
     <>
-      {toastMarkup}
       <Card
         title="Product Counter"
         sectioned

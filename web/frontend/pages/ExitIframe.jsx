@@ -1,27 +1,38 @@
-import { Redirect } from "@shopify/app-bridge/actions";
-import { useAppBridge, Loading } from "@shopify/app-bridge-react";
 import { useEffect } from "react";
+import { Card, Layout, Page, Spinner } from "@shopify/polaris";
 import { useLocation } from "react-router-dom";
 
 export default function ExitIframe() {
-  const app = useAppBridge();
   const { search } = useLocation();
 
   useEffect(() => {
-    if (!!app && !!search) {
+    if (search) {
       const params = new URLSearchParams(search);
       const redirectUri = params.get("redirectUri");
-      const url = new URL(decodeURIComponent(redirectUri));
+      if (!redirectUri) {
+        return;
+      }
+
+      const decodedRedirectUri = decodeURIComponent(redirectUri);
+      const url = new URL(decodedRedirectUri);
 
       if (url.hostname === location.hostname) {
-        const redirect = Redirect.create(app);
-        redirect.dispatch(
-          Redirect.Action.REMOTE,
-          decodeURIComponent(redirectUri)
-        );
+        window.open(decodedRedirectUri, "_top");
       }
     }
-  }, [app, search]);
+  }, [search]);
 
-  return <Loading />;
+  return (
+    <Page>
+      <Layout>
+        <Layout.Section>
+          <Card sectioned>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Spinner accessibilityLabel="Redirecting" size="large" />
+            </div>
+          </Card>
+        </Layout.Section>
+      </Layout>
+    </Page>
+  );
 }

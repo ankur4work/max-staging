@@ -1,27 +1,15 @@
-import { existsSync, readFileSync } from "fs";
-import { resolve } from "path";
-import { BillingInterval, LATEST_API_VERSION } from "@shopify/shopify-api";
+import { BillingInterval, ApiVersion } from "@shopify/shopify-api";
 import { shopifyApp } from "@shopify/shopify-app-express";
+import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mongodb";
 import { FileSessionStorage } from "./file-session-storage.js";
-import { restResources } from "@shopify/shopify-api/rest/admin/2023-04";
-import dotenv from "dotenv";
+import { restResources } from "@shopify/shopify-api/rest/admin/2025-07";
+import {
+  isPlaceholderAppUrl,
+  loadEnvironment,
+  resolveAppUrl,
+} from "./app-config.js";
 
-const ENV_FILES = [
-  resolve(process.cwd(), ".env"),
-  resolve(process.cwd(), "..", ".env"),
-];
-
-for (const envFile of ENV_FILES) {
-  if (existsSync(envFile)) {
-    const parsed = dotenv.parse(readFileSync(envFile));
-
-    for (const [key, value] of Object.entries(parsed)) {
-      if (process.env[key] === undefined || process.env[key] === "") {
-        process.env[key] = value;
-      }
-    }
-  }
-}
+loadEnvironment({ searchFromDir: process.cwd() });
 
 const billingConfig = {
   "Premium plan": {
@@ -32,8 +20,23 @@ const billingConfig = {
   },
 };
 
-const appUrl =
-  process.env.HOST || process.env.SHOPIFY_APP_URL || "http://localhost:3000";
+export const appUrl = resolveAppUrl({ searchFromDir: process.cwd() });
+
+if (
+  !process.env.HOST ||
+  isPlaceholderAppUrl(process.env.HOST) ||
+  process.env.HOST !== appUrl
+) {
+  process.env.HOST = appUrl;
+}
+
+if (
+  !process.env.SHOPIFY_APP_URL ||
+  isPlaceholderAppUrl(process.env.SHOPIFY_APP_URL) ||
+  process.env.SHOPIFY_APP_URL !== appUrl
+) {
+  process.env.SHOPIFY_APP_URL = appUrl;
+}
 
 const scopes = (process.env.SCOPES || "")
   .split(",")
@@ -57,16 +60,23 @@ if (missingEnv.length) {
 }
 
 function createSessionStorage() {
+  if (process.env.MONGODB_URL && process.env.MONGODB_DB_NAME) {
+    return new MongoDBSessionStorage(
+      process.env.MONGODB_URL,
+      process.env.MONGODB_DB_NAME
+    );
+  }
+
   return new FileSessionStorage();
 }
 
 const shopify = shopifyApp({
   api: {
-    apiVersion: LATEST_API_VERSION,
+    apiVersion: ApiVersion.July25,
     restResources,
     apiKey: process.env.SHOPIFY_API_KEY,
     apiSecretKey: process.env.SHOPIFY_API_SECRET,
-    hostName: appUrl.replace(/https?:\/\//, ""),
+    hostName: new URL(appUrl).host,
     scopes,
     billing: billingConfig,
   },

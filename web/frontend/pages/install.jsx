@@ -4,7 +4,6 @@ import {
     TopBar
 } from "@shopify/polaris";
 import { useState, useCallback } from 'react';
-import { TitleBar } from "@shopify/app-bridge-react";
 
 import { shopifyBackground } from "../assets";
 import {

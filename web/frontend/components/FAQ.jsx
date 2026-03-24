@@ -2,7 +2,6 @@ import { Card, Page, Layout, TextContainer, Heading, MediaCard, DisplayText, Col
 import {
     ChevronDownMinor, CirclePlusMinor
 } from '@shopify/polaris-icons';
-import { TitleBar } from "@shopify/app-bridge-react";
 import { useState, useCallback } from 'react';
 
 export const FAQ = ({ q, a }) => {

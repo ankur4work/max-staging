@@ -2,18 +2,12 @@ import { useState } from "react";
 import { Page } from "@shopify/polaris";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 import "../assets/m_stylesheet.css";
-import { Redirect } from "@shopify/app-bridge/actions";
 import { useAppBridge } from "@shopify/app-bridge-react";
-import { Toast } from "@shopify/app-bridge-react";
 
 export default function HomePage() {
-  const emptyToastProps = { content: null };
   const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false);
-  const [toastProps, setToastProps] = useState(emptyToastProps);
-
-  const app = useAppBridge();
+  const shopify = useAppBridge();
   const fetch = useAuthenticatedFetch();
-  const redirect = Redirect.create(app);
 
   const { data } = useAppQuery({ url: "/api/getshop" });
   const { data: subData } = useAppQuery({
@@ -39,27 +33,23 @@ export default function HomePage() {
       const data = await res.json();
       setIsLoadingSubscribe(false);
       if (data.error) {
-        setToastProps({ content: "Failed to create subscription", error: true });
+        shopify.toast.show("Failed to create subscription", { isError: true });
       } else if (data.confirmationUrl) {
-        setToastProps({ content: "Redirecting to payment page.." });
-        redirect.dispatch(Redirect.Action.REMOTE, data.confirmationUrl);
+        shopify.toast.show("Redirecting to payment page..");
+        window.open(data.confirmationUrl, "_top");
       } else if (data.isActiveSubscription) {
-        setToastProps({ content: "You already have an active subscription" });
+        shopify.toast.show("You already have an active subscription");
       }
     } catch (e) {
       setIsLoadingSubscribe(false);
-      setToastProps({ content: "Something went wrong. Please try again.", error: true });
+      shopify.toast.show("Something went wrong. Please try again.", {
+        isError: true,
+      });
     }
   }
 
-
-  const toastMarkup = toastProps.content && (
-    <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
-  );
-
   return (
     <Page>
-      {toastMarkup}
       <div className="m-dashboard">
         {/* Subscription Banner */}
         <div className={`m-status-banner ${hasSubscription ? "m-status-premium" : "m-status-free"}`}>

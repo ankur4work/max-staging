@@ -1,9 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
-import { NavigationMenu } from "@shopify/app-bridge-react";
 import Routes from "./Routes";
 
 import {
-  AppBridgeProvider,
   QueryProvider,
   PolarisProvider,
 } from "./components";
@@ -14,18 +12,20 @@ export default function App() {
   const pages = import.meta.globEager("./pages/**/!(*.test.[jt]sx)*.([jt]sx)");
 
   return (
-    <PolarisProvider>
-      <BrowserRouter>
-        <AppBridgeProvider>
-          <QueryProvider>
-            <NavigationMenu
-              navigationLinks={[
-              ]}
-            />
-            <Routes pages={pages} />
-          </QueryProvider>
-        </AppBridgeProvider>
-      </BrowserRouter>
-    </PolarisProvider>
+    <BrowserRouter>
+      <PolarisProvider>
+        <QueryProvider>
+          <s-app-nav>
+            <s-link href="/" rel="home">
+              Home
+            </s-link>
+            <s-link href="/install">Install</s-link>
+            <s-link href="/pricing">Pricing</s-link>
+            <s-link href="/support">Support</s-link>
+          </s-app-nav>
+          <Routes pages={pages} />
+        </QueryProvider>
+      </PolarisProvider>
+    </BrowserRouter>
   );
 }

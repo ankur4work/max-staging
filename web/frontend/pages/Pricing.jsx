@@ -16,21 +16,16 @@ import { shopifyBackground } from "../assets";
 
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Redirect } from "@shopify/app-bridge/actions";
 import { ThemeValidate } from "../components/ThemeSelection";
 
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 import { useAppBridge } from "@shopify/app-bridge-react";
-import { Toast } from "@shopify/app-bridge-react";
 
 export default function Pricing() {
-    const emptyToastProps = { content: null };
     const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false);
     const [isLoadingCancelSubscribe, setIsLoadingCancelSubscribe] = useState(false);
-    const app = useAppBridge();
+    const shopify = useAppBridge();
     const fetch = useAuthenticatedFetch();
-    const redirect = Redirect.create(app);
-    const [toastProps, setToastProps] = useState(emptyToastProps);
 
 
     const {
@@ -49,19 +44,31 @@ export default function Pricing() {
 
     async function subscribePlan() {
         setIsLoadingSubscribe(true);
-        const res = await fetch("/api/recurringSubscription"); //fetch instance of userLoggedInFetch(app)
-        const data = await res.json();
-        setIsLoadingSubscribe(false);
-        if (data.error) {
-            console.log(data.error);
-            setToastProps({ content: "Redirecting to payment page..", error: true });
-        } else if (data.confirmationUrl) {
-            const { confirmationUrl } = data;
-            setToastProps({ content: "Redirecting to payment page.." });
-            redirect.dispatch(Redirect.Action.REMOTE, confirmationUrl);
-        } else if (data.isActiveSubscription) {
-            console.log("Already subscribed")
-            setToastProps({ content: "You already have a active subscription" });
+        try {
+            const res = await fetch("/api/createSubscription");
+
+            if (!res.ok) {
+                throw new Error("Server error");
+            }
+
+            const data = await res.json();
+            setIsLoadingSubscribe(false);
+
+            if (data.error) {
+                console.log(data.error);
+                shopify.toast.show("Failed to create subscription", { isError: true });
+            } else if (data.confirmationUrl) {
+                const { confirmationUrl } = data;
+                shopify.toast.show("Redirecting to payment page..");
+                window.open(confirmationUrl, "_top");
+            } else if (data.isActiveSubscription) {
+                console.log("Already subscribed")
+                shopify.toast.show("You already have an active subscription");
+            }
+        } catch (error) {
+            console.error(error);
+            setIsLoadingSubscribe(false);
+            shopify.toast.show("Something went wrong. Please try again.", { isError: true });
         }
     }
 
@@ -74,18 +81,13 @@ export default function Pricing() {
         setIsLoadingCancelSubscribe(false);
         console.log(data.status);
         if (data.status === "CANCELLED") {
-          setToastProps({ content: "Successfully Cancelled the subscription" });
+          shopify.toast.show("Successfully Cancelled the subscription");
           window.location.reload();
         } else {
-          setToastProps({ content: "Failed to cancel the subscription" });
+          shopify.toast.show("Failed to cancel the subscription", { isError: true });
         }
     
       }
-    
-      
-    const toastMarkup = toastProps.content && (
-        <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
-    );
 
     const tickIcon = <Icon
         source={CircleTickMinor}
@@ -169,7 +171,6 @@ export default function Pricing() {
     return (
         <Frame topBar={topBarMarkup} logo={logo} >
             <Page>
-                {toastMarkup}
                 <Layout>
                     <Layout.Section>
                         <div className="planComparison2">
