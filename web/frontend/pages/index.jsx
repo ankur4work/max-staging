@@ -22,7 +22,7 @@ export default function HomePage() {
 
   const hasSubscription = subData?.hasActiveSubscription === true;
 
-  const supportEmail = "mailto:support@meroxioapps.com";
+  const supportEmail = "mailto:admin@buxtonscaffolding.to";
 
   function openThemeEditor() {
     const url = `https://${data?.shop}/admin/themes/current/editor?template=index`;

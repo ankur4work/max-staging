@@ -10,7 +10,6 @@ function loadSessions() {
       return JSON.parse(readFileSync(SESSION_FILE, "utf8"));
     }
   } catch {
-    // ignore
   }
   return {};
 }
@@ -33,10 +32,22 @@ function toSession(data) {
   return session;
 }
 
+function sessionToJson(session) {
+  return {
+    id: session.id,
+    shop: session.shop,
+    state: session.state,
+    isOnline: session.isOnline,
+    scope: session.scope || "read_products,write_products",
+    accessToken: session.accessToken,
+    expires: session.expires ? session.expires.toISOString() : undefined,
+  };
+}
+
 export class FileSessionStorage {
   async storeSession(session) {
     const sessions = loadSessions();
-    sessions[session.id] = session.toObject ? session.toObject() : session;
+    sessions[session.id] = sessionToJson(session);
     saveSessions(sessions);
     return true;
   }

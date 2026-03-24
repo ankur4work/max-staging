@@ -2,24 +2,20 @@
 
 client_id = "c7b02cfe48f4fdd714fcb6e35923ffa9"
 name = "Max-Staging"
-application_url = "https://your-dev-tunnel.trycloudflare.com"
+application_url = "https://max-staging.solnix.store"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "test321-8746.myshopify.com"
-include_config_on_deploy = true
 
 [webhooks]
 api_version = "2026-04"
 
 [access_scopes]
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://your-dev-tunnel.trycloudflare.com/api/auth/callback",
-  "https://your-dev-tunnel.trycloudflare.com/auth/callback",
-  "https://your-dev-tunnel.trycloudflare.com/auth/shopify/callback"
+  "https://max-staging.solnix.store/api/auth/callback"
 ]
