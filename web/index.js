@@ -47,7 +47,7 @@ app.use(express.json());
 const PREMIUM_PLAN = "Premium plan";
 const MEROXIO = "meroxio";
 const PREMIUM_PLAN_KEY = "comparison_premium";
-const IS_TEST = true;
+const IS_TEST = false;
 
 /* ---------------------- Utility Functions ---------------------- */
 
