@@ -21,15 +21,16 @@ function saveSessions(sessions) {
 
 function toSession(data) {
   if (!data) return undefined;
-  return new Session({
+  const session = new Session({
     id: data.id,
     shop: data.shop,
     state: data.state,
     isOnline: data.isOnline,
-    scope: data.scope,
-    accessToken: data.accessToken,
-    expires: data.expires ? new Date(data.expires) : undefined,
   });
+  if (data.scope) session.scope = data.scope;
+  if (data.accessToken) session.accessToken = data.accessToken;
+  if (data.expires) session.expires = new Date(data.expires);
+  return session;
 }
 
 export class FileSessionStorage {
