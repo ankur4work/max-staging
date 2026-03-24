@@ -6,6 +6,10 @@
     <!-- Ensures that the UI is properly scaled in the Shopify Mobile app -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+    <script>
+      var defined = window.shopify || {};
+      window.__SHOPIFY_DEV_HOST = window.location.ancestorOrigins && window.location.ancestorOrigins[0];
+    </script>
 
     <script type="module">
       if (!import.meta.env || !import.meta.env.PROD) {
