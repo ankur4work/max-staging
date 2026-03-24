@@ -52,16 +52,6 @@ export default function HomePage() {
     }
   }
 
-  async function cancelSubscription() {
-    const res = await fetch("/api/cancelSubscription");
-    const data = await res.json();
-    if (data.status === "CANCELLED") {
-      setToastProps({ content: "Successfully cancelled the subscription" });
-      window.location.reload();
-    } else {
-      setToastProps({ content: "Failed to cancel the subscription" });
-    }
-  }
 
   const toastMarkup = toastProps.content && (
     <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
@@ -180,11 +170,7 @@ export default function HomePage() {
             </table>
 
             <div className="m-plan-actions">
-              {hasSubscription ? (
-                <button className="m-btn m-btn-danger" onClick={cancelSubscription}>
-                  Cancel Subscription
-                </button>
-              ) : (
+              {!hasSubscription && (
                 <button
                   className="m-btn m-btn-primary"
                   onClick={subscribePlan}
