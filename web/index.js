@@ -35,6 +35,7 @@ app.get(
 
 app.post(
   shopify.config.webhooks.path,
+  express.raw({ type: "*/*" }),
   shopify.processWebhooks({ webhookHandlers: GDPRWebhookHandlers })
 );
 
