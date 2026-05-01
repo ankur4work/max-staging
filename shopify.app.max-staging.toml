@@ -2,7 +2,7 @@
 
 client_id = "c7b02cfe48f4fdd714fcb6e35923ffa9"
 name = "Max-Staging"
-application_url = "https://max-staging.solnix.store"
+application_url = "https://gbf5co37alo6y8n04rqa49cm.91.239.208.85.sslip.io"
 embedded = true
 
 [build]
@@ -13,14 +13,14 @@ dev_store_url = "test321-8746.myshopify.com"
 api_version = "2025-07"
 
   [webhooks.privacy_compliance]
-  customer_deletion_url = "https://max-staging.solnix.store/api/webhooks"
-  customer_data_request_url = "https://max-staging.solnix.store/api/webhooks"
-  shop_deletion_url = "https://max-staging.solnix.store/api/webhooks"
+  customer_deletion_url = "https://gbf5co37alo6y8n04rqa49cm.91.239.208.85.sslip.io/api/webhooks"
+  customer_data_request_url = "https://gbf5co37alo6y8n04rqa49cm.91.239.208.85.sslip.io/api/webhooks"
+  shop_deletion_url = "https://gbf5co37alo6y8n04rqa49cm.91.239.208.85.sslip.io/api/webhooks"
 
 [access_scopes]
 scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://max-staging.solnix.store/api/auth/callback"
+  "https://gbf5co37alo6y8n04rqa49cm.91.239.208.85.sslip.io/api/auth/callback"
 ]
