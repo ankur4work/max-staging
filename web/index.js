@@ -34,8 +34,10 @@ app.get(
   shopify.redirectToShopifyOrAppRoot()
 );
 
+console.log("[Startup] webhooks path:", shopify.config.webhooks.path);
+
 app.post(
-  shopify.config.webhooks.path,
+  "/api/webhooks",
   express.text({ type: "*/*" }),
   async (req, res) => {
     const hmacHeader = req.headers["x-shopify-hmac-sha256"];
