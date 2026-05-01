@@ -39,6 +39,9 @@ app.post(
   express.text({ type: "*/*" }),
   async (req, res) => {
     const hmacHeader = req.headers["x-shopify-hmac-sha256"];
+    console.log("[Webhook] body type:", typeof req.body, "| length:", req.body?.length);
+    console.log("[Webhook] body repr:", JSON.stringify(req.body));
+    console.log("[Webhook] hmac header:", hmacHeader);
 
     if (!hmacHeader) {
       return res.status(400).send();
@@ -48,6 +51,7 @@ app.post(
       .createHmac("sha256", process.env.SHOPIFY_API_SECRET)
       .update(req.body, "utf8")
       .digest("base64");
+    console.log("[Webhook] computed hash:", generatedHash);
 
     let valid = false;
     try {
