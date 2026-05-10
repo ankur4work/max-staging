@@ -90,7 +90,14 @@ app.post(
   }
 );
 
-app.use("/api/*", shopify.validateAuthenticatedSession());
+app.use("/api/*", (req, res, next) => {
+  Promise.resolve(shopify.validateAuthenticatedSession()(req, res, next)).catch((err) => {
+    console.error("[Auth] Session validation failed:", err?.message);
+    const shop = req.query.shop || res.locals?.shopify?.session?.shop || "";
+    const redirectUrl = shop ? `/api/auth?shop=${shop}` : "/api/auth";
+    res.redirect(redirectUrl);
+  });
+});
 
 app.use(express.json());
 
