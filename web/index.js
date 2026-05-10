@@ -341,6 +341,11 @@ app.get("/api/plan-info", (_req, res) => {
 
 /* ---------------------- Static & CSP ---------------------- */
 
+app.use((err, req, res, next) => {
+  console.error("[Express error]", err);
+  if (!res.headersSent) res.status(500).json({ error: "Internal server error" });
+});
+
 app.use(shopify.cspHeaders());
 
 app.use(serveStatic(STATIC_PATH, { index: false }));
@@ -361,6 +366,14 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("[CRASH] Unhandled rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[CRASH] Uncaught exception:", err);
 });
 
 /* ---------------------- GraphQL Queries ---------------------- */
