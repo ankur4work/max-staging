@@ -11,12 +11,20 @@ import {
 
 loadEnvironment({ searchFromDir: process.cwd() });
 
+export const PLAN_NAME = process.env.PLAN_NAME || "Premium plan";
+export const PLAN_AMOUNT = parseFloat(process.env.PLAN_AMOUNT || "149.00");
+export const PLAN_TRIAL_DAYS = parseInt(process.env.PLAN_TRIAL_DAYS || "0", 10);
+export const PLAN_INTERVAL =
+  process.env.PLAN_INTERVAL === "ANNUAL"
+    ? BillingInterval.Annual
+    : BillingInterval.Every30Days;
+
 const billingConfig = {
-  "Premium plan": {
-    amount: 149.0,
+  [PLAN_NAME]: {
+    amount: PLAN_AMOUNT,
     currencyCode: "USD",
-    trialDays: 0,
-    interval: BillingInterval.Every30Days,
+    trialDays: PLAN_TRIAL_DAYS,
+    interval: PLAN_INTERVAL,
   },
 };
 

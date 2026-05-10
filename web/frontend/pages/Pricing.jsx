@@ -27,6 +27,11 @@ export default function Pricing() {
     const shopify = useAppBridge();
     const fetch = useAuthenticatedFetch();
 
+    const { data: planInfo } = useAppQuery({ url: "/api/plan-info" });
+    const planName = planInfo?.name || "Pro";
+    const planPrice = planInfo ? `$${planInfo.amount.toFixed(2)}/${planInfo.interval === "ANNUAL" ? "year" : "month"}` : "—";
+    const trialText = planInfo?.trialDays > 0 ? ` · ${planInfo.trialDays}-day free trial` : "";
+
 
     const {
         data,
@@ -95,7 +100,7 @@ export default function Pricing() {
     />
 
     const rows = [
-        ['Cost', 'Free', '$9.99/month',],
+        ['Cost', 'Free', planPrice + trialText],
         ['Product Collection Selection ', tickIcon, tickIcon,],
         ['Bundle product limit per product', '2', '5',],
         ['Embed button in product image', '-', tickIcon,],
@@ -176,7 +181,7 @@ export default function Pricing() {
                             <Card title="Plan Comparison" sectioned
 
                                 primaryFooterAction={{
-                                    content: 'Subscribe to Snap Compare Pro',
+                                    content: `Subscribe to ${planName}`,
                                     onAction: () => {
                                         subscribePlan()
                                     },
@@ -202,7 +207,7 @@ export default function Pricing() {
                                     headings={[
                                         'Features',
                                         'Free version',
-                                        'Snap Compare Pro',
+                                        planName,
                                     ]}
                                     rows={rows}
                                     increasedTableDensity

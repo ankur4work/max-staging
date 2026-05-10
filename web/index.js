@@ -4,7 +4,7 @@ import crypto from "crypto";
 import express from "express";
 import serveStatic from "serve-static";
 
-import shopify from "./shopify.js";
+import shopify, { PLAN_NAME, PLAN_AMOUNT, PLAN_TRIAL_DAYS, PLAN_INTERVAL } from "./shopify.js";
 import productCreator from "./product-creator.js";
 import cancelSubscription from "./cancel-subscription.js";
 import GDPRWebhookHandlers from "./gdpr.js";
@@ -96,7 +96,7 @@ app.use(express.json());
 
 /* ---------------------- Constants ---------------------- */
 
-const PREMIUM_PLAN = "Premium plan";
+const PREMIUM_PLAN = PLAN_NAME;
 const MEROXIO = "meroxio";
 const PREMIUM_PLAN_KEY = "comparison_premium";
 const IS_TEST = true;
@@ -324,6 +324,18 @@ app.get("/api/getshop", async (req, res) => {
       error: "Failed to get shop",
     });
   }
+});
+
+/* ---------------------- Plan Info ---------------------- */
+
+app.get("/api/plan-info", (_req, res) => {
+  res.json({
+    name: PLAN_NAME,
+    amount: PLAN_AMOUNT,
+    trialDays: PLAN_TRIAL_DAYS,
+    interval: process.env.PLAN_INTERVAL === "ANNUAL" ? "ANNUAL" : "MONTHLY",
+    currency: "USD",
+  });
 });
 
 /* ---------------------- Static & CSP ---------------------- */
