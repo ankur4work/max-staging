@@ -1,0 +1,229 @@
+<style>
+    :root{
+      {% if block.settings.details_text_show %}
+    --slider-width:50%;
+    --padding-top: 66.666666667%;
+    {% else %}
+    --slider-width:100%;
+    --padding-top: 50.666666667%;
+  {% endif %}
+    }
+      .m-compare-show-both{
+        display: block;
+        }
+    .m-compare-show-desktop{
+    display: block;
+    }
+    .m-compare-show-mobile{
+      display: none;
+      }
+      .overlay-content-m{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: rgba(0, 0, 0, {{ block.settings.m-compare-overlay | divided_by: 100.0 }});
+      }
+      .m-compare-top{
+      top: 2%;
+      }
+      .m-compare-middle{
+        top: 40%;
+
+        }
+      .m-compare-bottom{
+        bottom: 2%;
+        }
+    .m-image-comparison-heading{
+      text-align: center;
+    }
+    .m-image-comparison-heading h2{
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0;
+        padding-bottom: 15px;
+        font-weight: 600;
+    }
+    .m-compare-border-radius{
+      border-radius: 5px;
+    }
+    .m_comparison_right_text_box_text_color h3{
+      color: {{ block.settings.primary }};
+    }
+    .m-image-scroll-btn{
+      background-color: {{ block.settings.primary }};
+    }
+    .m_comparison_right_text_box_text_color p{
+      color: {{ block.settings.secondary }};
+      padding: 0 10px;
+    }
+    .m-image-comparison-heading-text-color h2{
+      color: {{ block.settings.primary }};
+    }
+    .m_image_comparison_slider_bg {
+      background: {{ block.settings.comparison-bg }};
+    }
+    .m-comparison-left-to-right-desktop{
+      flex-direction: row-reverse;
+    }
+    .m-image-comparison__caption-body{
+      background-color: {{ block.settings.primary }};
+    }
+    .m-comparison-right-btn a button{
+      background-color: {{ block.settings.primary }};
+    }
+    .second-overlay-content-m {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, {{ block.settings.m-compare-overlay-2 | divided_by: 100.0 }});
+  }
+  .details_text_show{
+    width: 100%;
+  }
+  .m-compare-images-radius{
+    border-radius: 5px;
+  }
+    @media(max-width: 678px){
+      .m-compare-show-desktop{
+        display: none;
+        }
+        .m-compare-show-mobile{
+          display: block;
+          }
+            .m-comparison-top-to-bottom-mobile{
+              display: flex;
+              flex-direction: column;
+            }
+    }
+</style>
+{{ block.settings['m-compare-custom'] }}
+
+<div id="mcsp-{{ block.id }}">
+  <div
+    class="m-image-comparison m_image_comparison_slider_bg {{ block.settings.m-compare-show-device }}"
+    data-component="m-image-comparison-slider"
+    data-component-id="m-image-comparison-slider-{{ block.id }}"
+  >
+    <div class="m-image-comparison-heading m-image-comparison-heading-text-color">
+      <h2>{{ block.settings['main-heading'] }}</h2>
+    </div>
+    <div class="m-comparison_image_with_text_container {% if block.settings.right-left %} m-comparison-left-to-right-desktop m-comparison-top-to-bottom-mobile {% endif %}">
+      <div class="m-image-comparison__slider-wrapper">
+        <label for="m-image-comparison-range" class="m-image-comparison__label"></label>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          class="m-image-comparison__range"
+          id="m-image-compare-range"
+          data-m-image-comparison-range=""
+        >
+        <div>
+          <div
+            class="m-image-comparison__image-wrapper  m-image-comparison__image-wrapper--overlay"
+            data-m-image-comparison-overlay=""
+          >
+            <figure class="m-image-comparison__figure m-image-comparison__figure--overlay">
+              <picture class="m-image-comparison__picture">
+                {% if block.settings['image-1'] != blank %}
+                  <img
+                    width="900"
+                    height="250"
+                    src="{{ block.settings.image-1 | image_url: width: 900 }}"
+                    class="m-image-comparison__image"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <img
+                    width="900"
+                    height="250"
+                    src="https://cdn.shopify.com/s/files/1/0629/5522/5264/files/1.png?v=1702358287"
+                    class="m-image-comparison__image"
+                    loading="lazy"
+                  >
+                {% endif %}
+              </picture>
+              <figcaption class="m-image-comparison__caption m-image-comparison__caption--before {{ block.settings.m-compare-content-position }}">
+                {% if block.settings['before-content'] != blank -%}
+                  <span class="m-image-comparison__caption-body {% if block.settings.m-compare-images-radius != false %} m-compare-images-radius {% endif %}">
+                    {{- block.settings['before-content'] -}}
+                  </span>
+                {% endif %}
+              </figcaption>
+              <div class="overlay-content-m"><span></span></div>
+            </figure>
+          </div>
+          <div class="m-image-comparison__slider" data-m-image-comparison-slider="">
+            <span class="m-image-move-box m-image-scroll-btn" data-image-comparison-thumb="">
+              <svg
+                class="image-comparison__thumb-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="10"
+                viewBox="0 0 18 10"
+                fill="currentColor"
+              >
+                <path class="image-comparison__thumb-icon--left" d="M12.121 4.703V.488c0-.302.384-.454.609-.24l4.42 4.214a.33.33 0 0 1 0 .481l-4.42 4.214c-.225.215-.609.063-.609-.24V4.703z"></path>
+                <path class="image-comparison__thumb-icon--right" d="M5.879 4.703V.488c0-.302-.384-.454-.609-.24L.85 4.462a.33.33 0 0 0 0 .481l4.42 4.214c.225.215.609.063.609-.24V4.703z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="m-image-comparison__image-wrapper">
+          <figure class="m-image-comparison__figure">
+            <picture class="m-image-comparison__picture">
+              {% if block.settings['image-2'] != null %}
+                <img
+                  width="900"
+                  height="200"
+                  src="{{ block.settings.image-2 | image_url: width: 900 }}"
+                  class="m-image-comparison__image"
+                  loading="lazy"
+                >
+              {% else %}
+                <img
+                  width="900"
+                  height="200"
+                  src="https://cdn.shopify.com/s/files/1/0629/5522/5264/files/2.png?v=1702358287"
+                  class="m-image-comparison__image"
+                  loading="lazy"
+                >
+              {% endif %}
+            </picture>
+            <figcaption class="m-image-comparison__caption m-image-comparison__caption--after {{ block.settings.m-compare-content-position }}">
+              {% if block.settings['after-content'] != blank -%}
+                <span class="m-image-comparison__caption-body {% if block.settings.m-compare-images-radius != false %} m-compare-images-radius {% endif %}">
+                  {{- block.settings['after-content'] -}}
+                </span>
+              {% endif %}
+            </figcaption>
+            <div class="second-overlay-content-m"><span></span></div>
+          </figure>
+        </div>
+      </div>
+      {% if block.settings.details_text_show %}
+        <div class="m_comparison_right_text_box m_comparison_right_text_box_text_color">
+          {% if block.settings.m_heading != blank %}
+            <h3>{{ block.settings.m_heading }}</h3>
+          {% endif %}
+          {% if block.settings.paragraph != blank %} {{ block.settings.paragraph }} {% endif %}
+          {% if block.settings['cta-text'] != blank %}
+            <div class="m-comparison-right-btn">
+              <a href="{{ block.settings.cta-url }}"
+                ><button class="{% if block.settings.m-compare-images-radius != false %} m-compare-images-radius {% endif %}">
+                  {{ block.settings['cta-text'] }}
+                </button></a
+              >
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

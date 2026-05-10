@@ -1,0 +1,199 @@
+#meroxio-comparison-slider-free .m-image-comparison {
+  padding: 2rem 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__label {
+  font-size: 0;
+  line-height: 0;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__label,
+#meroxio-comparison-slider-free .m-image-comparison__range {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: ew-resize;
+  z-index: 20;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__image-wrapper--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(50% + 1px);
+  height: 100%;
+  overflow: hidden;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__figure {
+  margin: 0;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__figure::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__figure:not(.m-image-comparison__figure--overlay) {
+  position: relative;
+  padding-top: 50.666666667%;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 0 50%;
+  overflow: hidden;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__figure--overlay .m-image-comparison__image {
+  z-index: 1;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__caption {
+  position: absolute;
+  bottom: 12px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+#meroxio-comparison-slider-free .m_powered_massage {
+  color: #0091df;
+  text-align: center;
+  font-weight: 600;
+  line-height: inherit;
+  margin-bottom: 0;
+}
+
+@media (max-width: 678px) {
+  #meroxio-comparison-slider-free .m-image-comparison__caption {
+    font-size: 12px;
+  }
+  #meroxio-comparison-slider-free .m-image-comparison__figure:not(.m-image-comparison__figure--overlay) {
+    position: relative;
+    padding-top: 66.666666667%;
+  }
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__caption--before {
+  left: 12px;
+  z-index: 2;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__caption--after {
+  right: 12px;
+  text-align: right;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__slider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  background-color: #fff;
+  width: 2px;
+  height: 100%;
+  transition: background-color 0.3s ease-in-out;
+  z-index: 10;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range--active ~ .m-image-comparison__slider {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#meroxio-comparison-slider-free .m-image-move-box {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 22px 0 rgba(0, 0, 0, 0.5);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range::-webkit-slider-runnable-track {
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range::-moz-range-thumb {
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range::-webkit-slider-thumb {
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range::-ms-fill-lower {
+  background-color: transparent;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range::-ms-track {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  color: transparent;
+  outline: none;
+  cursor: col-resize;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range::-ms-thumb {
+  width: 0.5%;
+  height: 100%;
+  opacity: 0;
+}
+
+#meroxio-comparison-slider-free .m-image-comparison__range::-ms-tooltip {
+  display: none;
+}

@@ -1,0 +1,186 @@
+{% render "meroxio_comparison_slider_snippets" %}
+{% schema %}
+  {
+    "name": "Comparison Slider",
+    "target": "section",
+    "stylesheet": "meroxio_comparison_slider.css",
+    "javascript": "meroxio_comparison_slider.js",
+    "available_if": "{{ app.metafields.meroxio.comparison_premium }}",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Settings"
+    },
+      {
+        "type": "select",
+        "id": "m-compare-show-device",
+        "label": "Show on Mobile/Desktop",
+        "options": [
+          {
+            "value": "m-compare-show-both",
+            "label": "Both"
+          },
+          {
+            "value": "m-compare-show-desktop",
+            "label": "Desktop"
+          },
+          {
+            "value": "m-compare-show-mobile",
+            "label": "Mobile"
+          }
+        ],
+        "default": "m-compare-show-both"
+      },
+      {
+        "type": "text",
+        "id": "main-heading",
+        "label": "Heading",
+        "default": "Comparison Slider"
+      },
+      {
+        "type": "header",
+        "content": "Comparison Block-1"
+    },
+        {
+            "type": "image_picker",
+            "id": "image-1",
+            "label": "Comparison Image",
+            "info": "Recommended Size (1200x600)px"
+          },
+          {
+            "type": "range",
+            "id": "m-compare-overlay",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Image Overlay",
+            "default": 0
+          },
+          {
+            "type": "text",
+            "id": "before-content",
+            "label": "Overlay Text",
+            "default": "Before"
+          },
+          {
+            "type": "header",
+            "content": "Comparison Block-2"
+        },
+                      {
+            "type": "image_picker",
+            "id": "image-2",
+            "label": "Comparison Image",
+            "info": "Recommended Size (1200x600)px"
+          },
+          {
+            "type": "range",
+            "id": "m-compare-overlay-2",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Image Overlay",
+            "default": 0
+          },
+          {
+            "type": "text",
+            "id": "after-content",
+            "label": "Overlay Text",
+             "default": "After"
+          },
+          {
+            "type": "header",
+            "content": "Detail Settings"
+        },
+        {
+          "type": "text",
+          "id": "m_heading",
+          "label": "Heading",
+          "default": "Dynamic Comparisons"
+        },
+        {
+          "type": "richtext",
+          "id": "paragraph",
+          "label": "Description",
+          "default": "<p>A comparison slider is a visual tool that allows users to interactively compare two items or concepts on a website or application. Users can slide horizontally to reveal different aspects of each item, making it a dynamic and engaging way to showcase differences.</p>"
+        },
+        {
+          "type": "text",
+          "id": "cta-text",
+          "label": "CTA Text",
+          "default": "Button"
+        },
+        {
+          "type": "url",
+          "id": "cta-url",
+          "label": "CTA Link"
+        },
+        {
+          "type": "header",
+          "content": "Design Settings"
+      },
+      {
+        "type": "select",
+        "id": "m-compare-content-position",
+        "label": "Image Overlay Text Position",
+        "options": [
+          {
+            "value": "m-compare-top",
+            "label": "Top"
+          },
+          {
+            "value": "m-compare-middle",
+            "label": "Middle"
+          },
+          {
+            "value": "m-compare-bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "m-compare-bottom"
+      },
+      {
+        "type": "checkbox",
+        "id": "details_text_show",
+        "label": "Details Text - Show",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "m-compare-images-radius",
+        "label": "Button Rounded Corner",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "right-left",
+        "label": "Swap Image and Detail Position",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "primary",
+        "label": "Primary",
+        "default": "#0091df"
+      },
+      {
+        "type": "color",
+        "id": "secondary",
+        "label": "secondary",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "comparison-bg",
+        "label": "Background Color",
+        "default": "#dddddd"
+      },
+        {
+          "type": "html",
+          "id": "m-compare-custom",
+          "label": "Custom CSS"
+        }
+    ]
+  }
+{% endschema %}

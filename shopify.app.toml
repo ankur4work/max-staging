@@ -1,0 +1,27 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+# IMPORTANT: Fill in client_id and application_url from your new Shopify Partner Dashboard app
+
+name = "Snap Compare"
+client_id = "YOUR_CLIENT_ID_FROM_PARTNER_DASHBOARD"
+application_url = "https://YOUR_COOLIFY_DOMAIN"
+embedded = true
+
+[webhooks]
+api_version = "2026-04"
+
+  [[webhooks.subscriptions]]
+  uri = "https://YOUR_COOLIFY_DOMAIN/api/webhooks"
+  compliance_topics = [ "customers/data_request", "customers/redact", "shop/redact" ]
+
+[access_scopes]
+scopes = "read_products,write_products"
+optional_scopes = [ ]
+use_legacy_install_flow = false
+
+[auth]
+redirect_urls = [
+  "https://YOUR_COOLIFY_DOMAIN/api/auth/callback"
+]
+
+[build]
+automatically_update_urls_on_dev = true

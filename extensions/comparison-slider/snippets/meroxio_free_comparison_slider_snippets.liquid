@@ -1,0 +1,167 @@
+<style>
+  #meroxio-comparison-slider-free .m-compare-show-both {
+    display: block;
+  }
+
+  #meroxio-comparison-slider-free .m-compare-show-desktop {
+    display: block;
+  }
+
+  #meroxio-comparison-slider-free .m-compare-show-mobile {
+    display: none;
+  }
+
+  #meroxio-comparison-slider-free .m-compare-bottom {
+    bottom: 2%;
+  }
+
+  #meroxio-comparison-slider-free .m-image-comparison-heading {
+    text-align: center;
+  }
+
+  #meroxio-comparison-slider-free .m-image-comparison-heading h2 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    padding-bottom: 15px;
+    font-weight: 600;
+  }
+
+  #meroxio-comparison-slider-free .m-compare-border-radius {
+    border-radius: 5px;
+  }
+
+  #meroxio-comparison-slider-free .m-image-scroll-btn {
+    background-color: {{ block.settings.primary }};
+  }
+
+  #meroxio-comparison-slider-free .m-image-comparison-heading-text-color h2 {
+    color: {{ block.settings.primary }};
+  }
+
+  #meroxio-comparison-slider-free .m_image_comparison_slider_bg {
+    background: {{ block.settings.comparison-bg }};
+  }
+
+  #meroxio-comparison-slider-free .m_powered_our_logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(225deg, #ffffffc3 30px, transparent 0);
+    color: white;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  #meroxio-comparison-slider-free .m_powered_our_logo img {
+    position: relative;
+    top: 7%;
+    left: 60%;
+  }
+  @media (max-width: 678px) {
+    #meroxio-comparison-slider-free .m-compare-show-desktop {
+      display: none;
+    }
+
+    #meroxio-comparison-slider-free .m-compare-show-mobile {
+      display: block;
+    }
+  }
+</style>
+{{ block.settings['m-compare-custom'] }}
+<div id="mcsf-{{ block.id }}">
+  <div id="meroxio-comparison-slider-free">
+    <div
+      class="m-image-comparison m_image_comparison_slider_bg {{ block.settings.m-compare-show-device }}"
+      data-component="m-image-comparison-slider"
+    >
+      <div class="m-image-comparison-heading m-image-comparison-heading-text-color">
+        <h2>{{ block.settings['main-heading'] }}</h2>
+      </div>
+      <div class="m-comparison_image_with_text_container">
+        <div class="m-image-comparison__slider-wrapper">
+          <label for="m-image-comparison-range" class="m-image-comparison__label"></label>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            class="m-image-comparison__range"
+            id="m-image-compare-range"
+            data-m-image-comparison-range=""
+          >
+          <div>
+            <div
+              class="m-image-comparison__image-wrapper  m-image-comparison__image-wrapper--overlay"
+              data-m-image-comparison-overlay=""
+            >
+              <figure class="m-image-comparison__figure m-image-comparison__figure--overlay">
+                <picture class="m-image-comparison__picture">
+                  {% if block.settings['image-1'] != blank %}
+                    <img
+                      width="900"
+                      height="200"
+                      src="{{ block.settings.image-1 | image_url: width: 900 }}"
+                      class="m-image-comparison__image"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <img
+                      width="900"
+                      height="200"
+                      src="https://cdn.shopify.com/s/files/1/0629/5522/5264/files/1.png?v=1702358287"
+                      class="m-image-comparison__image"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                </picture>
+              </figure>
+            </div>
+            <div class="m-image-comparison__slider" data-m-image-comparison-slider="">
+              <span class="m-image-move-box m-image-scroll-btn" data-image-comparison-thumb="">
+                <svg
+                  class="image-comparison__thumb-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="10"
+                  viewBox="0 0 18 10"
+                  fill="currentColor"
+                >
+                  <path class="image-comparison__thumb-icon--left" d="M12.121 4.703V.488c0-.302.384-.454.609-.24l4.42 4.214a.33.33 0 0 1 0 .481l-4.42 4.214c-.225.215-.609.063-.609-.24V4.703z"></path>
+                  <path class="image-comparison__thumb-icon--right" d="M5.879 4.703V.488c0-.302-.384-.454-.609-.24L.85 4.462a.33.33 0 0 0 0 .481l4.42 4.214c.225.215.609.063.609-.24V4.703z"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="m-image-comparison__image-wrapper">
+            <figure class="m-image-comparison__figure">
+              <picture class="m-image-comparison__picture">
+                {% if block.settings['image-2'] != null %}
+                  <img
+                    width="900"
+                    height="200"
+                    src="{{ block.settings.image-2 | image_url: width: 900 }}"
+                    class="m-image-comparison__image"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <img
+                    width="900"
+                    height="200"
+                    src="https://cdn.shopify.com/s/files/1/0629/5522/5264/files/2.png?v=1702358287"
+                    class="m-image-comparison__image"
+                    loading="lazy"
+                  >
+                {% endif %}
+              </picture>
+            </figure>
+          </div>
+      
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

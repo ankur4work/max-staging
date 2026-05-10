@@ -1,0 +1,82 @@
+{% render "meroxio_free_comparison_slider_snippets" %}
+{% schema %}
+  {
+    "name": "Comparison Slider - Free",
+    "target": "section",
+    "stylesheet": "meroxio_free_comparison_slider.css",
+    "javascript": "meroxio_free_comparison_slider.js",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Settings"
+    },
+      {
+        "type": "select",
+        "id": "m-compare-show-device",
+        "label": "Show on Mobile/Desktop",
+        "options": [
+          {
+            "value": "m-compare-show-both",
+            "label": "Both"
+          },
+          {
+            "value": "m-compare-show-desktop",
+            "label": "Desktop"
+          },
+          {
+            "value": "m-compare-show-mobile",
+            "label": "Mobile"
+          }
+        ],
+        "default": "m-compare-show-both"
+      },
+      {
+        "type": "text",
+        "id": "main-heading",
+        "label": "Heading",
+        "default": "Comparison Slider - Free"
+      },
+      {
+        "type": "header",
+        "content": "Comparison Block-1"
+    },
+        {
+            "type": "image_picker",
+            "id": "image-1",
+            "label": "Comparison Image",
+            "info": "Recommended Size (1200x600)px"
+          },
+          {
+            "type": "header",
+            "content": "Comparison Block-2"
+        },
+                      {
+            "type": "image_picker",
+            "id": "image-2",
+            "label": "Comparison Image",
+            "info": "Recommended Size (1200x600)px"
+          },
+        {
+          "type": "header",
+          "content": "Design Settings"
+      },
+      {
+        "type": "color",
+        "id": "primary",
+        "label": "Primary",
+        "default": "#0091df"
+      },
+      {
+        "type": "color",
+        "id": "comparison-bg",
+        "label": "Background Color",
+        "default": "#dddddd"
+      },
+        {
+          "type": "html",
+          "id": "m-compare-custom",
+          "label": "Custom CSS"
+        }
+    ]
+  }
+{% endschema %}
