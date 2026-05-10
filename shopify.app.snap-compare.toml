@@ -3,14 +3,14 @@
 
 name = "Snap Compare"
 client_id = "d70acf1632992522daae7af3dfb25af1"
-application_url = "https://atzb1ruma6ra252uivl7a865.91.239.208.85.sslip.io"
+application_url = "https://g7j72nha9xcpjj2iuficsfne.91.239.208.85.sslip.io"
 embedded = true
 
 [webhooks]
 api_version = "2026-04"
 
   [[webhooks.subscriptions]]
-  uri = "https://atzb1ruma6ra252uivl7a865.91.239.208.85.sslip.io/api/webhooks"
+  uri = "https://g7j72nha9xcpjj2iuficsfne.91.239.208.85.sslip.io/api/webhooks"
   compliance_topics = [ "customers/data_request", "customers/redact", "shop/redact" ]
 
 [access_scopes]
@@ -20,7 +20,7 @@ use_legacy_install_flow = false
 
 [auth]
 redirect_urls = [
-  "https://atzb1ruma6ra252uivl7a865.91.239.208.85.sslip.io/api/auth/callback"
+  "https://g7j72nha9xcpjj2iuficsfne.91.239.208.85.sslip.io/api/auth/callback"
 ]
 
 [build]
