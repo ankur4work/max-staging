@@ -2,7 +2,7 @@
 # IMPORTANT: Fill in client_id and application_url from your new Shopify Partner Dashboard app
 
 name = "Snap Compare"
-client_id = "YOUR_CLIENT_ID_FROM_PARTNER_DASHBOARD"
+client_id = "d70acf1632992522daae7af3dfb25af1"
 application_url = "https://YOUR_COOLIFY_DOMAIN"
 embedded = true
 
