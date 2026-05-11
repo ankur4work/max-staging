@@ -98,4 +98,10 @@ const shopify = shopifyApp({
   sessionStorage: createSessionStorage(),
 });
 
+// Compliance webhooks are managed via TOML/Partner Dashboard.
+// Overriding registerWebhooks prevents a 403 from blocking OAuth completion.
+shopify.registerWebhooks = async () => {
+  console.log("[Webhooks] Registration skipped (managed via TOML)");
+};
+
 export default shopify;

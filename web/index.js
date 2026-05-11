@@ -30,14 +30,7 @@ app.get(shopify.config.auth.path, shopify.auth.begin());
 
 app.get(
   shopify.config.auth.callbackPath,
-  async (req, res, next) => {
-    shopify.auth.callback()(req, res, (err) => {
-      if (err) {
-        console.error("[Auth] Callback error (non-fatal, continuing):", err?.message);
-      }
-      next();
-    });
-  },
+  shopify.auth.callback(),
   shopify.redirectToShopifyOrAppRoot()
 );
 
