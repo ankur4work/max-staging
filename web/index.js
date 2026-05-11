@@ -218,36 +218,27 @@ async function requestSubscription(session) {
 async function fetchInstallation(session) {
   const client = getGraphQLClient(session);
 
-  const response = await client.query({
-    data: {
-      query: CURRENT_APP_INSTALLATION,
-      variables: {
-        namespace: MEROXIO,
-        key: PREMIUM_PLAN_KEY,
-      },
-    },
+  const result = await client.request(CURRENT_APP_INSTALLATION, {
+    variables: { namespace: MEROXIO, key: PREMIUM_PLAN_KEY },
   });
 
-  return response.body.data.currentAppInstallation;
+  return result.data.currentAppInstallation;
 }
 
 async function createPremiumMetafield(session, ownerId) {
   const client = getGraphQLClient(session);
 
-  return await client.query({
-    data: {
-      query: CREATE_APP_DATA_METAFIELD,
-      variables: {
-        metafieldsSetInput: [
-          {
-            namespace: MEROXIO,
-            key: PREMIUM_PLAN_KEY,
-            type: "boolean",
-            value: "true",
-            ownerId,
-          },
-        ],
-      },
+  return await client.request(CREATE_APP_DATA_METAFIELD, {
+    variables: {
+      metafieldsSetInput: [
+        {
+          namespace: MEROXIO,
+          key: PREMIUM_PLAN_KEY,
+          type: "boolean",
+          value: "true",
+          ownerId,
+        },
+      ],
     },
   });
 }
@@ -255,15 +246,8 @@ async function createPremiumMetafield(session, ownerId) {
 async function deletePremiumMetafield(session, metafieldId) {
   const client = getGraphQLClient(session);
 
-  return await client.query({
-    data: {
-      query: DELETE_APP_DATA_METAFIELD,
-      variables: {
-        input: {
-          id: metafieldId,
-        },
-      },
-    },
+  return await client.request(DELETE_APP_DATA_METAFIELD, {
+    variables: { input: { id: metafieldId } },
   });
 }
 
