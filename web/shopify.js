@@ -87,9 +87,6 @@ const shopify = shopifyApp({
     hostName: new URL(appUrl).host,
     scopes,
     billing: billingConfig,
-    future: {
-      expiringOfflineAccessTokens: true,
-    },
   },
   auth: {
     path: "/api/auth",
