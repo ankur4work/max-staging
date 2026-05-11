@@ -186,8 +186,8 @@ async function requestSubscription(session) {
   const appUrl = process.env.SHOPIFY_APP_URL || process.env.HOST;
   const returnUrl = `${appUrl}?shop=${session.shop}&host=${Buffer.from(`${session.shop}/admin`).toString("base64")}`;
   const result = await client.request(`
-    mutation AppSubscriptionCreate($name: String!, $lineItems: [AppSubscriptionLineItemInput!]!, $returnUrl: URL!, $test: Boolean) {
-      appSubscriptionCreate(name: $name, lineItems: $lineItems, returnUrl: $returnUrl, test: $test) {
+    mutation AppSubscriptionCreate($name: String!, $lineItems: [AppSubscriptionLineItemInput!]!, $returnUrl: URL!, $test: Boolean, $trialDays: Int) {
+      appSubscriptionCreate(name: $name, lineItems: $lineItems, returnUrl: $returnUrl, test: $test, trialDays: $trialDays) {
         confirmationUrl
         userErrors { field message }
       }
@@ -197,12 +197,12 @@ async function requestSubscription(session) {
       name: PREMIUM_PLAN,
       returnUrl,
       test: IS_TEST,
+      trialDays: PLAN_TRIAL_DAYS > 0 ? PLAN_TRIAL_DAYS : null,
       lineItems: [{
         plan: {
           appRecurringPricingDetails: {
             price: { amount: PLAN_AMOUNT, currencyCode: "USD" },
             interval: "EVERY_30_DAYS",
-            ...(PLAN_TRIAL_DAYS > 0 ? { trialDays: PLAN_TRIAL_DAYS } : {}),
           }
         }
       }]
