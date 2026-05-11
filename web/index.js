@@ -201,7 +201,8 @@ async function requestSubscription(session) {
         plan: {
           appRecurringPricingDetails: {
             price: { amount: PLAN_AMOUNT, currencyCode: "USD" },
-            interval: "EVERY_30_DAYS",
+            interval: process.env.PLAN_INTERVAL === "ANNUAL" ? "ANNUAL" : "EVERY_30_DAYS",
+            ...(PLAN_TRIAL_DAYS > 0 ? { trialDays: PLAN_TRIAL_DAYS } : {}),
           }
         }
       }]

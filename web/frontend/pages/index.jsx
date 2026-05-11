@@ -13,8 +13,13 @@ export default function HomePage() {
   const { data: subData } = useAppQuery({
     url: "/api/hasActiveSubscription",
   });
+  const { data: planData } = useAppQuery({ url: "/api/plan-info" });
 
   const hasSubscription = subData?.hasActiveSubscription === true;
+  const planPrice = planData
+    ? `$${parseFloat(planData.amount).toFixed(2)}/${planData.interval === "ANNUAL" ? "year" : "month"}`
+    : "$149.00/month";
+  const trialDays = planData?.trialDays > 0 ? ` + ${planData.trialDays}-day free trial` : "";
 
   const supportEmail = "mailto:admin@buxtonscaffolding.to";
 
@@ -141,7 +146,7 @@ export default function HomePage() {
               </thead>
               <tbody>
                 {[
-                  ["Cost", "Free", "$149.00/month"],
+                  ["Cost", "Free", `${planPrice}${trialDays}`],
                   ["Interactive Visual Comparison", "Basic", "Enhanced"],
                   ["Customizable Overlay Settings", "Limited", "\u2713"],
                   ["Effortless Integration", "Standard", "Priority"],
