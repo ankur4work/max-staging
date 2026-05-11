@@ -6,7 +6,7 @@ import crypto from "crypto";
 import express from "express";
 import serveStatic from "serve-static";
 
-import shopify, { PLAN_NAME, PLAN_AMOUNT, PLAN_TRIAL_DAYS, PLAN_INTERVAL } from "./shopify.js";
+import shopify, { PLAN_NAME, PLAN_AMOUNT, PLAN_TRIAL_DAYS } from "./shopify.js";
 import productCreator from "./product-creator.js";
 import cancelSubscription from "./cancel-subscription.js";
 import GDPRWebhookHandlers from "./gdpr.js";
@@ -201,7 +201,7 @@ async function requestSubscription(session) {
         plan: {
           appRecurringPricingDetails: {
             price: { amount: PLAN_AMOUNT, currencyCode: "USD" },
-            interval: process.env.PLAN_INTERVAL === "ANNUAL" ? "ANNUAL" : "EVERY_30_DAYS",
+            interval: "EVERY_30_DAYS",
             ...(PLAN_TRIAL_DAYS > 0 ? { trialDays: PLAN_TRIAL_DAYS } : {}),
           }
         }
@@ -400,7 +400,7 @@ app.get("/api/plan-info", (_req, res) => {
     name: PLAN_NAME,
     amount: PLAN_AMOUNT,
     trialDays: PLAN_TRIAL_DAYS,
-    interval: process.env.PLAN_INTERVAL === "ANNUAL" ? "ANNUAL" : "MONTHLY",
+    interval: "MONTHLY",
     currency: "USD",
   });
 });
