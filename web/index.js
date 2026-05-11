@@ -205,6 +205,7 @@ app.get("/api/createSubscription", async (req, res) => {
       });
     }
 
+    console.log("[Billing] Requesting plan:", PREMIUM_PLAN, "isTest:", IS_TEST, "amount:", PLAN_AMOUNT);
     const response = await requestSubscription(session);
 
     /** @type {string|undefined} */
@@ -220,7 +221,7 @@ app.get("/api/createSubscription", async (req, res) => {
       confirmationUrl,
     });
   } catch (error) {
-    console.error("Failed to create subscription:", error);
+    console.error("Failed to create subscription:", error?.message, error?.response?.code, JSON.stringify(error?.response?.body));
 
     res.status(500).send({
       error: "Failed to create subscription",
