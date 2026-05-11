@@ -1,5 +1,7 @@
 import { join } from "path";
 import { readFileSync } from "fs";
+import { webcrypto } from "crypto";
+if (!globalThis.crypto) globalThis.crypto = webcrypto;
 import crypto from "crypto";
 import express from "express";
 import serveStatic from "serve-static";
