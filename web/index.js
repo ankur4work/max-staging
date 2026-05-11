@@ -90,20 +90,39 @@ app.post(
   }
 );
 
-app.use("/api/*", (req, res, next) => {
-  Promise.resolve(shopify.validateAuthenticatedSession()(req, res, next)).catch((err) => {
-    console.error("[Auth] Session validation failed:", err?.message);
-    let shop = req.query.shop || res.locals?.shopify?.session?.shop || "";
-    if (!shop) {
+app.use("/api/*", async (req, res, next) => {
+  try {
+    const token = (req.headers.authorization || "").replace("Bearer ", "");
+    let shop = req.query.shop || "";
+
+    if (token) {
       try {
-        const token = (req.headers.authorization || "").replace("Bearer ", "");
-        const payload = JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString());
+        const payload = await shopify.api.session.decodeSessionToken(token);
         shop = (payload.dest || "").replace("https://", "");
-      } catch {}
+      } catch {
+        const raw = JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString());
+        shop = (raw.dest || "").replace("https://", "");
+      }
     }
-    if (shop) return res.redirect(`/api/auth?shop=${shop}`);
-    return res.status(401).json({ error: "Session expired. Please reload the app." });
-  });
+
+    if (!shop) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const sessionId = shopify.api.session.getOfflineId(shop);
+    const session = await shopify.config.sessionStorage.loadSession(sessionId);
+
+    if (!session) {
+      console.log("[Auth] No session found for shop, redirecting to auth:", shop);
+      return res.redirect(`/api/auth?shop=${shop}`);
+    }
+
+    res.locals.shopify = { ...res.locals.shopify, session };
+    return next();
+  } catch (err) {
+    console.error("[Auth] Middleware error:", err?.message);
+    return res.status(500).json({ error: "Auth error" });
+  }
 });
 
 app.use(express.json());
