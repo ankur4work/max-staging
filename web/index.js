@@ -93,9 +93,16 @@ app.post(
 app.use("/api/*", (req, res, next) => {
   Promise.resolve(shopify.validateAuthenticatedSession()(req, res, next)).catch((err) => {
     console.error("[Auth] Session validation failed:", err?.message);
-    const shop = req.query.shop || res.locals?.shopify?.session?.shop || "";
-    const redirectUrl = shop ? `/api/auth?shop=${shop}` : "/api/auth";
-    res.redirect(redirectUrl);
+    let shop = req.query.shop || res.locals?.shopify?.session?.shop || "";
+    if (!shop) {
+      try {
+        const token = (req.headers.authorization || "").replace("Bearer ", "");
+        const payload = JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString());
+        shop = (payload.dest || "").replace("https://", "");
+      } catch {}
+    }
+    if (shop) return res.redirect(`/api/auth?shop=${shop}`);
+    return res.status(401).json({ error: "Session expired. Please reload the app." });
   });
 });
 
