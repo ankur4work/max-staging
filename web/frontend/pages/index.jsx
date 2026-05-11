@@ -83,13 +83,12 @@ export default function HomePage() {
 
         {/* Video */}
         <div className="m-video-wrapper">
-          <video
-            src="https://cdn.shopify.com/videos/c/o/v/ebf447344ab14bcc95b526034be22691.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            controls
+          <iframe
+            src="https://www.youtube.com/embed/UQ7OtkzmzTE"
+            title="Snap Compare Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ width: "100%", aspectRatio: "9/16", border: "none", borderRadius: "12px", maxHeight: "500px" }}
           />
         </div>
 
