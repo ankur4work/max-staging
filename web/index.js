@@ -145,20 +145,53 @@ function getGraphQLClient(session) {
 }
 
 async function checkSubscription(session) {
-  const result = await shopify.api.billing.check({
-    session,
-    plans: [PREMIUM_PLAN],
-    isTest: IS_TEST,
-  });
-  return result?.hasActivePayment ?? result;
+  const client = getGraphQLClient(session);
+  const result = await client.request(`
+    query {
+      currentAppInstallation {
+        activeSubscriptions {
+          id
+          name
+          test
+          status
+        }
+      }
+    }
+  `);
+  const subs = result?.data?.currentAppInstallation?.activeSubscriptions ?? [];
+  return subs.some(s => s.status === "ACTIVE" && (IS_TEST ? true : !s.test) && s.name === PREMIUM_PLAN);
 }
 
 async function requestSubscription(session) {
-  return await shopify.api.billing.request({
-    session,
-    plan: PREMIUM_PLAN,
-    isTest: IS_TEST,
+  const client = getGraphQLClient(session);
+  const appUrl = process.env.SHOPIFY_APP_URL || process.env.HOST;
+  const returnUrl = `${appUrl}?shop=${session.shop}&host=${Buffer.from(`${session.shop}/admin`).toString("base64")}`;
+  const result = await client.request(`
+    mutation AppSubscriptionCreate($name: String!, $lineItems: [AppSubscriptionLineItemInput!]!, $returnUrl: URL!, $test: Boolean) {
+      appSubscriptionCreate(name: $name, lineItems: $lineItems, returnUrl: $returnUrl, test: $test) {
+        confirmationUrl
+        userErrors { field message }
+      }
+    }
+  `, {
+    variables: {
+      name: PREMIUM_PLAN,
+      returnUrl,
+      test: IS_TEST,
+      lineItems: [{
+        plan: {
+          appRecurringPricingDetails: {
+            price: { amount: PLAN_AMOUNT, currencyCode: "USD" },
+            interval: "EVERY_30_DAYS",
+          }
+        }
+      }]
+    }
   });
+  console.log("[Billing] createSubscription result:", JSON.stringify(result?.data));
+  const errors = result?.data?.appSubscriptionCreate?.userErrors;
+  if (errors?.length) throw new Error(errors.map(e => e.message).join(", "));
+  return result?.data?.appSubscriptionCreate?.confirmationUrl;
 }
 
 /* ---------------------- Metafield Helpers ---------------------- */
@@ -232,13 +265,7 @@ app.get("/api/createSubscription", async (req, res) => {
     }
 
     console.log("[Billing] Requesting plan:", PREMIUM_PLAN, "isTest:", IS_TEST, "amount:", PLAN_AMOUNT);
-    const response = await requestSubscription(session);
-
-    /** @type {string|undefined} */
-    const confirmationUrl =
-      typeof response === "string"
-        ? response
-        : (response && response.confirmationUrl) || undefined;
+    const confirmationUrl = await requestSubscription(session);
 
     console.log("Redirect URL:", confirmationUrl);
 
