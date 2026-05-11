@@ -136,6 +136,13 @@ app.use("/api/*", async (req, res, next) => {
       return res.redirect(`/api/auth?shop=${shop}`);
     }
 
+    // Non-expiring tokens (shpat_) are rejected by Shopify — force re-auth to get an expiring token
+    if (session.accessToken?.startsWith("shpat_")) {
+      console.log("[Auth] Stale non-expiring token detected, deleting session and forcing re-auth:", shop);
+      await shopify.config.sessionStorage.deleteSession(sessionId);
+      return res.status(401).json({ error: "Session expired, please refresh the page." });
+    }
+
     res.locals.shopify = { ...res.locals.shopify, session };
     return next();
   } catch (err) {
