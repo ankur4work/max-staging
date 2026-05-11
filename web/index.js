@@ -31,6 +31,23 @@ app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
   shopify.config.auth.callbackPath,
   shopify.auth.callback(),
+  async (req, res, next) => {
+    const session = res.locals.shopify?.session;
+    if (session?.accessToken) {
+      try {
+        const { session: expiring } = await shopify.api.auth.migrateToExpiringToken({
+          shop: session.shop,
+          nonExpiringOfflineAccessToken: session.accessToken,
+        });
+        await shopify.config.sessionStorage.storeSession(expiring);
+        res.locals.shopify.session = expiring;
+        console.log("[Auth] Migrated to expiring token for:", session.shop);
+      } catch (err) {
+        console.error("[Auth] Token migration failed (non-fatal):", err?.message);
+      }
+    }
+    next();
+  },
   shopify.redirectToShopifyOrAppRoot()
 );
 
