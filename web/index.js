@@ -136,13 +136,6 @@ app.use("/api/*", async (req, res, next) => {
       return res.redirect(`/api/auth?shop=${shop}`);
     }
 
-    // Non-expiring tokens (shpat_) are rejected by Shopify — force re-auth to get an expiring token
-    if (session.accessToken?.startsWith("shpat_")) {
-      console.log("[Auth] Stale non-expiring token detected, deleting session and forcing re-auth:", shop);
-      await shopify.config.sessionStorage.deleteSession(sessionId);
-      return res.status(401).json({ error: "Session expired, please refresh the page." });
-    }
-
     res.locals.shopify = { ...res.locals.shopify, session };
     return next();
   } catch (err) {
@@ -172,20 +165,29 @@ function getGraphQLClient(session) {
 
 async function checkSubscription(session) {
   const client = getGraphQLClient(session);
-  const result = await client.request(`
-    query {
-      currentAppInstallation {
-        activeSubscriptions {
-          id
-          name
-          test
-          status
+  try {
+    const result = await client.request(`
+      query {
+        currentAppInstallation {
+          activeSubscriptions {
+            id
+            name
+            test
+            status
+          }
         }
       }
+    `);
+    const subs = result?.data?.currentAppInstallation?.activeSubscriptions ?? [];
+    return subs.some(s => s.status === "ACTIVE" && (IS_TEST ? true : !s.test) && s.name === PREMIUM_PLAN);
+  } catch (err) {
+    if (err?.response?.code === 401 || err?.message?.includes("401")) {
+      console.log("[Auth] 401 on GraphQL, deleting stale session for:", session.shop);
+      const sessionId = shopify.api.session.getOfflineId(session.shop);
+      await shopify.config.sessionStorage.deleteSession(sessionId);
     }
-  `);
-  const subs = result?.data?.currentAppInstallation?.activeSubscriptions ?? [];
-  return subs.some(s => s.status === "ACTIVE" && (IS_TEST ? true : !s.test) && s.name === PREMIUM_PLAN);
+    throw err;
+  }
 }
 
 async function requestSubscription(session) {
