@@ -304,6 +304,7 @@ app.get("/api/cancelSubscription", async (req, res) => {
 app.get("/api/hasActiveSubscription", async (req, res) => {
   try {
     const session = getSession(res);
+    console.log("[Session] shop:", session?.shop, "hasToken:", !!session?.accessToken, "tokenPrefix:", session?.accessToken?.slice(0,10));
 
     const hasPayment = await checkSubscription(session);
 
