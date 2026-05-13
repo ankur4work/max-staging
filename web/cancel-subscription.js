@@ -1,8 +1,6 @@
 import shopify from "./shopify.js";
 
-export default async function cancelSubscription(
-  session
-) {
+export default async function cancelSubscription(session) {
   const subscriptionId = await getActiveSubsId(session);
   console.log("subscriptionId:", subscriptionId);
 
@@ -11,13 +9,10 @@ export default async function cancelSubscription(
 
 async function getActiveSubsId(session) {
   const client = new shopify.api.clients.Graphql({ session });
-  const currentInstallations = await client.query({
-    data: RECURRING_PURCHASES_QUERY,
-  });
+  const result = await client.request(RECURRING_PURCHASES_QUERY);
 
   const subscriptions =
-    currentInstallations.body?.data?.currentAppInstallation
-      ?.activeSubscriptions || [];
+    result?.data?.currentAppInstallation?.activeSubscriptions || [];
 
   if (!subscriptions.length) {
     throw new Error("No active subscription found to cancel.");
@@ -32,34 +27,22 @@ async function getActiveSubsId(session) {
 
 async function appSubscriptionCancel(session, subscriptionId) {
   const client = new shopify.api.clients.Graphql({ session });
-  const mutationResponse = await client.query({
-    data: {
-      query: CANCEL_SUBSCRIPTION,
-      variables: {
-        id: subscriptionId,
-      },
-    },
+  const result = await client.request(CANCEL_SUBSCRIPTION, {
+    variables: { id: subscriptionId },
   });
 
-  const responseErrors = mutationResponse.body?.errors || [];
+  const responseErrors = result?.errors || [];
   const userErrors =
-    mutationResponse.body?.data?.appSubscriptionCancel?.userErrors || [];
+    result?.data?.appSubscriptionCancel?.userErrors || [];
 
   if (responseErrors.length || userErrors.length) {
     throw new Error(
-      JSON.stringify(
-        {
-          responseErrors,
-          userErrors,
-        },
-        null,
-        2
-      )
+      JSON.stringify({ responseErrors, userErrors }, null, 2)
     );
   }
 
   console.log("Subscription canceled successfully:", session.shop);
-  return mutationResponse.body.data.appSubscriptionCancel.appSubscription.status;
+  return result.data.appSubscriptionCancel.appSubscription.status;
 }
 
 const CANCEL_SUBSCRIPTION = `
