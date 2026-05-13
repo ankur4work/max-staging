@@ -257,7 +257,7 @@ async function deletePremiumMetafield(session, metafieldId) {
   const client = getGraphQLClient(session);
 
   return await client.request(DELETE_APP_DATA_METAFIELD, {
-    variables: { input: { id: metafieldId } },
+    variables: { id: metafieldId },
   });
 }
 
@@ -484,8 +484,8 @@ mutation CreateAppDataMetafield($metafieldsSetInput: [MetafieldsSetInput!]!) {
 `;
 
 const DELETE_APP_DATA_METAFIELD = `
-mutation metafieldDelete($input: MetafieldDeleteInput!) {
-  metafieldDelete(input: $input) {
+mutation metafieldDelete($id: ID!) {
+  metafieldDelete(id: $id) {
     deletedId
     userErrors {
       field
