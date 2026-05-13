@@ -253,11 +253,21 @@ async function createPremiumMetafield(session, ownerId) {
   });
 }
 
-async function deletePremiumMetafield(session, metafieldId) {
+async function deletePremiumMetafield(session, ownerId) {
   const client = getGraphQLClient(session);
 
-  return await client.request(DELETE_APP_DATA_METAFIELD, {
-    variables: { id: metafieldId },
+  return await client.request(CREATE_APP_DATA_METAFIELD, {
+    variables: {
+      metafieldsSetInput: [
+        {
+          namespace: MEROXIO,
+          key: PREMIUM_PLAN_KEY,
+          type: "boolean",
+          value: "false",
+          ownerId,
+        },
+      ],
+    },
   });
 }
 
@@ -317,14 +327,12 @@ app.get("/api/cancelSubscription", async (req, res) => {
 
     const installation = await fetchInstallation(session);
 
-    const metafield = installation.metafield;
+    if (installation.metafield) {
+      console.log("Clearing premium metafield for:", session.shop);
 
-    if (metafield) {
-      console.log("Deleting metafield for:", session.shop);
+      await deletePremiumMetafield(session, installation.id);
 
-      await deletePremiumMetafield(session, metafield.id);
-
-      console.log("Metafield deleted successfully");
+      console.log("Premium metafield cleared for:", session.shop);
     }
 
     res.send({
@@ -483,14 +491,3 @@ mutation CreateAppDataMetafield($metafieldsSetInput: [MetafieldsSetInput!]!) {
 }
 `;
 
-const DELETE_APP_DATA_METAFIELD = `
-mutation metafieldDelete($id: ID!) {
-  metafieldDelete(id: $id) {
-    deletedId
-    userErrors {
-      field
-      message
-    }
-  }
-}
-`;
