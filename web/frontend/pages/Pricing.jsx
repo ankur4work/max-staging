@@ -32,6 +32,8 @@ export default function Pricing() {
     const planPrice = planInfo ? `$${planInfo.amount.toFixed(2)}/${planInfo.interval === "ANNUAL" ? "year" : "month"}` : "—";
     const trialText = planInfo?.trialDays > 0 ? ` · ${planInfo.trialDays}-day free trial` : "";
 
+    const { data: subscriptionData } = useAppQuery({ url: "/api/hasActiveSubscription" });
+    const isSubscribed = subscriptionData?.hasActiveSubscription ?? false;
 
     const {
         data,
@@ -180,15 +182,15 @@ export default function Pricing() {
                         <div className="planComparison2">
                             <Card title="Plan Comparison" sectioned
 
-                                primaryFooterAction={{
+                                primaryFooterAction={!isSubscribed ? {
                                     content: `Subscribe to ${planName}`,
                                     onAction: () => {
                                         subscribePlan()
                                     },
                                     loading: isLoadingSubscribe
-                                }}
+                                } : undefined}
 
-                                secondaryFooterActions={[{
+                                secondaryFooterActions={isSubscribed ? [{
                                     content: 'Cancel Subscription',
                                     onAction: () => {
                                       cancelSubscription()
@@ -196,7 +198,7 @@ export default function Pricing() {
                                     destructive: true,
                                     loading: isLoadingCancelSubscribe
                                   }
-                                  ]}
+                                ] : []}
                             >
                                 <DataTable
                                     columnContentTypes={[
