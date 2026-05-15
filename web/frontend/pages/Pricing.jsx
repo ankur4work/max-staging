@@ -92,11 +92,11 @@ export default function Pricing() {
             setIsLoadingCancelSubscribe(false);
             console.log(data.status);
 
-            if (data.status === "CANCELLED") {
-              shopify.toast.show("Successfully cancelled the subscription");
-              window.location.reload();
-            } else if (data.status === "No subscription found") {
+            if (data.status === "No subscription found") {
               shopify.toast.show("No active subscription found", { isError: true });
+            } else if (data.success) {
+              shopify.toast.show("Subscription cancelled successfully");
+              window.location.reload();
             } else {
               shopify.toast.show("Failed to cancel the subscription", { isError: true });
             }

@@ -59,8 +59,15 @@ async function appSubscriptionCancel(session, subscriptionId) {
     );
   }
 
-  console.log("Subscription canceled successfully:", session.shop);
-  return mutationResponse.body.data.appSubscriptionCancel.appSubscription.status;
+  const status =
+    mutationResponse.body?.data?.appSubscriptionCancel?.appSubscription?.status;
+
+  console.log("Subscription canceled successfully:", session.shop, status);
+
+  return {
+    success: true,
+    status,
+  };
 }
 
 const CANCEL_SUBSCRIPTION = `

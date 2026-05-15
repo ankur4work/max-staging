@@ -236,7 +236,7 @@ app.get("/api/cancelSubscription", async (req, res) => {
 
     console.log("Active subscription found. Cancelling...");
 
-    const subscriptionStatus = await cancelSubscription(session);
+    const cancellation = await cancelSubscription(session);
 
     const installation = await fetchInstallation(session);
 
@@ -251,7 +251,8 @@ app.get("/api/cancelSubscription", async (req, res) => {
     }
 
     res.send({
-      status: subscriptionStatus,
+      success: cancellation.success,
+      status: cancellation.status,
     });
   } catch (error) {
     console.error("Failed to cancel subscription:", error);
