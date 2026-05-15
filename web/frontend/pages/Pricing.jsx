@@ -34,6 +34,11 @@ export default function Pricing() {
         url: "/api/getshop",
     });
 
+    const { data: subData } = useAppQuery({
+        url: "/api/hasActiveSubscription",
+    });
+
+    const hasSubscription = subData?.hasActiveSubscription === true;
 
     function openThemeEditor() {
         console.log("Shop: " + data?.shop);
@@ -174,25 +179,27 @@ export default function Pricing() {
                 <Layout>
                     <Layout.Section>
                         <div className="planComparison2">
-                            <Card title="Plan Comparison" sectioned
-
-                                primaryFooterAction={{
-                                    content: 'Subscribe to MeroxIO Gold',
-                                    onAction: () => {
-                                        subscribePlan()
-                                    },
-                                    loading: isLoadingSubscribe
-                                }}
-
-                                secondaryFooterActions={[{
-                                    content: 'Cancel Subscription',
-                                    onAction: () => {
-                                      cancelSubscription()
-                                    },
-                                    destructive: true,
-                                    loading: isLoadingCancelSubscribe
-                                  }
-                                  ]}
+                            <Card
+                                title="Plan Comparison"
+                                sectioned
+                                primaryFooterAction={
+                                    hasSubscription
+                                        ? {
+                                              content: 'Cancel Subscription',
+                                              onAction: () => {
+                                                  cancelSubscription()
+                                              },
+                                              destructive: true,
+                                              loading: isLoadingCancelSubscribe,
+                                          }
+                                        : {
+                                              content: 'Subscribe to MeroxIO Gold',
+                                              onAction: () => {
+                                                  subscribePlan()
+                                              },
+                                              loading: isLoadingSubscribe,
+                                          }
+                                }
                             >
                                 <DataTable
                                     columnContentTypes={[
