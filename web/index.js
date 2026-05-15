@@ -110,11 +110,15 @@ function getGraphQLClient(session) {
 }
 
 async function checkSubscription(session) {
-  return await shopify.api.billing.check({
+  const billingCheck = await shopify.api.billing.check({
     session,
     plans: [PREMIUM_PLAN],
     isTest: IS_TEST,
   });
+
+  return typeof billingCheck === "boolean"
+    ? billingCheck
+    : billingCheck?.hasActivePayment === true;
 }
 
 async function requestSubscription(session) {
