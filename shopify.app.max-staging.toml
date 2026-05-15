@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "c7b02cfe48f4fdd714fcb6e35923ffa9"
-name = "Max-Staging"
+name = "Max Staging"
 application_url = "https://gbf5co37alo6y8n04rqa49cm.91.239.208.85.sslip.io"
 embedded = true
 
