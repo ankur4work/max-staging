@@ -11,11 +11,25 @@ import {
 
 loadEnvironment({ searchFromDir: process.cwd() });
 
+function getEnvNumber(name, fallback) {
+  const rawValue = process.env[name];
+
+  if (rawValue === undefined || rawValue === "") {
+    return fallback;
+  }
+
+  const parsedValue = Number(rawValue);
+  return Number.isFinite(parsedValue) ? parsedValue : fallback;
+}
+
+const premiumPlanAmount = getEnvNumber("SHOPIFY_BILLING_PREMIUM_AMOUNT", 30);
+const premiumPlanTrialDays = getEnvNumber("SHOPIFY_BILLING_PREMIUM_TRIAL_DAYS", 3);
+
 const billingConfig = {
   "Premium plan": {
-    amount: 149.0,
+    amount: premiumPlanAmount,
     currencyCode: "USD",
-    trialDays: 0,
+    trialDays: premiumPlanTrialDays,
     interval: BillingInterval.Every30Days,
   },
 };
