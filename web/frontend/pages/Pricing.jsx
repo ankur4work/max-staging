@@ -105,7 +105,7 @@ export default function Pricing() {
         ['Bundle product limit per product', '2', '5',],
         ['Embed button in product image', '-', tickIcon,],
         ['Product CTA(Add to cart)', tickIcon, tickIcon,],
-        ['No Powered By MeroxIO', '-', tickIcon,],
+        ['No Powered By Max Staging', '-', tickIcon,],
         ['Custom Style Settings', '-', tickIcon,],
         ['Email/Chat Support', '-', tickIcon,],
         ['Free installation support', '-', tickIcon,],
@@ -193,7 +193,7 @@ export default function Pricing() {
                                               loading: isLoadingCancelSubscribe,
                                           }
                                         : {
-                                              content: 'Subscribe to MeroxIO Gold',
+                                              content: 'Subscribe to Max Staging Gold',
                                               onAction: () => {
                                                   subscribePlan()
                                               },
@@ -210,7 +210,7 @@ export default function Pricing() {
                                     headings={[
                                         'Features',
                                         'Free version',
-                                        'MeroxIO Gold',
+                                        'Max Staging Gold',
                                     ]}
                                     rows={rows}
                                     increasedTableDensity

@@ -64,7 +64,7 @@ export default function HomePage() {
         {/* Hero */}
         <div className="m-hero">
           <div className="m-hero-content">
-            <h1 className="m-hero-title">Comparison Slider</h1>
+            <h1 className="m-hero-title">Max Staging</h1>
             <p className="m-hero-subtitle">
               Transform your product presentation with interactive
               before-and-after comparisons that drive engagement and
@@ -95,7 +95,7 @@ export default function HomePage() {
 
         {/* Features */}
         <div className="m-section">
-          <h2 className="m-section-title">Why Comparison Slider?</h2>
+          <h2 className="m-section-title">Why Max Staging?</h2>
           <div className="m-features">
             <div className="m-feature-card">
               <div className="m-feature-icon">

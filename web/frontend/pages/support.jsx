@@ -32,7 +32,7 @@ export default function Support() {
     const a5 = "Yes, you can connect upto 5 products in a single image."
 
     const q6 = "Can I customize the color,heading or image ?"
-    const a6 = "Yes, you can customize your layout and color according to your requirements. In case of any queries, please feel free to contact us at: info@meroxio.com"
+    const a6 = "Yes, you can customize your layout and color according to your requirements. In case of any queries, please feel free to contact us at: admin@buxtonscaffolding.to"
 
     const q7 = "Is this application compatible with all browser and IOS device ?"
     const a7 = "Yes, we made sure that our application supports all browsers and devices."
@@ -41,7 +41,7 @@ export default function Support() {
     const a8 = "You can use it with multiple ways like Similar products, Pair it with, Product recommendations, Buy it with"
 
 
-    const mediaCardDesc = <span>Relax and unwind, we are here to help. Please feel free to contact us at: <br></br><strong>support@meroxio.com</strong></span>;
+    const mediaCardDesc = <span>Relax and unwind, we are here to help. Please feel free to contact us at: <br></br><strong>admin@buxtonscaffolding.to</strong></span>;
 
     const navigate = useNavigate();
 
@@ -108,7 +108,7 @@ export default function Support() {
                                 content: 'Email Now',
                                 onAction: () => {
                                     console.log('clicked')
-                                    window.open('mailto:support@meroxio.com')
+                                    window.open('mailto:admin@buxtonscaffolding.to')
                                 },
                             }}
                             description={mediaCardDesc}
