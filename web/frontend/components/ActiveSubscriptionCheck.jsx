@@ -25,8 +25,7 @@ export function ActiveSubscription() {
           </p>
           <p>
             <strong>Enable Steps: </strong>
-            Open Theme Customization &gt; Select Add Section &gt; Comparison
-            Slider
+            Open Theme Customization &gt; Select Add Section &gt; Max Staging
           </p>
         </Banner>
       ) : (
@@ -38,8 +37,7 @@ export function ActiveSubscription() {
           <p>You are currently on the Free plan with limited features.</p>
           <p>
             <strong>Enable Steps: </strong>
-            Open Theme Customization &gt; Select Add Section &gt; Comparison
-            Slider – Free
+            Open Theme Customization &gt; Select Add Section &gt; Max Staging – Free
           </p>
         </Banner>
       )}

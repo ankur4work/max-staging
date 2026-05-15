@@ -142,7 +142,7 @@ export default function HomePage() {
               </thead>
               <tbody>
                 {[
-                  ["Cost", "Free", "$149.00/month"],
+                  ["Cost", "Free", "$30.00/month"],
                   ["Interactive Visual Comparison", "Basic", "Enhanced"],
                   ["Customizable Overlay Settings", "Limited", "\u2713"],
                   ["Effortless Integration", "Standard", "Priority"],

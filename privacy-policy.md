@@ -1,10 +1,10 @@
-# Privacy Policy – Max-Staging Comparison Slider
+# Privacy Policy – Max Staging
 
 **Last Updated:** March 24, 2026
 
 ## Introduction
 
-This Privacy Policy describes how Max-Staging Comparison Slider ("we", "our", or "the App") collects, uses, and shares information when you install and use the App on your Shopify store.
+This Privacy Policy describes how Max Staging ("we", "our", or "the App") collects, uses, and shares information when you install and use the App on your Shopify store.
 
 ## Information We Collect
 

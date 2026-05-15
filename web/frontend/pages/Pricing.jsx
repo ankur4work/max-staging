@@ -113,7 +113,7 @@ export default function Pricing() {
     />
 
     const rows = [
-        ['Cost', 'Free', '$9.99/month',],
+        ['Cost', 'Free', '$30.00/month',],
         ['Product Collection Selection ', tickIcon, tickIcon,],
         ['Bundle product limit per product', '2', '5',],
         ['Embed button in product image', '-', tickIcon,],
