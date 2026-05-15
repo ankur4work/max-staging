@@ -81,17 +81,30 @@ export default function Pricing() {
 
     async function cancelSubscription() {
         setIsLoadingCancelSubscribe(true);
-        const res = await fetch("/api/cancelSubscription"); //fetch instance of userLoggedInFetch(app)
-        const data = await res.json();
-        setIsLoadingCancelSubscribe(false);
-        console.log(data.status);
-        if (data.status === "CANCELLED") {
-          shopify.toast.show("Successfully Cancelled the subscription");
-          window.location.reload();
-        } else {
-          shopify.toast.show("Failed to cancel the subscription", { isError: true });
+        try {
+            const res = await fetch("/api/cancelSubscription");
+
+            if (!res.ok) {
+                throw new Error("Server error");
+            }
+
+            const data = await res.json();
+            setIsLoadingCancelSubscribe(false);
+            console.log(data.status);
+
+            if (data.status === "CANCELLED") {
+              shopify.toast.show("Successfully cancelled the subscription");
+              window.location.reload();
+            } else if (data.status === "No subscription found") {
+              shopify.toast.show("No active subscription found", { isError: true });
+            } else {
+              shopify.toast.show("Failed to cancel the subscription", { isError: true });
+            }
+        } catch (error) {
+            console.error(error);
+            setIsLoadingCancelSubscribe(false);
+            shopify.toast.show("Something went wrong. Please try again.", { isError: true });
         }
-    
       }
 
     const tickIcon = <Icon

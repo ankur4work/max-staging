@@ -37,6 +37,7 @@ async function appSubscriptionCancel(session, subscriptionId) {
       query: CANCEL_SUBSCRIPTION,
       variables: {
         id: subscriptionId,
+        prorate: false,
       },
     },
   });
@@ -63,8 +64,8 @@ async function appSubscriptionCancel(session, subscriptionId) {
 }
 
 const CANCEL_SUBSCRIPTION = `
-mutation appSubscriptionCancel($id: ID!) {
-  appSubscriptionCancel(id: $id) {
+mutation appSubscriptionCancel($id: ID!, $prorate: Boolean) {
+  appSubscriptionCancel(id: $id, prorate: $prorate) {
     appSubscription {
       id
       name
