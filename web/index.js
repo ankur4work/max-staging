@@ -242,16 +242,17 @@ app.get("/api/cancelSubscription", async (req, res) => {
 
     const cancellation = await cancelSubscription(session);
 
-    const installation = await fetchInstallation(session);
+    try {
+      const installation = await fetchInstallation(session);
+      const metafield = installation.metafield;
 
-    const metafield = installation.metafield;
-
-    if (metafield) {
-      console.log("Deleting metafield for:", session.shop);
-
-      await deletePremiumMetafield(session, metafield.id);
-
-      console.log("Metafield deleted successfully");
+      if (metafield) {
+        console.log("Deleting metafield for:", session.shop);
+        await deletePremiumMetafield(session, metafield.id);
+        console.log("Metafield deleted successfully");
+      }
+    } catch (cleanupError) {
+      console.error("Failed to clean up premium metafield:", cleanupError);
     }
 
     res.send({
