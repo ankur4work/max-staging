@@ -1,32 +1,8 @@
-import {
-    Card, Page, Layout, MediaCard, VideoThumbnail, Button, Modal, Icon,
-    Frame,
-    TopBar
-} from "@shopify/polaris";
-import { useState, useCallback } from 'react';
-
-import { shopifyBackground } from "../assets";
-import {
-    HomeMajor, ChecklistMajor, QuestionMarkMajor, CashDollarMajor
-} from '@shopify/polaris-icons';
-import { useNavigate } from "react-router-dom";
-import { AppblockInstallationSteps } from "../components/AppblockInstallationSteps";
-import { MetafieldInstallationSteps } from "../components/MetafieldInstallationSteps";
-import { Addmetafieldinproducts } from "../components/Addmetafieldinproducts";
-
+import { Navigate } from "react-router-dom";
 
 export default function Installation() {
-
-
-    const [active, setActive] = useState(false);
-
-    const handleChange = useCallback(() => setActive(!active), [active]);
-
-    function openThemeEditor() {
-        window.open("https://" + data?.shop + "/admin/themes/current/editor");
-    }
-
-    const navigate = useNavigate();
+  return <Navigate to="/" replace />;
+}
 
     const logo = {
 
