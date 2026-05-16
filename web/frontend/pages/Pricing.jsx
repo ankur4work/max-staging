@@ -147,11 +147,6 @@ export default function Pricing() {
         navigate("/");
     }
 
-    const gotoInstallPage = () => {
-        navigate("/install");
-
-    }
-
     const gotoSupportPage = () => {
         navigate("/support");
     }

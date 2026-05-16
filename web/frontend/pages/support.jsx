@@ -58,11 +58,6 @@ export default function Support() {
         navigate("/");
     }
 
-    const gotoInstallPage = () => {
-        navigate("/install");
-
-    }
-
     const gotoSupportPage = () => {
         navigate("/support");
     }
