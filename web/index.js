@@ -433,7 +433,7 @@ app.use(shopify.cspHeaders());
 
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
-app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res) => {
+app.use("/*", async (_req, res) => {
   const indexHtml = readFileSync(join(STATIC_PATH, "index.html"), "utf8").replace(
     /%%SHOPIFY_API_KEY%%/g,
     process.env.SHOPIFY_API_KEY || ""
