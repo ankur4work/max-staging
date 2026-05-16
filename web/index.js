@@ -132,8 +132,10 @@ app.use("/api/*", async (req, res, next) => {
     const session = await shopify.config.sessionStorage.loadSession(sessionId);
 
     if (!session) {
-      console.log("[Auth] No session found for shop, redirecting to auth:", shop);
-      return res.redirect(`/api/auth?shop=${shop}`);
+      console.log("[Auth] No session found for shop, requesting reauth:", shop);
+      res.set("X-Shopify-API-Request-Failure-Reauthorize", "1");
+      res.set("X-Shopify-API-Request-Failure-Reauthorize-Url", `/api/auth?shop=${shop}`);
+      return res.status(401).json({ error: "Reauthorization required" });
     }
 
     res.locals.shopify = { ...res.locals.shopify, session };
