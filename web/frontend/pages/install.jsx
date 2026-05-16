@@ -1,11 +1,26 @@
-import { Navigate } from "react-router-dom";
+import {
+    Card, Page, Layout, MediaCard, VideoThumbnail, Button, Modal, Icon,
+    Frame,
+    TopBar
+} from "@shopify/polaris";
+import { useState, useCallback } from 'react';
+
+import { shopifyBackground } from "../assets";
+import {
+    HomeMajor, ChecklistMajor, QuestionMarkMajor, CashDollarMajor
+} from '@shopify/polaris-icons';
+import { useNavigate } from "react-router-dom";
+import { AppblockInstallationSteps } from "../components/AppblockInstallationSteps";
+import { MetafieldInstallationSteps } from "../components/MetafieldInstallationSteps";
+import { Addmetafieldinproducts } from "../components/Addmetafieldinproducts";
 
 export default function Installation() {
-  return <Navigate to="/" replace />;
-}
+    const [active, setActive] = useState(false);
+
+    const handleChange = useCallback(() => setActive(!active), [active]);
+    const navigate = useNavigate();
 
     const logo = {
-
         width: 450,
         height: 90,
         topBarSource: '',
@@ -19,7 +34,6 @@ export default function Installation() {
 
     const gotoInstallPage = () => {
         navigate("/install");
-
     }
 
     const gotoSupportPage = () => {
@@ -44,9 +58,6 @@ export default function Installation() {
 
         />
     );
-
-
-
 
     const topBarMarkup = (
         <TopBar
@@ -168,5 +179,3 @@ export default function Installation() {
         </Frame>
     );
 }
-
-

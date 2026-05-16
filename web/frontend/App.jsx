@@ -19,6 +19,7 @@ export default function App() {
             <s-link href="/" rel="home">
               Home
             </s-link>
+            <s-link href="/install">Install</s-link>
             <s-link href="/pricing">Pricing</s-link>
             <s-link href="/support">Support</s-link>
           </s-app-nav>
