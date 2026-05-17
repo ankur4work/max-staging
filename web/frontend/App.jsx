@@ -11,6 +11,10 @@ export default function App() {
   // See documentation for <Routes /> for more info
   const pages = import.meta.globEager("./pages/**/!(*.test.[jt]sx)*.([jt]sx)");
 
+  if (pages["./pages/ExitIframe.jsx"] && !pages["./pages/exitiframe.jsx"]) {
+    pages["./pages/exitiframe.jsx"] = pages["./pages/ExitIframe.jsx"];
+  }
+
   return (
     <BrowserRouter>
       <PolarisProvider>
