@@ -116,8 +116,8 @@ export function resolveAppUrl({ searchFromDir = process.cwd() } = {}) {
   loadEnvironment({ searchFromDir });
 
   const envCandidates = [
-    process.env.SHOPIFY_APP_URL,
     process.env.HOST,
+    process.env.SHOPIFY_APP_URL,
   ].map(normalizeUrl);
 
   for (const candidate of envCandidates) {
