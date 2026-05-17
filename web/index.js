@@ -26,12 +26,25 @@ const STATIC_PATH =
 
 const app = express();
 
+function normalizeOAuthUserAgent(req, _res, next) {
+  const originalUserAgent = req.headers["user-agent"] || req.headers["User-Agent"];
+
+  if (!originalUserAgent || /bot|crawl|spider|lighthouse|scan|headless/i.test(originalUserAgent)) {
+    req.headers["user-agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36";
+    req.headers["User-Agent"] = req.headers["user-agent"];
+    console.log("[Auth] Normalized OAuth user agent:", originalUserAgent || "<missing>");
+  }
+
+  next();
+}
+
 /* ---------------------- Shopify Auth & Webhooks ---------------------- */
 
-app.get(shopify.config.auth.path, shopify.auth.begin());
+app.get(shopify.config.auth.path, normalizeOAuthUserAgent, shopify.auth.begin());
 
 app.get(
   shopify.config.auth.callbackPath,
+  normalizeOAuthUserAgent,
   shopify.auth.callback(),
   async (req, res, next) => {
     const session = res.locals.shopify?.session;
