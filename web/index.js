@@ -55,6 +55,33 @@ app.get(
 
 console.log("[Startup] webhooks path:", shopify.config.webhooks.path);
 
+app.get("/exitiframe", (req, res) => {
+  const redirectUri = String(req.query.redirectUri || "");
+
+  if (!redirectUri) {
+    return res.status(400).send("Missing redirectUri");
+  }
+
+  let target;
+
+  try {
+    target = new URL(redirectUri);
+  } catch {
+    return res.status(400).send("Invalid redirectUri");
+  }
+
+  if (target.origin !== process.env.SHOPIFY_APP_URL) {
+    return res.status(400).send("Invalid redirect target");
+  }
+
+  return res
+    .status(200)
+    .type("html")
+    .send(`<!doctype html><html><body><script>window.top.location.replace(${JSON.stringify(
+      redirectUri
+    )});</script></body></html>`);
+});
+
 app.post(
   "/api/webhooks",
   express.text({ type: "*/*" }),
